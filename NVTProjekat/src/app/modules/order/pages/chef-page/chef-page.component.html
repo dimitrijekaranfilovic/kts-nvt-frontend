@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="column">
+        <h2>New Items</h2>
+        <app-order-item-table-view [itemStatus]="'SENT'" [itemType]="'FOOD'"></app-order-item-table-view>
+    </div>
+    <div class="column">
+        <h2>Items in preparation</h2>
+        <app-order-item-table-view [itemStatus]="'PREPARING'" [itemType]="'FOOD'"></app-order-item-table-view>
+    </div>
+</div>
+

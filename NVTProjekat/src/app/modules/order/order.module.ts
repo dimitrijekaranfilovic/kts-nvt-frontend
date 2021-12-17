@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TestComponent } from './test/test.component';
-
-
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
-    TestComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ]
 })
 export class OrderModule { }
