@@ -1,7 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import {MatTableDataSource} from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { OrderItem } from '../../types/OrderItem';
+import { PinModalComponent } from '../pin-modal/pin-modal.component';
 
 @Component({
   selector: 'app-order-item-table-view',
@@ -21,8 +23,9 @@ export class OrderItemTableViewComponent implements OnInit {
   defaultPageSize: number = 5;
 
   subscription: any;
+  pin: string = "";
 
-  constructor(private orderItemService: OrderItemServiceService) {}
+  constructor(private orderItemService: OrderItemServiceService, private dialog: MatDialog) {}
 
   fetchData(pageIdx: number, pageSize: number) {
     this.orderItemService.getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType).subscribe( pageable => {
@@ -43,14 +46,32 @@ export class OrderItemTableViewComponent implements OnInit {
     this.fetchData(event.pageIndex, event.pageSize);
   }
 
-  onFinish(item: OrderItem){
-    this.orderItemService.takeOrderItem({ action: "FINISH", employeePin: "1234", itemId: item.id}).subscribe(() => this.fetchData(0, this.defaultPageSize));
-  }
-
-  onPrepare(item: OrderItem){
-    this.orderItemService.takeOrderItem({ action: "PREPARE", employeePin: "1234", itemId: item.id}).subscribe(() => {
+  onAction(item: OrderItem, action: string, pin: string){
+    this.orderItemService.takeOrderItem({ action: action, employeePin: pin, itemId: item.id}).subscribe({
+      next: () => {
       this.fetchData(0, this.defaultPageSize);
       this.orderItemService.emitUpdateTableEvent();
+      },
+      error: (error) => {
+        let message = error.error.errors[Object.keys(error.error.errors)[0]];
+        if (message === undefined){
+          message = error.error.message;
+        }
+        alert(message);
+      }});
+  }
+
+  openDialog(item:OrderItem, action: string): void {
+    const dialogRef = this.dialog.open(PinModalComponent, {
+      width: '250px',
+      data: {pin: this.pin}
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result.event === "CANCEL"){
+        return;
+      }
+      this.onAction(item, action, result);
     });
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrderItemTableViewComponent } from '../../components/order-item-table-view/order-item-table-view.component';
+import { MatDialog } from '@angular/material/dialog';
+import { PinModalComponent } from '../../components/pin-modal/pin-modal.component';
 
 @Component({
   selector: 'app-chef-page',
@@ -12,5 +13,4 @@ export class ChefPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

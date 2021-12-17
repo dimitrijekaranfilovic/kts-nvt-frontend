@@ -28,12 +28,12 @@
   
       <ng-container matColumnDef="action1">
         <th mat-header-cell [hidden]="itemStatus === 'PREPARING'" *matHeaderCellDef> Action </th>
-        <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item"><button (click)="onPrepare(item)" >Prepare</button></td>
+        <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item"><button (click)="openDialog(item, 'PREPARE')" >Prepare</button></td>
       </ng-container>
 
       <ng-container matColumnDef="action2">
         <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let item"><button (click)="onFinish(item)">Finish</button></td>
+        <td mat-cell *matCellDef="let item"><button (click)="openDialog(item, 'FINISH')">Finish</button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>CONFIRMATION</h1>
+<div mat-dialog-content>
+  <p>Enter your PIN:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>PIN code</mat-label>
+    <input matInput [(ngModel)]="data.pin">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick(data.pin, 'CANCEL')">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.pin" cdkFocusInitial>Confirm</button>
+</div>
