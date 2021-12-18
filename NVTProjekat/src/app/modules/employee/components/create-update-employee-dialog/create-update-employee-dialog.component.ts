@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CreateEmployeeRequest } from '../../types/CreateEmployeeRequest';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
+import { UpdateEmployeeRequest } from '../../types/UpdateEmployeeRequest';
 
 @Component({
   selector: 'app-create-update-employee-dialog',
@@ -11,7 +13,7 @@ import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
 export class CreateUpdateEmployeeDialogComponent implements OnInit {
   form: FormGroup;
   isCreate: boolean;
-  onSaveChanges: EventEmitter<ReadEmployeeResponse> = new EventEmitter<ReadEmployeeResponse>();
+  onSaveChanges: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private formBuilder: FormBuilder,

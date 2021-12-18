@@ -45,6 +45,21 @@ export class EmployeeTableComponent implements OnInit {
     this.fetchData(event.pageIndex, event.pageSize);
   }
 
+  onCreateEmployee(): void {
+    this.dialogService.open(CreateUpdateEmployeeDialogComponent, {
+      data: {
+        id: 0,
+        name: '',
+        surname: '',
+        pin: '0000',
+        type: 'WAITER',
+        currentSalary: 0
+      }
+    }).componentInstance.onSaveChanges.subscribe(created => {
+      this.employeeService.create(created).subscribe(this.getDefaultEntityServiceHandler());
+    })
+  }
+
   onDeleteEmployee(employee: ReadEmployeeResponse): void {
     this.confirmationService.confirm({
       title: `Employee deletion`,
