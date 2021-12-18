@@ -5,13 +5,15 @@ import { RouterModule } from '@angular/router';
 import { EmployeeRoutes } from './employee.routes';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { MaterialModule } from 'src/app/material.module';
+import { UpdateEmployeeSalaryDialogComponent } from './components/update-employee-salary-dialog/update-employee-salary-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     EmployeePageComponent,
-    EmployeeTableComponent
+    EmployeeTableComponent,
+    UpdateEmployeeSalaryDialogComponent
   ],
   imports: [
     CommonModule,

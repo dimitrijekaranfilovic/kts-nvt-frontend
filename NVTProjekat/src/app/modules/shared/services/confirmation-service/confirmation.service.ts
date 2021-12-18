@@ -10,11 +10,11 @@ import { ConfirmationOptions } from '../../types/ConfirmationOptions';
 export class ConfirmationService {
 
   constructor(
-    private dialog: MatDialog
+    private dialogService: MatDialog
   ) { }
 
   confirm(options: ConfirmationOptions): Observable<any> {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    const dialogRef = this.dialogService.open(ConfirmationDialogComponent, {
       data: {
         title: options.title,
         message: options.message,

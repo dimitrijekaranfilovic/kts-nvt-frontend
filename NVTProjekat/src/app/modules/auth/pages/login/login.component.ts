@@ -27,7 +27,7 @@ export class LoginComponent {
     private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required]
     });
   }
