@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { OrderItem } from '../../types/OrderItem';
 import { PinModalComponent } from '../pin-modal/pin-modal.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order-item-table-view',
@@ -25,7 +26,7 @@ export class OrderItemTableViewComponent implements OnInit {
   subscription: any;
   pin: string = "";
 
-  constructor(private orderItemService: OrderItemServiceService, private dialog: MatDialog) {}
+  constructor(private orderItemService: OrderItemServiceService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   fetchData(pageIdx: number, pageSize: number) {
     this.orderItemService.getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType).subscribe( pageable => {
@@ -57,7 +58,7 @@ export class OrderItemTableViewComponent implements OnInit {
         if (message === undefined){
           message = error.error.message;
         }
-        alert(message);
+        this.toast(message);
       }});
   }
 
@@ -73,5 +74,9 @@ export class OrderItemTableViewComponent implements OnInit {
       }
       this.onAction(item, action, result);
     });
+  }
+
+  toast(message: string) {
+    this.snackBar.open(message, "Dismiss", {duration: 5000, verticalPosition: "bottom"});
   }
 }

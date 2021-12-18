@@ -1,5 +1,5 @@
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" >
   
       <ng-container matColumnDef="item">
         <th mat-header-cell *matHeaderCellDef> Item name </th>
@@ -28,12 +28,12 @@
   
       <ng-container matColumnDef="action1">
         <th mat-header-cell [hidden]="itemStatus === 'PREPARING'" *matHeaderCellDef> Action </th>
-        <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item"><button (click)="openDialog(item, 'PREPARE')" >Prepare</button></td>
+        <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item"><button mat-raised-button color="primary" (click)="openDialog(item, 'PREPARE')" >Prepare</button></td>
       </ng-container>
 
       <ng-container matColumnDef="action2">
         <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let item"><button (click)="openDialog(item, 'FINISH')">Finish</button></td>
+        <td mat-cell *matCellDef="let item"><button button mat-raised-button color="accent" (click)="openDialog(item, 'FINISH')">Finish</button></td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -46,6 +46,9 @@
                    [length]="totalPages"
                    showFirstLastButtons 
                    aria-label="Select page"
-                   (page)="onSelectPage($event)">
+                   (page)="onSelectPage($event)"
+                   *ngIf="dataSource.data.length > 0">
     </mat-paginator>
 </div>
+
+<div *ngIf="dataSource.data.length === 0" ><h3 [align]="'center'" >No items in this category</h3></div>

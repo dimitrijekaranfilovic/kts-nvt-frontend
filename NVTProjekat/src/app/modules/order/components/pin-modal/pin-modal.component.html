@@ -7,6 +7,6 @@
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick(data.pin, 'CANCEL')">Cancel</button>
-  <button mat-button [mat-dialog-close]="data.pin" cdkFocusInitial>Confirm</button>
+  <button mat-raised-button color="warn" (click)="onNoClick(data.pin, 'CANCEL')">Cancel</button>
+  <button mat-raised-button color="primary" [ngStyle]="{'margin-left': '43px'}" [mat-dialog-close]="data.pin" cdkFocusInitial>Confirm</button>
 </div>
