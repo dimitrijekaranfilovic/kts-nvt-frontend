@@ -11,7 +11,11 @@ export class CurrentUserService {
   setCurrentUser(user: AuthResponse) {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
-  
+
+  removeCurrentUser(): void {
+    localStorage.removeItem(this.userKey);
+  }
+
   hasUser(): boolean {
     return localStorage.getItem(this.userKey) !== null;
   }
