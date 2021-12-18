@@ -22,4 +22,8 @@ export class EmployeeService {
       responseType: "json"
     })
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8081/api/employees/${id}`);
+  }
 }

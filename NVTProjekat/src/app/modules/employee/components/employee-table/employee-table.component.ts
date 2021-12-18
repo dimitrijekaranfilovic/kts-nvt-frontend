@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
+import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { EmployeeService } from '../../services/employee-service/employee.service';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
 
@@ -19,7 +20,8 @@ export class EmployeeTableComponent implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private errorService: ErrorService) { }
 
   ngOnInit(): void {
     this.fetchData(0, this.defaultPageSize);
@@ -46,7 +48,10 @@ export class EmployeeTableComponent implements OnInit {
       no: 'No'
     }).subscribe(confirmation => {
       if (confirmation) {
-        console.log("CONFIRMED SUCCESSFULLY");
+        this.employeeService.delete(employee.id).subscribe({
+          next: _ => this.fetchData(0, this.pageSize),
+          error: err => this.errorService.handle(err),
+        });
       }
     })
   }
