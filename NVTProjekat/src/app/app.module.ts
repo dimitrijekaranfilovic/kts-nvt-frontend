@@ -8,6 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './modules/shared/shared.module';
+import { EmployeeModule } from './modules/employee/employee.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserAnimationsModule,
     HttpClientModule,
     MatSnackBarModule,
+    EmployeeModule,
     AuthModule,
     SharedModule
   ],
