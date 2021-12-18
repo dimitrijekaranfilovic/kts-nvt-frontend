@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -27,7 +28,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ],
   exports: [
     MatDialogModule,
@@ -40,7 +42,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

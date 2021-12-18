@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observer } from 'rxjs';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { EmployeeService } from '../../services/employee-service/employee.service';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
+import { CreateUpdateEmployeeDialogComponent } from '../create-update-employee-dialog/create-update-employee-dialog.component';
 import { UpdateEmployeeSalaryDialogComponent } from '../update-employee-salary-dialog/update-employee-salary-dialog.component';
 
 @Component({
@@ -18,7 +20,7 @@ export class EmployeeTableComponent implements OnInit {
   pageNum: number = 0;
   pageSize: number = 0;
   totalPages: number = 0;
-  defaultPageSize: number = 5;
+  defaultPageSize: number = 10;
 
   constructor(
     private employeeService: EmployeeService,
@@ -35,7 +37,7 @@ export class EmployeeTableComponent implements OnInit {
       this.pageNum = page.pageable.pageNumber;
       this.pageSize = page.pageable.pageSize;
       this.totalPages = page.totalPages;
-      this.dataSource = new MatTableDataSource<ReadEmployeeResponse>(page.content);
+      this.dataSource.data = page.content;
     });
   }
 
@@ -63,14 +65,23 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onUpdateEmployee(employee: ReadEmployeeResponse): void {
-
+    this.dialogService.open(CreateUpdateEmployeeDialogComponent, { data: employee }).componentInstance.onSaveChanges.subscribe(updated => {
+      this.employeeService.update(employee.id, updated).subscribe(this.getDefaultEntityServiceHandler());
+    });
   }
 
   onUpdateSalary(employee: ReadEmployeeResponse): void {
     this.dialogService.open(UpdateEmployeeSalaryDialogComponent, { data: employee }).componentInstance.onSalaryUpdate.subscribe(salary => {
-      this.employeeService.updateSalary(employee.id, salary).subscribe(_ => {
-        employee.currentSalary = salary;
-      })
-    })
+      this.employeeService.updateSalary(employee.id, { amount: salary }).subscribe(this.getDefaultEntityServiceHandler());
+    });
+  }
+
+  getDefaultEntityServiceHandler<TResponse = void>(): Partial<Observer<TResponse>> {
+    return {
+      next: _ => {
+        this.fetchData(this.pageNum, this.pageSize);
+      },
+      error: err => this.errorService.handle(err)
+    };
   }
 }

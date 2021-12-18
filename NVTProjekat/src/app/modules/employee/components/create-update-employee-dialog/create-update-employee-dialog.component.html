@@ -1,0 +1,64 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title *ngIf="isCreate">Create employee</h1>
+  <h1 mat-dialog-title *ngIf="!isCreate">Update employee</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="First name"
+        formControlName="name"
+        required
+      />
+      <mat-error> Please provide a valid first name. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Last name"
+        formControlName="surname"
+        required
+      />
+      <mat-error> Please provide a valid last name. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="PIN code" formControlName="pin" required />
+      <mat-error> Please provide a valid PIN code. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <mat-label>Employee type</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="BARTENDER">Bartender</mat-option>
+        <mat-option value="WAITER">Waiter</mat-option>
+        <mat-option value="CHEF">Chef</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="isCreate" class="full-width-input">
+      <input
+        matInput
+        placeholder="Salary"
+        formControlName="salary"
+        required
+        type="number"
+      />
+      <mat-error> Please provide a valid salary. </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="basic"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      [disabled]="!form.valid"
+      color="primary"
+      type="submit"
+    >
+      {{ isCreate ? "Save employee" : "Update employee" }}
+    </button>
+  </div>
+</form>

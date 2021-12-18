@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
+import { UpdateEmployeeRequest } from '../../types/UpdateEmployeeRequest';
+import { UpdateSalaryRequest } from '../../types/UpdateSalaryRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,8 @@ export class EmployeeService {
     return this.http.get<PaginatedResponse<ReadEmployeeResponse>>("http://localhost:8081/api/employees", {
       params: {
         page: page,
-        size: size
+        size: size,
+        sort: 'id,asc'
       }
     })
   }
@@ -27,7 +30,11 @@ export class EmployeeService {
     return this.http.delete<void>(`http://localhost:8081/api/employees/${id}`);
   }
 
-  updateSalary(id: number, amount: number): Observable<void> {
-    return this.http.put<void>(`http://localhost:8081/api/employees/${id}/salary`, { amount: amount })
+  update(id: number, request: UpdateEmployeeRequest): Observable<void> {
+    return this.http.put<void>(`http://localhost:8081/api/employees/${id}`, request);
+  }
+
+  updateSalary(id: number, request: UpdateSalaryRequest): Observable<void> {
+    return this.http.put<void>(`http://localhost:8081/api/employees/${id}/salary`, request)
   }
 }

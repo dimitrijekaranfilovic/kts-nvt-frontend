@@ -6,6 +6,7 @@ import { EmployeeRoutes } from './employee.routes';
 import { EmployeeTableComponent } from './components/employee-table/employee-table.component';
 import { MaterialModule } from 'src/app/material.module';
 import { UpdateEmployeeSalaryDialogComponent } from './components/update-employee-salary-dialog/update-employee-salary-dialog.component';
+import { CreateUpdateEmployeeDialogComponent } from './components/create-update-employee-dialog/create-update-employee-dialog.component';
 
 
 
@@ -13,7 +14,8 @@ import { UpdateEmployeeSalaryDialogComponent } from './components/update-employe
   declarations: [
     EmployeePageComponent,
     EmployeeTableComponent,
-    UpdateEmployeeSalaryDialogComponent
+    UpdateEmployeeSalaryDialogComponent,
+    CreateUpdateEmployeeDialogComponent
   ],
   imports: [
     CommonModule,

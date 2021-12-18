@@ -33,4 +33,8 @@ export class UpdateEmployeeSalaryDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
+
 }

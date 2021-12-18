@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
 import { CurrentUserService } from '../../services/currrent-user-service/current-user.service';
-import { AuthRequest } from '../../types/AuthRequest';
 
 @Component({
   selector: 'app-login',
@@ -37,11 +36,7 @@ export class LoginComponent {
       return;
     }
     this.invalidUser = false;
-    const authRequest: AuthRequest = {
-      email: this.form.value.email,
-      password: this.form.value.password
-    };
-    this.authService.login(authRequest).subscribe({
+    this.authService.login(this.form.value).subscribe({
       next: response => {
         this.currentUserService.setCurrentUser(response);
         // TODO: Navigate to a page based on the user's role

@@ -13,13 +13,16 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
+    <button mat-flat-button color="basic" type="button" (click)="onCancelClick()">
+      Cancel
+    </button>
     <button
       mat-flat-button
       [disabled]="!form.valid"
       color="primary"
       type="submit"
     >
-      Update salary
+      Save changes
     </button>
   </div>
 </form>
