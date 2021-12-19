@@ -20,6 +20,14 @@ export class CurrentUserService {
     return localStorage.getItem(this.userKey) !== null;
   }
 
+  hasAuthority(authority: string): boolean {
+    const user = this.getCurrentUser();
+    if (!user) {
+      return false;
+    }
+    return user.authorities.includes(authority);
+  }
+
   getCurrentUser(): AuthResponse | null {
     const user: string | null = localStorage.getItem(this.userKey);
     if (!user) {

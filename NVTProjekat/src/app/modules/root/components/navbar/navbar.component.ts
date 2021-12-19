@@ -10,11 +10,21 @@ import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-
 })
 export class NavbarComponent implements OnInit {
 
+  loggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isManager: boolean = false;
+
   constructor(
     private currentUserService: CurrentUserService,
     private snackBar: MatSnackBar,
     private router: Router
-  ) { }
+  ) {
+    this.loggedIn = this.currentUserService.hasUser();
+    if (this.loggedIn) {
+      this.isAdmin = this.currentUserService.hasAuthority('ADMIN');
+      this.isManager = this.currentUserService.hasAuthority('MANAGER');
+    }
+  }
 
   ngOnInit(): void {
   }
@@ -22,6 +32,6 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.currentUserService.removeCurrentUser();
     this.snackBar.open("Logout successfull.", "Dismiss", { duration: 5000, verticalPosition: "top" });
-    this.router.navigate(["/login"]);
+    this.router.navigate(["/auth/login"]);
   }
 }

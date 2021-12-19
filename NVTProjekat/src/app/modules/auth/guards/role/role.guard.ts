@@ -21,7 +21,7 @@ export class RoleGuard implements CanActivate {
     const roles: string[] = route.data['roles'];
     const user: AuthResponse | null = this.currentUserService.getCurrentUser();
     if (!user) {
-      this.router.navigate(["/login"], { queryParams: { to: state.url } });
+      this.router.navigate(["/auth/login"], { queryParams: { to: state.url } });
       return false;
     }
     let hasAccessRights = false;
