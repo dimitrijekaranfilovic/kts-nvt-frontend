@@ -15,6 +15,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -37,7 +39,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTooltipModule,
     MatExpansionModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule,
+    MatDividerModule
   ],
   exports: [
     MatDialogModule,
@@ -55,7 +59,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTooltipModule,
     MatExpansionModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatMenuModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule { }

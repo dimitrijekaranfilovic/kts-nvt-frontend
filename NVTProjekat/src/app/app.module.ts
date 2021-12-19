@@ -9,13 +9,11 @@ import { SharedModule } from './modules/shared/shared.module';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { OrderModule } from './modules/order/order.module';
 import { RootModule } from './modules/root/root.module';
-import { NavbarComponent } from './modules/root/components/navbar/navbar.component';
 import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
   ],
   imports: [
     BrowserModule,

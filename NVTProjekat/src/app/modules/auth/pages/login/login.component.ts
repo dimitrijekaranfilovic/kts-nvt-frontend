@@ -45,7 +45,7 @@ export class LoginComponent {
         if (destination) {
           this.router.navigate([destination]);
         } else {
-          this.router.navigate([""]);
+          this.router.navigate(["/employees"]);
         }
       },
       error: _ => {

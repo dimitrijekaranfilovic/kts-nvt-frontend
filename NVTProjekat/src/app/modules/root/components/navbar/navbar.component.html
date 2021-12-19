@@ -6,19 +6,39 @@
     <h1 class="home">Butik čvaraka</h1></span
   >
   <div>
-    <span class="link"><a mat-button routerLink="/chef">Chef</a></span>
-    <span class="link"
+    <span class="link" *ngIf="!loggedIn"
+      ><a mat-button routerLink="/chef">Chef</a></span
+    >
+    <span class="link" *ngIf="!loggedIn"
       ><a mat-button routerLink="/bartender">Bartender</a></span
     >
-    <span class="link"><a mat-button routerLink="">Waiter</a></span>
-    <span class="link"
+    <span class="link" *ngIf="!loggedIn"
+      ><a mat-button routerLink="">Waiter</a></span
+    >
+    <span class="link" *ngIf="loggedIn"
       ><a mat-button routerLink="/employees">Employees</a></span
     >
-    <span class="link"><a mat-button routerLink="/login">Login</a></span>
-    <span class="link"
-      ><button mat-flat-button color="primary" (click)="logout()">
-        Logout
-      </button></span
+    <span class="link" *ngIf="isAdmin"
+      ><a mat-button routerLink="/super-users">Super users</a></span
     >
+    <span class="link" *ngIf="loggedIn"
+      ><a mat-button routerLink="/items">Inventory</a></span
+    >
+    <span class="link" *ngIf="loggedIn"
+      ><a mat-button routerLink="/reports">Reports</a></span
+    >
+    <span class="link" *ngIf="!loggedIn"
+      ><a mat-button routerLink="/auth/login">Login</a></span
+    >
+    <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="beforeMenu">
+      {{ user?.name }} {{ user?.surname }}
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button mat-menu-item>Update profile</button>
+      <button mat-menu-item>Change password</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
   </div>
 </mat-toolbar>
