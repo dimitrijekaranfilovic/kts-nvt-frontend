@@ -2,6 +2,7 @@
   [loggedIn]="loggedIn"
   [isAdmin]="isAdmin"
   [isManager]="isManager"
-  [user]="currentUser"
+  [name]="currentUser?.name"
+  [surname]="currentUser?.surname"
 ></app-navbar>
 <router-outlet (activate)="reloadCurrentUser()"></router-outlet>

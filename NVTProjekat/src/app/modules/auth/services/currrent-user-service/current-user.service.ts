@@ -20,6 +20,15 @@ export class CurrentUserService {
     return localStorage.getItem(this.userKey) !== null;
   }
 
+  update(updated: any): void {
+    let user = this.getCurrentUser();
+    if (user == null) {
+      return;
+    }
+    user = { ...user, name: updated.name, surname: updated.surname, email: updated.email };
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
   hasAuthority(authority: string): boolean {
     const user = this.getCurrentUser();
     if (!user) {

@@ -6,6 +6,7 @@ import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
 import { CreateSuperUserResponse } from '../../types/CreateSuperUserResponse';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
+import { UpdateSuperUserRequest } from '../../types/UpdateSuperUserRequest';
 import { UpdateSuperUserSalaryRequest } from '../../types/UpdateSuperUserSalaryRequest';
 
 @Injectable({
@@ -30,6 +31,10 @@ export class SuperUserService {
         sort: 'id,asc'
       }
     })
+  }
+
+  update(id: number, request: UpdateSuperUserRequest): Observable<void> {
+    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}`, request);
   }
 
   updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {

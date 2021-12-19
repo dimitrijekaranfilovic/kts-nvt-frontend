@@ -31,12 +31,12 @@
       ><a mat-button routerLink="/auth/login">Login</a></span
     >
     <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="beforeMenu">
-      {{ user?.name }} {{ user?.surname }}
+      {{ name }} {{ surname }}
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #beforeMenu="matMenu" xPosition="before">
-      <button mat-menu-item>Update profile</button>
-      <button mat-menu-item>Change password</button>
+      <a mat-menu-item routerLink="/super-users/profile">Update profile</a>
+      <a mat-menu-item routerLink="/super-users/password">Change password</a>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">Logout</button>
     </mat-menu>
