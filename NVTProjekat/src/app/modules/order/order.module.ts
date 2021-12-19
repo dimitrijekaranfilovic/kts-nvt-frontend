@@ -15,6 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { MenuItemModule } from '../menu-item/menu-item.module';
+import { OrderItemGroupComponent } from './components/order-item-group/order-item-group.component';
+import { OrderItemGroupsViewComponent } from './components/order-item-groups-view/order-item-groups-view.component';
+import { MatIconModule } from '@angular/material/icon';
+import { OrderGroupItemComponent } from './components/order-group-item/order-group-item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { MenuItemModule } from '../menu-item/menu-item.module';
     OrderItemTableViewComponent,
     PinModalComponent,
     OrderPageComponent,
+    OrderItemGroupComponent,
+    OrderItemGroupsViewComponent,
+    OrderGroupItemComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,7 @@ import { MenuItemModule } from '../menu-item/menu-item.module';
     FormsModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatIconModule,
   ],
 })
 export class OrderModule {}
