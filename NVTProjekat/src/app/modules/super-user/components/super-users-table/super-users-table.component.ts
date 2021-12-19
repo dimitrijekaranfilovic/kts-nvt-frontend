@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { SuperUserService } from '../../services/super-user-servoce/super-user.service';
+import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
 
 @Component({
@@ -18,6 +19,7 @@ export class SuperUsersTableComponent implements OnInit {
   pageSize: number = 0;
   totalPages: number = 0;
   defaultPageSize: number = 10;
+  searchParams: ReadSuperusersRequest = {};
 
   constructor(
     private superUserService: SuperUserService,
@@ -30,7 +32,7 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   fetchData(pageIdx: number, pageSize: number): void {
-    this.superUserService.read(pageIdx, pageSize).subscribe(page => {
+    this.superUserService.read(pageIdx, pageSize, this.searchParams).subscribe(page => {
       this.pageNum = page.pageable.pageNumber;
       this.pageSize = page.pageable.pageSize;
       this.totalPages = page.totalPages;
@@ -40,6 +42,11 @@ export class SuperUsersTableComponent implements OnInit {
 
   onSelectPage(event: any): void {
     this.fetchData(event.pageIndex, event.pageSize);
+  }
+
+  onSearchSuperUsers(params: ReadSuperusersRequest): void {
+    this.searchParams = params;
+    this.fetchData(0, this.pageSize);
   }
 
 }
