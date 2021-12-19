@@ -1,9 +1,21 @@
 <div>
-  <mat-grid-list cols="2">
+  <div class="example-form">
+    <form class="input-form">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Enter menu item name</mat-label>
+        <input matInput [(ngModel)]="menuItemName" name="menuItemName" />
+      </mat-form-field>
+    </form>
+    <button mat-flat-button color="primary" (click)="search()">Search</button>
+  </div>
+  <mat-grid-list cols="2" *ngIf="content.length > 0">
     <mat-grid-tile *ngFor="let item of content">
       <app-menu-item-card [menuItem]="item"></app-menu-item-card>
     </mat-grid-tile>
   </mat-grid-list>
+  <div *ngIf="content.length === 0">
+    <img class="center-image" src="assets/empty.png" />
+  </div>
   <mat-paginator
     [length]="totalElements"
     [pageSize]="pageSize"

@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MenuItemCardComponent, WaiterMenuItemsDisplayComponent],
@@ -17,6 +19,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatBadgeModule,
     MatGridListModule,
     MatPaginatorModule,
+    MatInputModule,
+    FormsModule,
   ],
   exports: [WaiterMenuItemsDisplayComponent],
 })
