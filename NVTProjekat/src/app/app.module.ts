@@ -10,6 +10,7 @@ import { EmployeeModule } from './modules/employee/employee.module';
 import { OrderModule } from './modules/order/order.module';
 import { RootModule } from './modules/root/root.module';
 import { MaterialModule } from './material.module';
+import { SuperUserModule } from './modules/super-user/super-user.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MaterialModule } from './material.module';
     HttpClientModule,
     MaterialModule,
     EmployeeModule,
+    SuperUserModule,
     AuthModule,
     SharedModule,
     OrderModule,
