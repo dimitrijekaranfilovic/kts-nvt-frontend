@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
+import { UpdateSuperUserSalaryRequest } from '../../types/UpdateSuperUserSalaryRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class SuperUserService {
         sort: 'id,asc'
       }
     })
+  }
+
+  updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {
+    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/salary`, request);
   }
 
   delete(id: number): Observable<void> {

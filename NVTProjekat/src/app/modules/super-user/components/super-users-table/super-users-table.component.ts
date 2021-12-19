@@ -7,6 +7,7 @@ import { ErrorService } from 'src/app/modules/shared/services/error-service/erro
 import { SuperUserService } from '../../services/super-user-servoce/super-user.service';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
+import { UpdateSuperUserSalaryDialogComponent } from '../update-super-user-salary-dialog/update-super-user-salary-dialog.component';
 
 @Component({
   selector: 'app-super-users-table',
@@ -62,6 +63,12 @@ export class SuperUsersTableComponent implements OnInit {
         this.superUserService.delete(superUser.id).subscribe(this.getDefaultEntityServiceHandler(nextPage));
       }
     })
+  }
+
+  onUpdateSalary(superUser: ReadSuperUsersResponse): void {
+    this.dialogService.open(UpdateSuperUserSalaryDialogComponent, { data: superUser }).componentInstance.onSalaryUpdate.subscribe(salary => {
+      this.superUserService.updateSalary(superUser.id, { amount: salary }).subscribe(this.getDefaultEntityServiceHandler());
+    });
   }
 
   getDefaultEntityServiceHandler<TResponse = void>(page?: number): Partial<Observer<TResponse>> {
