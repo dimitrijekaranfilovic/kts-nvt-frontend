@@ -5,6 +5,19 @@ import { ChefPageComponent } from './modules/order/pages/chef-page/chef-page.com
 
 const routes: Routes = [
   {
+    path: "",
+    children: [
+      {
+        path: "auth",
+        loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule)
+      },
+      {
+        path: "employees",
+        loadChildren: () => import("./modules/employee/employee.module").then(m => m.EmployeeModule)
+      }
+    ]
+  },
+  {
     path: "chef",
     component: ChefPageComponent,
     pathMatch: "full"
