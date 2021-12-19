@@ -7,6 +7,7 @@ import { ErrorService } from 'src/app/modules/shared/services/error-service/erro
 import { SuperUserService } from '../../services/super-user-servoce/super-user.service';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
+import { CreateSuperUserDialogComponent } from '../create-super-user-dialog/create-super-user-dialog.component';
 import { UpdateSuperUserSalaryDialogComponent } from '../update-super-user-salary-dialog/update-super-user-salary-dialog.component';
 
 @Component({
@@ -62,6 +63,12 @@ export class SuperUsersTableComponent implements OnInit {
         const nextPage = this.pageSize == 1 && this.pageNum > 0 ? this.pageNum - 1 : this.pageNum;
         this.superUserService.delete(superUser.id).subscribe(this.getDefaultEntityServiceHandler(nextPage));
       }
+    })
+  }
+
+  onCreateSuperUser(): void {
+    this.dialogService.open(CreateSuperUserDialogComponent).componentInstance.onSaveChanges.subscribe(created => {
+      this.superUserService.create(created).subscribe(this.getDefaultEntityServiceHandler());
     })
   }
 

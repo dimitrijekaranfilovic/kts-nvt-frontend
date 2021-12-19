@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
+import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
+import { CreateSuperUserResponse } from '../../types/CreateSuperUserResponse';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
 import { UpdateSuperUserSalaryRequest } from '../../types/UpdateSuperUserSalaryRequest';
@@ -14,6 +16,10 @@ export class SuperUserService {
   constructor(
     private http: HttpClient
   ) { }
+
+  create(request: CreateSuperUserRequest): Observable<CreateSuperUserResponse> {
+    return this.http.post<CreateSuperUserResponse>(`http://localhost:8081/api/super-users`, request);
+  }
 
   read(page: number, size: number, params: ReadSuperusersRequest): Observable<PaginatedResponse<ReadSuperUsersResponse>> {
     return this.http.get<PaginatedResponse<ReadSuperUsersResponse>>(`http://localhost:8081/api/super-users`, {

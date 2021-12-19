@@ -1,6 +1,7 @@
 <div class="mat-elevation-z8 table-container">
   <app-search-form
     (onSearchSuperUsers)="onSearchSuperUsers($event)"
+    (onCreateSuperUser)="onCreateSuperUser()"
   ></app-search-form>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="name">

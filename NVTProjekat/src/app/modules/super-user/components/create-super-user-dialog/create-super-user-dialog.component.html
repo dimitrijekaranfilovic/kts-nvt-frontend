@@ -1,0 +1,87 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>Create super user</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="First name"
+        formControlName="name"
+        required
+      />
+      <mat-error> Please provide a valid first name. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Last name"
+        formControlName="surname"
+        required
+      />
+      <mat-error> Please provide a valid last name. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="E-mail"
+        type="email"
+        formControlName="email"
+        required
+      />
+      <mat-error> Please provide a valid email. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Enter password"
+        type="password"
+        formControlName="password"
+        required
+      />
+      <mat-error> Please provide a valid password. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Confirm password"
+        type="password"
+        formControlName="confirmPassword"
+      />
+      <mat-error> Passwords do not. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <mat-label>Workplace</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="MANAGER">Manager</mat-option>
+        <mat-option value="ADMIN">Admin</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Salary"
+        formControlName="salary"
+        required
+        type="number"
+      />
+      <mat-error> Please provide a valid salary. </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="basic"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      [disabled]="!form.valid"
+      color="primary"
+      type="submit"
+    >
+      Save super user
+    </button>
+  </div>
+</form>

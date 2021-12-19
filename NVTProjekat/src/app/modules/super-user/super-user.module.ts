@@ -7,6 +7,7 @@ import { SuperUsersPageComponent } from './pages/super-users-page/super-users-pa
 import { SuperUsersTableComponent } from './components/super-users-table/super-users-table.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { UpdateSuperUserSalaryDialogComponent } from './components/update-super-user-salary-dialog/update-super-user-salary-dialog.component';
+import { CreateSuperUserDialogComponent } from './components/create-super-user-dialog/create-super-user-dialog.component';
 
 
 
@@ -15,7 +16,8 @@ import { UpdateSuperUserSalaryDialogComponent } from './components/update-super-
     SuperUsersPageComponent,
     SuperUsersTableComponent,
     SearchFormComponent,
-    UpdateSuperUserSalaryDialogComponent
+    UpdateSuperUserSalaryDialogComponent,
+    CreateSuperUserDialogComponent
   ],
   imports: [
     CommonModule,

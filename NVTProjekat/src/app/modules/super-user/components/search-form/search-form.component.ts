@@ -11,6 +11,8 @@ export class SearchFormComponent implements OnInit {
   form: FormGroup;
   @Output()
   onSearchSuperUsers: EventEmitter<ReadSuperusersRequest> = new EventEmitter<ReadSuperusersRequest>();
+  @Output()
+  onCreateSuperUser: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder
@@ -41,6 +43,10 @@ export class SearchFormComponent implements OnInit {
       type: ''
     });
     this.onSearchSuperUsers.emit(this.form.value);
+  }
+
+  onCreateClick(): void {
+    this.onCreateSuperUser.emit();
   }
 
 }
