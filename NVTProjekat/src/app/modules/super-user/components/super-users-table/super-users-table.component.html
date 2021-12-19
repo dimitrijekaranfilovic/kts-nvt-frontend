@@ -50,6 +50,7 @@
               mat-mini-fab
               color="primary"
               matTooltip="Delete manager"
+              (click)="onDeleteSuperUser(superUser)"
               *ngIf="superUser.type == 'MANAGER'"
             >
               <mat-icon>delete</mat-icon>

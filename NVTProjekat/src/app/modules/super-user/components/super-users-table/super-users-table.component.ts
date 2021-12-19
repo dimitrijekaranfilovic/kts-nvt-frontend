@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observer } from 'rxjs';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { SuperUserService } from '../../services/super-user-servoce/super-user.service';
@@ -47,6 +48,29 @@ export class SuperUsersTableComponent implements OnInit {
   onSearchSuperUsers(params: ReadSuperusersRequest): void {
     this.searchParams = params;
     this.fetchData(0, this.pageSize);
+  }
+
+  onDeleteSuperUser(superUser: ReadSuperUsersResponse): void {
+    this.confirmationService.confirm({
+      title: `Super user deletion`,
+      message: `Are you sure you want to delete super user ${superUser.name} ${superUser.surname} with email ${superUser.email}?`,
+      yes: 'Yes',
+      no: 'No'
+    }).subscribe(confirmation => {
+      if (confirmation) {
+        const nextPage = this.pageSize == 1 && this.pageNum > 0 ? this.pageNum - 1 : this.pageNum;
+        this.superUserService.delete(superUser.id).subscribe(this.getDefaultEntityServiceHandler(nextPage));
+      }
+    })
+  }
+
+  getDefaultEntityServiceHandler<TResponse = void>(page?: number): Partial<Observer<TResponse>> {
+    return {
+      next: _ => {
+        this.fetchData(page ?? this.pageNum, this.pageSize);
+      },
+      error: err => this.errorService.handle(err)
+    };
   }
 
 }

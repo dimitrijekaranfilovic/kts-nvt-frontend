@@ -24,4 +24,8 @@ export class SuperUserService {
       }
     })
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8081/api/super-users/${id}`);
+  }
 }
