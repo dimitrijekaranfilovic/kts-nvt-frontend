@@ -8,14 +8,9 @@ import { AuthResponse } from "../../types/AuthResponse";
   providedIn: "root",
 })
 export class AuthService {
-  private headers = new HttpHeaders({ "Content-Type": "application/json" });
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(auth: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>("http://localhost:8081/api/super-users/authenticate", auth, {
-      headers: this.headers,
-      responseType: "json",
-    });
+    return this.http.post<AuthResponse>("http://localhost:8081/api/super-users/authenticate", auth);
   }
 }
