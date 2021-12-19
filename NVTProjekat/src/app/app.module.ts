@@ -15,11 +15,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { OrderModule } from './modules/order/order.module';
-
+import { RootModule } from './modules/root/root.module';
+import { NavbarComponent } from './modules/root/components/navbar/navbar.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,10 @@ import { OrderModule } from './modules/order/order.module';
     FormsModule,
     MatButtonModule,
     MatSnackBarModule,
-    OrderModule
+    MatToolbarModule,
+    MatIconModule,
+    OrderModule,
+    RootModule
   ],
   providers: [],
   bootstrap: [AppComponent]
