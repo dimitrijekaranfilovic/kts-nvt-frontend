@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>Update {{ superUser.name }}'s salary</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="New salary"
+        formControlName="salary"
+        type="number"
+        required
+      />
+      <mat-error> Please provide a valid salary. </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="basic"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      [disabled]="!form.valid"
+      color="primary"
+      type="submit"
+    >
+      Save changes
+    </button>
+  </div>
+</form>

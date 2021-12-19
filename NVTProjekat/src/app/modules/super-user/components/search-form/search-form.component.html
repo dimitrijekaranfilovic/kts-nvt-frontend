@@ -1,0 +1,66 @@
+<form [formGroup]="form" (reset)="onReset()" (ngSubmit)="onSubmit()">
+  <mat-grid-list cols="5" rowHeight="10:2">
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Search super users..."
+          formControlName="query"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Salary lower bound"
+          type="number"
+          required
+          formControlName="salaryLowerBound"
+        />
+        <mat-error> Please provide a valid salary lower bound. </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Salary upper bound"
+          type="number"
+          required
+          formControlName="salaryUpperBound"
+        />
+        <mat-error> Please provide a valid salary upper bound. </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <mat-label>Employee type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="">All types</mat-option>
+          <mat-option value="ADMIN">Admin</mat-option>
+          <mat-option value="MANAGER">Manager</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button type="reset" mat-flat-button color="basic">Reset</button>
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        Search
+      </button>
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        (click)="onCreateClick()"
+      >
+        Create super user
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
