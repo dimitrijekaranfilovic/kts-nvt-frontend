@@ -75,13 +75,8 @@ export class EmployeeTableComponent implements OnInit {
       no: 'No'
     }).subscribe(confirmation => {
       if (confirmation) {
-        this.employeeService.delete(employee.id).subscribe({
-          next: _ => {
-            const nextPage = this.pageSize == 1 && this.pageNum > 0 ? this.pageNum - 1 : this.pageNum;
-            this.fetchData(nextPage, this.pageSize);
-          },
-          error: err => this.errorService.handle(err),
-        });
+        const nextPage = this.pageSize == 1 && this.pageNum > 0 ? this.pageNum - 1 : this.pageNum;
+        this.employeeService.delete(employee.id).subscribe(this.getDefaultEntityServiceHandler(nextPage));
       }
     })
   }
@@ -98,10 +93,10 @@ export class EmployeeTableComponent implements OnInit {
     });
   }
 
-  getDefaultEntityServiceHandler<TResponse = void>(): Partial<Observer<TResponse>> {
+  getDefaultEntityServiceHandler<TResponse = void>(page?: number): Partial<Observer<TResponse>> {
     return {
       next: _ => {
-        this.fetchData(this.pageNum, this.pageSize);
+        this.fetchData(page ?? this.pageNum, this.pageSize);
       },
       error: err => this.errorService.handle(err)
     };
