@@ -6,6 +6,7 @@ import { ConfirmationService } from 'src/app/modules/shared/services/confirmatio
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { EmployeeService } from '../../services/employee-service/employee.service';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
+import { ReadEmployeesRequest } from '../../types/ReadEmployeesRequest';
 import { CreateUpdateEmployeeDialogComponent } from '../create-update-employee-dialog/create-update-employee-dialog.component';
 import { UpdateEmployeeSalaryDialogComponent } from '../update-employee-salary-dialog/update-employee-salary-dialog.component';
 
@@ -17,6 +18,7 @@ import { UpdateEmployeeSalaryDialogComponent } from '../update-employee-salary-d
 export class EmployeeTableComponent implements OnInit {
   displayedColumns: string[] = ['name', 'surname', 'pin', 'type', 'currentSalary', 'actions'];
   dataSource: MatTableDataSource<ReadEmployeeResponse> = new MatTableDataSource<ReadEmployeeResponse>();
+  searchParams: ReadEmployeesRequest = {};
   pageNum: number = 0;
   pageSize: number = 0;
   totalPages: number = 0;
@@ -33,7 +35,7 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   fetchData(pageIdx: number, pageSize: number): void {
-    this.employeeService.read(pageIdx, pageSize).subscribe(page => {
+    this.employeeService.read(pageIdx, pageSize, this.searchParams).subscribe(page => {
       this.pageNum = page.pageable.pageNumber;
       this.pageSize = page.pageable.pageSize;
       this.totalPages = page.totalPages;
@@ -43,6 +45,11 @@ export class EmployeeTableComponent implements OnInit {
 
   onSelectPage(event: any): void {
     this.fetchData(event.pageIndex, event.pageSize);
+  }
+
+  onSearchEmployee(params: ReadEmployeesRequest): void {
+    this.searchParams = params;
+    this.fetchData(0, this.pageSize);
   }
 
   onCreateEmployee(): void {

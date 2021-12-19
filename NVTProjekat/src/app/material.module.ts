@@ -11,6 +11,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -29,7 +32,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatIconModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatCardModule
   ],
   exports: [
     MatDialogModule,
@@ -43,7 +49,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatSnackBarModule,
     MatIconModule,
     MatGridListModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatCardModule
   ]
 })
 export class MaterialModule { }
