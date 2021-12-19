@@ -2,35 +2,44 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BartenderPageComponent } from './modules/order/pages/bartender-page/bartender-page.component';
 import { ChefPageComponent } from './modules/order/pages/chef-page/chef-page.component';
+import { OrderPageComponent } from './modules/order/pages/order-page/order-page.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "auth",
-        loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule)
+        path: 'auth',
+        loadChildren: () =>
+          import('./modules/auth/auth.module').then((m) => m.AuthModule),
       },
       {
-        path: "employees",
-        loadChildren: () => import("./modules/employee/employee.module").then(m => m.EmployeeModule)
-      }
-    ]
+        path: 'employees',
+        loadChildren: () =>
+          import('./modules/employee/employee.module').then(
+            (m) => m.EmployeeModule
+          ),
+      },
+    ],
   },
   {
-    path: "chef",
+    path: 'chef',
     component: ChefPageComponent,
-    pathMatch: "full"
+    pathMatch: 'full',
   },
   {
-    path: "bartender",
+    path: 'bartender',
     component: BartenderPageComponent,
-    pathMatch: "full"
-  }
+    pathMatch: 'full',
+  },
+  {
+    path: 'order/:id',
+    component: OrderPageComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

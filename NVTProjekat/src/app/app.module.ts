@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,12 +11,10 @@ import { OrderModule } from './modules/order/order.module';
 import { RootModule } from './modules/root/root.module';
 import { NavbarComponent } from './modules/root/components/navbar/navbar.component';
 import { MaterialModule } from './material.module';
+import { MenuItemModule } from './modules/menu-item/menu-item.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent
-  ],
+  declarations: [AppComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,9 +25,10 @@ import { MaterialModule } from './material.module';
     AuthModule,
     SharedModule,
     OrderModule,
-    RootModule
+    RootModule,
+    MenuItemModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -13,16 +13,20 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { MenuItemModule } from '../menu-item/menu-item.module';
 
 @NgModule({
   declarations: [
     ChefPageComponent,
     BartenderPageComponent,
     OrderItemTableViewComponent,
-    PinModalComponent
+    PinModalComponent,
+    OrderPageComponent,
   ],
   imports: [
     CommonModule,
+    MenuItemModule,
     MatTableModule,
     MatPaginatorModule,
     HttpClientModule,
@@ -32,6 +36,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     MatButtonModule,
     MatSnackBarModule,
-  ]
+  ],
 })
-export class OrderModule { }
+export class OrderModule {}

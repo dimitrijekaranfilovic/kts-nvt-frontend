@@ -1,0 +1,13 @@
+<div>
+  <mat-grid-list cols="2">
+    <mat-grid-tile *ngFor="let item of content">
+      <app-menu-item-card [menuItem]="item"></app-menu-item-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    (page)="handlePageChanged($event)"
+  >
+  </mat-paginator>
+</div>
