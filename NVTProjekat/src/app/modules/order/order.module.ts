@@ -19,6 +19,8 @@ import { OrderItemGroupComponent } from './components/order-item-group/order-ite
 import { OrderItemGroupsViewComponent } from './components/order-item-groups-view/order-item-groups-view.component';
 import { MatIconModule } from '@angular/material/icon';
 import { OrderGroupItemComponent } from './components/order-group-item/order-group-item.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { OrderGroupItemComponent } from './components/order-group-item/order-gro
     MatButtonModule,
     MatSnackBarModule,
     MatIconModule,
+    MatGridListModule,
+    MatTooltipModule,
   ],
 })
 export class OrderModule {}

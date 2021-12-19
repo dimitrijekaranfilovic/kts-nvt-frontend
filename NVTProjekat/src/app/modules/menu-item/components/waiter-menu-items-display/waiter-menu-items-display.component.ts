@@ -16,7 +16,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   public currentPage: number = 0;
   public totalPages: number = 0;
   public totalElements: number = 0;
-  public pageSize: number = 2;
+  public pageSize: number = 3;
 
   constructor(private menuItemService: MenuItemService) {}
 

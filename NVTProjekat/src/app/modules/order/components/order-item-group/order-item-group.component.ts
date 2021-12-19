@@ -24,4 +24,10 @@ export class OrderItemGroupComponent implements OnInit {
     else if (this.group.status === 'SENT') return 'orange';
     else return 'green';
   }
+
+  getGroupTooltip(): string {
+    if (this.group.status === 'NEW') return 'Delete group';
+    else if (this.group.status === 'SENT') return 'Group pending';
+    else return 'Group prepared';
+  }
 }

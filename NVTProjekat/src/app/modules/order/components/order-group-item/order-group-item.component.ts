@@ -10,6 +10,7 @@ import { OrderItem } from '../../types/OrderItem';
 export class OrderGroupItemComponent implements OnInit {
   @Input() index: number = 0;
   @Input() orderItem!: OrderGroupItem;
+  @Input() orderGroupStatus: string = 'NEW';
 
   constructor() {}
 
