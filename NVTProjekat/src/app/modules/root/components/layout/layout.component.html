@@ -1,2 +1,7 @@
-<app-navbar></app-navbar>
-<router-outlet (activate)="getCurrentUser()"></router-outlet>
+<app-navbar
+  [loggedIn]="loggedIn"
+  [isAdmin]="isAdmin"
+  [isManager]="isManager"
+  [user]="currentUser"
+></app-navbar>
+<router-outlet (activate)="reloadCurrentUser()"></router-outlet>

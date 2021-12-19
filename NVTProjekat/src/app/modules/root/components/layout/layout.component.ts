@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
+import { AuthResponse } from 'src/app/modules/auth/types/AuthResponse';
 
 @Component({
   selector: 'app-layout',
@@ -7,14 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  loggedIn: boolean = false;
+  isAdmin: boolean = false;
+  isManager: boolean = false;
+  currentUser: AuthResponse | null = null;
 
-  ngOnInit(): void {
-    console.log("HEEERE");
+  constructor(
+    private currentUserService: CurrentUserService
+  ) {
+    this.reloadCurrentUser();
   }
 
-  getCurrentUser(): void {
+  ngOnInit(): void {
+  }
 
+  reloadCurrentUser(): void {
+    this.currentUser = this.currentUserService.getCurrentUser();
+    this.loggedIn = this.currentUserService.hasUser();
+    this.isAdmin = this.currentUserService.hasAuthority('ADMIN');
+    this.isManager = this.currentUserService.hasAuthority('MANAGER');
   }
 
 }
