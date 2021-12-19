@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BartenderPageComponent } from './modules/order/pages/bartender-page/bartender-page.component';
+import { ChefPageComponent } from './modules/order/pages/chef-page/chef-page.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,16 @@ const routes: Routes = [
         loadChildren: () => import("./modules/employee/employee.module").then(m => m.EmployeeModule)
       }
     ]
+  },
+  {
+    path: "chef",
+    component: ChefPageComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "bartender",
+    component: BartenderPageComponent,
+    pathMatch: "full"
   }
 ];
 

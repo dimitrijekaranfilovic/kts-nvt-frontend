@@ -1,28 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthModule } from './modules/auth/auth.module';
-import { HttpClientModule } from '@angular/common/http';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from './modules/shared/shared.module';
 import { EmployeeModule } from './modules/employee/employee.module';
+import { OrderModule } from './modules/order/order.module';
+import { RootModule } from './modules/root/root.module';
+import { NavbarComponent } from './modules/root/components/navbar/navbar.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatSnackBarModule,
+    MaterialModule,
     EmployeeModule,
     AuthModule,
-    SharedModule
+    SharedModule,
+    OrderModule,
+    RootModule
   ],
   providers: [],
   bootstrap: [AppComponent]
