@@ -19,6 +19,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
   public orderItemGroups: OrderItemGroup[] = [];
   private pin: string = '';
   private orderItemAddedSubscription!: Subscription;
+  private orderItemGroupAddedSubscription!: Subscription;
 
   constructor(
     private orderService: OrderService,
@@ -32,6 +33,11 @@ export class OrderItemGroupsViewComponent implements OnInit {
         this.orderItemGroups
           .find((item) => item.id === value.groupId)
           ?.orderItems.push(value.orderItem);
+      });
+    this.orderItemGroupAddedSubscription = this.orderService
+      .onOrderItemGroupAdded()
+      .subscribe((value) => {
+        this.orderItemGroups.push(value);
       });
   }
 

@@ -12,12 +12,14 @@ import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { AddMenuItemToExistingGroupDialogComponent } from './components/add-menu-item-to-existing-group-dialog/add-menu-item-to-existing-group-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddMenuItemToNewGroupDialogComponent } from './components/add-menu-item-to-new-group-dialog/add-menu-item-to-new-group-dialog.component';
 
 @NgModule({
   declarations: [
     MenuItemCardComponent,
     WaiterMenuItemsDisplayComponent,
     AddMenuItemToExistingGroupDialogComponent,
+    AddMenuItemToNewGroupDialogComponent,
   ],
   imports: [
     CommonModule,

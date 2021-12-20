@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { OrderItemGroup } from '../types/OrderItemGroup';
+import { OrderItemGroupReducedInfo } from '../types/OrderItemGroupReducedInfo';
 import { OrderItemServiceService } from './order-item-service.service';
 
 @Injectable({
@@ -10,6 +11,7 @@ import { OrderItemServiceService } from './order-item-service.service';
 export class OrderService {
   private baseUrl: string = 'http://localhost:8081/api/orders';
   constructor(private httpClient: HttpClient) {}
+  private orderItemGroupAddedSubject = new Subject<any>();
 
   getOrderItemGroups(orderId: number): Observable<OrderItemGroup[]> {
     const url = `${this.baseUrl}/${orderId}/groups`;
@@ -41,5 +43,31 @@ export class OrderService {
       },
     };
     return this.httpClient.delete(url, options);
+  }
+
+  createOrderItemGroup(
+    orderId: number,
+    groupName: string,
+    pin: string
+  ): Observable<OrderItemGroupReducedInfo> {
+    const url = `${this.baseUrl}/${orderId}/groups`;
+    return this.httpClient.post<OrderItemGroupReducedInfo>(url, {
+      groupName,
+      pin,
+    });
+  }
+
+  emitOrderItemGroupAdded(event: OrderItemGroupReducedInfo): void {
+    const data = {
+      id: event.id,
+      name: event.name,
+      status: 'NEW',
+      orderItems: [],
+    };
+    this.orderItemGroupAddedSubject.next(data);
+  }
+
+  onOrderItemGroupAdded(): Observable<any> {
+    return this.orderItemGroupAddedSubject.asObservable();
   }
 }

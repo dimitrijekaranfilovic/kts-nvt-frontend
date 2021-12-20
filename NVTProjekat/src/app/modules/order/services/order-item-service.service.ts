@@ -65,7 +65,7 @@ export class OrderItemServiceService {
   }
 
   addOrderItem(
-    orderItemGroupId: number,
+    orderItemGroupId: number | undefined,
     menuItemId: number,
     amount: number,
     pin: string

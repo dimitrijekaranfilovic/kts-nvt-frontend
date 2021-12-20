@@ -30,12 +30,14 @@
       <button
         mat-menu-item
         *ngFor="let group of groups"
-        (click)="addMenuItem(group)"
+        (click)="addMenuItemToExistingGroup(group)"
       >
         {{ group.name }}
       </button>
       <hr />
-      <button mat-menu-item>Add to new group</button>
+      <button mat-menu-item (click)="addMenuItemToNewGroup()">
+        Add to new group
+      </button>
     </mat-menu>
   </mat-card-actions>
 </mat-card>
