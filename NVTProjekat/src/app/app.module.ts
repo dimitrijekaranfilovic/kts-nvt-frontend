@@ -12,6 +12,7 @@ import { RootModule } from './modules/root/root.module';
 import { MaterialModule } from './material.module';
 import { SuperUserModule } from './modules/super-user/super-user.module';
 import { ReportModule } from './modules/report/report.module';
+import { WaiterModule } from './modules/waiter/waiter.module';
 import { MenuItemModule } from './modules/menu-item/menu-item.module';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MenuItemModule } from './modules/menu-item/menu-item.module';
     SharedModule,
     OrderModule,
     RootModule,
+    WaiterModule
     MenuItemModule,
   ],
   providers: [],
