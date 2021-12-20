@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-content>
+      <h2>Profile</h2>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="First name"
+          formControlName="name"
+          required
+        />
+        <mat-error> Please provide a valid first name. </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Last name"
+          formControlName="surname"
+          required
+        />
+        <mat-error> Please provide a valid last name. </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="E-Mail"
+          formControlName="email"
+          type="email"
+          readonly
+          required
+        />
+        <mat-error> Please provide a valid email. </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button type="button" (click)="onCancel()">
+        Cancel
+      </button>
+      <button mat-raised-button [disabled]="!form.valid" color="primary">
+        Update profile
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

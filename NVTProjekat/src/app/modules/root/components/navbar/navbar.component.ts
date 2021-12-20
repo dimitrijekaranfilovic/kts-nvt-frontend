@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
-import { AuthResponse } from 'src/app/modules/auth/types/AuthResponse';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +16,9 @@ export class NavbarComponent implements OnInit {
   @Input()
   isManager: boolean = false;
   @Input()
-  user: AuthResponse | null = null;
+  name: string | undefined = '';
+  @Input()
+  surname: string | undefined = '';
 
   constructor(
     private currentUserService: CurrentUserService,
