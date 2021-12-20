@@ -4,12 +4,13 @@ import { Observable, Subject } from 'rxjs';
 import { OrderItemGroup } from '../types/OrderItemGroup';
 import { OrderItemGroupReducedInfo } from '../types/OrderItemGroupReducedInfo';
 import { OrderItemServiceService } from './order-item-service.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  private baseUrl: string = 'http://localhost:8081/api/orders';
+  private baseUrl: string = `${environment.basePath}/api/orders`;
   constructor(private httpClient: HttpClient) {}
   private orderItemGroupAddedSubject = new Subject<any>();
 
