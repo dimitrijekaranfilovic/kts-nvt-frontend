@@ -33,7 +33,8 @@
     <mat-grid-tile colspan="1"><strong>Item index</strong></mat-grid-tile>
     <mat-grid-tile colspan="2"><strong>Item name</strong></mat-grid-tile>
     <mat-grid-tile colspan="1"><strong>Amount</strong></mat-grid-tile>
-    <mat-grid-tile colspan="2"><strong>Actions</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Total price</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Actions</strong></mat-grid-tile>
   </mat-grid-list>
 
   <app-order-group-item
@@ -41,6 +42,7 @@
     [orderItem]="item"
     [index]="i"
     [orderGroupStatus]="group.status"
-    (onItemDeleted)="openDialog(item)"
+    (onItemDeleted)="openDeleteDialog(item)"
+    (onItemUpdated)="openUpdateDialog(item)"
   ></app-order-group-item>
 </div>

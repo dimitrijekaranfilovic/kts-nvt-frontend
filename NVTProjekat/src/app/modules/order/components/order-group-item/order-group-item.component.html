@@ -8,12 +8,16 @@
   <mat-grid-tile colspan="1">
     {{ orderItem.amount }}
   </mat-grid-tile>
-  <mat-grid-tile colspan="2" rowspan="1">
+  <mat-grid-tile colspan="1" rowspan="1">
+    {{ orderItem.itemPrice * orderItem.amount }}
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
     <button
       mat-icon-button
       [ngStyle]="{ color: 'orange' }"
       *ngIf="orderGroupStatus === 'NEW'"
       matTooltip="Edit item"
+      (click)="updateItem()"
     >
       <mat-icon> edit </mat-icon>
     </button>

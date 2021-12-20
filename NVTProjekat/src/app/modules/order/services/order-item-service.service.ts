@@ -49,4 +49,16 @@ export class OrderItemServiceService {
     };
     return this.http.delete(url, options);
   }
+
+  updateOrderItem(
+    orderItemId: number,
+    pin: string,
+    newAmount: number
+  ): Observable<any> {
+    const url = `http://localhost:8081/api/order-items/${orderItemId}`;
+    return this.http.put(url, {
+      pin: pin,
+      amount: newAmount,
+    });
+  }
 }

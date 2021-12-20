@@ -12,6 +12,7 @@ export class OrderGroupItemComponent implements OnInit {
   @Input() orderItem!: OrderGroupItem;
   @Input() orderGroupStatus: string = 'NEW';
   @Output() public onItemDeleted = new EventEmitter<OrderGroupItem>();
+  @Output() public onItemUpdated = new EventEmitter<OrderGroupItem>();
 
   constructor() {}
 
@@ -19,5 +20,9 @@ export class OrderGroupItemComponent implements OnInit {
 
   deleteItem(): void {
     this.onItemDeleted.emit(this.orderItem);
+  }
+
+  updateItem(): void {
+    this.onItemUpdated.emit(this.orderItem);
   }
 }

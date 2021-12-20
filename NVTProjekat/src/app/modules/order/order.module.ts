@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { OrderGroupItemComponent } from './components/order-group-item/order-group-item.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UpdateItemModalComponent } from './components/update-item-modal/update-item-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     OrderItemGroupComponent,
     OrderItemGroupsViewComponent,
     OrderGroupItemComponent,
+    UpdateItemModalComponent,
   ],
   imports: [
     CommonModule,
