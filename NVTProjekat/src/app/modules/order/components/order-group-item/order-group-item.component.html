@@ -1,0 +1,35 @@
+<mat-grid-list cols="6" rowHeight="4:1" class="order-group-item">
+  <mat-grid-tile colspan="1" rowspan="1" class="order-group-item-index">{{
+    index + 1
+  }}</mat-grid-tile>
+  <mat-grid-tile colspan="2" rowspan="1">{{
+    orderItem.itemItemName
+  }}</mat-grid-tile>
+  <mat-grid-tile colspan="1">
+    {{ orderItem.amount }}
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
+    {{ orderItem.itemPrice * orderItem.amount }}
+  </mat-grid-tile>
+  <mat-grid-tile colspan="1" rowspan="1">
+    <button
+      mat-icon-button
+      [ngStyle]="{ color: 'orange' }"
+      *ngIf="orderGroupStatus === 'NEW'"
+      matTooltip="Edit item"
+      (click)="updateItem()"
+    >
+      <mat-icon> edit </mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      color="warn"
+      *ngIf="orderGroupStatus === 'NEW'"
+      matTooltip="Delete item"
+      (click)="deleteItem()"
+    >
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>

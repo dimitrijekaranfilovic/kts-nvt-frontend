@@ -13,16 +13,31 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { MenuItemModule } from '../menu-item/menu-item.module';
+import { OrderItemGroupComponent } from './components/order-item-group/order-item-group.component';
+import { OrderItemGroupsViewComponent } from './components/order-item-groups-view/order-item-groups-view.component';
+import { MatIconModule } from '@angular/material/icon';
+import { OrderGroupItemComponent } from './components/order-group-item/order-group-item.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UpdateItemModalComponent } from './components/update-item-modal/update-item-modal.component';
 
 @NgModule({
   declarations: [
     ChefPageComponent,
     BartenderPageComponent,
     OrderItemTableViewComponent,
-    PinModalComponent
+    PinModalComponent,
+    OrderPageComponent,
+    OrderItemGroupComponent,
+    OrderItemGroupsViewComponent,
+    OrderGroupItemComponent,
+    UpdateItemModalComponent,
   ],
   imports: [
     CommonModule,
+    MenuItemModule,
     MatTableModule,
     MatPaginatorModule,
     HttpClientModule,
@@ -32,6 +47,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FormsModule,
     MatButtonModule,
     MatSnackBarModule,
-  ]
+    MatIconModule,
+    MatGridListModule,
+    MatTooltipModule,
+  ],
 })
-export class OrderModule { }
+export class OrderModule {}

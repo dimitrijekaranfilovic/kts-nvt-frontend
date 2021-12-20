@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Add order item</h1>
+<div mat-dialog-content>
+  <p>Enter your PIN:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>PIN code</mat-label>
+    <input matInput [(ngModel)]="data.pin" />
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Enter amount:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Amount</mat-label>
+    <input matInput [(ngModel)]="data.amount" />
+  </mat-form-field>
+</div>
+<div mat-dialog-content>
+  <p>Enter group name:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Group name</mat-label>
+    <input matInput [(ngModel)]="data.groupName" />
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" (click)="onNoClick(data, 'CANCEL')">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    [ngStyle]="{ 'margin-left': '43px' }"
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+  >
+    Confirm
+  </button>
+</div>
