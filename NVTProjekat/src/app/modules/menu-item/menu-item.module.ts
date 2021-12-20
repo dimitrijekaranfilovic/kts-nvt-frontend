@@ -9,6 +9,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [MenuItemCardComponent, WaiterMenuItemsDisplayComponent],
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatInputModule,
     FormsModule,
+    MatMenuModule,
   ],
   exports: [WaiterMenuItemsDisplayComponent],
 })

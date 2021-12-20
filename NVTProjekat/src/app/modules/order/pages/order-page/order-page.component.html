@@ -4,10 +4,13 @@
     <h2 [align]="'center'">Order item groups</h2>
     <app-order-item-groups-view
       [orderId]="orderId"
+      (onGroupsLoaded)="setGroups($event)"
     ></app-order-item-groups-view>
   </div>
   <div class="column">
     <h2 [align]="'center'">Menu items</h2>
-    <app-waiter-menu-items-display></app-waiter-menu-items-display>
+    <app-waiter-menu-items-display
+      [groups]="groups"
+    ></app-waiter-menu-items-display>
   </div>
 </div>

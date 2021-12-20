@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OrderService } from '../../services/order.service';
 import { OrderItemGroup } from '../../types/OrderItemGroup';
 import { MatDialog } from '@angular/material/dialog';
 import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo';
 
 @Component({
   selector: 'app-order-item-groups-view',
@@ -12,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class OrderItemGroupsViewComponent implements OnInit {
   @Input() orderId!: number;
+  @Output() onGroupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
   public orderItemGroups: OrderItemGroup[] = [];
   private pin: string = '';
 
@@ -22,9 +24,16 @@ export class OrderItemGroupsViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.orderService
-      .getOrderItemGroups(this.orderId)
-      .subscribe((response) => (this.orderItemGroups = response));
+    this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {
+      this.orderItemGroups = response;
+      const groups = this.orderItemGroups.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+        };
+      });
+      this.onGroupsLoaded.emit(groups);
+    });
   }
 
   sendGroup(group: OrderItemGroup, pin: string): void {

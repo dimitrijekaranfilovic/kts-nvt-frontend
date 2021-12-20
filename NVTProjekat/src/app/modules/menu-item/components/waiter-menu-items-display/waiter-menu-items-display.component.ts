@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
 import { MenuItemService } from '../../services/menu-item.service';
 import { MenuItem } from '../../types/MenuItem';
+import { OrderItemGroupReducedInfo } from 'src/app/modules/order/types/OrderItemGroupReducedInfo';
 
 @Component({
   selector: 'app-waiter-menu-items-display',
@@ -11,6 +12,7 @@ import { MenuItem } from '../../types/MenuItem';
   styleUrls: ['./waiter-menu-items-display.component.scss'],
 })
 export class WaiterMenuItemsDisplayComponent implements OnInit {
+  @Input() public groups: OrderItemGroupReducedInfo[] = [];
   public menuItemName: string = '';
   public content: MenuItem[] = [];
   public currentPage: number = 0;
