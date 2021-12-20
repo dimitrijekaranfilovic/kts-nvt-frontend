@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderItemGroup } from '../types/OrderItemGroup';
+import { OrderItemServiceService } from './order-item-service.service';
 
 @Injectable({
   providedIn: 'root',

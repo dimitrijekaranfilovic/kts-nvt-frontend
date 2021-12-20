@@ -1,5 +1,5 @@
 export interface OrderGroupItem {
-  id?: number;
+  id: number;
   amount: number;
   itemPrice: number;
   itemItemName: string;
