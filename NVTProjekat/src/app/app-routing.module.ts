@@ -56,13 +56,11 @@ const routes: Routes = [
         path: "waiter",
         component: WaiterPageComponent,
         pathMatch: "full"
-      }
-    ]
-        pathMatch: 'full',
       },
       {
         path: 'order/:id',
         component: OrderPageComponent,
+        pathMatch: 'full'
       },
     ],
   },

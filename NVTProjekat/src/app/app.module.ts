@@ -30,8 +30,8 @@ import { MenuItemModule } from './modules/menu-item/menu-item.module';
     SharedModule,
     OrderModule,
     RootModule,
-    WaiterModule
-    MenuItemModule,
+    WaiterModule,
+    MenuItemModule
   ],
   providers: [],
   bootstrap: [AppComponent],
