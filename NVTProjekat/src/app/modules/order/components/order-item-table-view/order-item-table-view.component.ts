@@ -9,14 +9,21 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-order-item-table-view',
   templateUrl: './order-item-table-view.component.html',
-  styleUrls: ['./order-item-table-view.component.scss']
+  styleUrls: ['./order-item-table-view.component.scss'],
 })
 export class OrderItemTableViewComponent implements OnInit {
+  @Input() itemStatus: string = '';
+  @Input() itemType: string = '';
 
-  @Input() itemStatus: string = "";
-  @Input() itemType: string = "";
-
-  displayedColumns: string[] = ['item', 'amount', 'sentAt', 'takenAt', 'takenBy','action1', 'action2'];
+  displayedColumns: string[] = [
+    'item',
+    'amount',
+    'sentAt',
+    'takenAt',
+    'takenBy',
+    'action1',
+    'action2',
+  ];
   dataSource!: MatTableDataSource<OrderItem>;
   pageNum: number = 0;
   pageSize: number = 0;
@@ -24,22 +31,29 @@ export class OrderItemTableViewComponent implements OnInit {
   defaultPageSize: number = 5;
 
   subscription: any;
-  pin: string = "";
+  pin: string = '';
 
-  constructor(private orderItemService: OrderItemServiceService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
+  constructor(
+    private orderItemService: OrderItemServiceService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   fetchData(pageIdx: number, pageSize: number) {
-    this.orderItemService.getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType).subscribe( pageable => {
-      this.pageNum = pageable.pageable.pageNumber;
-      this.pageSize = pageable.pageable.pageSize;
-      this.totalPages = pageable.totalPages;
-      this.dataSource = new MatTableDataSource<OrderItem>(pageable.content);
-    });
+    this.orderItemService
+      .getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType)
+      .subscribe((pageable) => {
+        this.pageNum = pageable.pageable.pageNumber;
+        this.pageSize = pageable.pageable.pageSize;
+        this.totalPages = pageable.totalPages;
+        this.dataSource = new MatTableDataSource<OrderItem>(pageable.content);
+      });
   }
 
   ngOnInit(): void {
     this.fetchData(0, this.defaultPageSize);
-    this.subscription = this.orderItemService.getEmitter()
+    this.subscription = this.orderItemService
+      .getEmitter()
       .subscribe(() => this.fetchData(0, this.defaultPageSize));
   }
 
@@ -47,29 +61,32 @@ export class OrderItemTableViewComponent implements OnInit {
     this.fetchData(event.pageIndex, event.pageSize);
   }
 
-  onAction(item: OrderItem, action: string, pin: string){
-    this.orderItemService.takeOrderItem({ action: action, employeePin: pin, itemId: item.id}).subscribe({
-      next: () => {
-      this.fetchData(0, this.defaultPageSize);
-      this.orderItemService.emitUpdateTableEvent();
-      },
-      error: (error) => {
-        let message = error.error.errors[Object.keys(error.error.errors)[0]];
-        if (message === undefined){
-          message = error.error.message;
-        }
-        this.toast(message);
-      }});
+  onAction(item: OrderItem, action: string, pin: string) {
+    this.orderItemService
+      .takeOrderItem({ action: action, employeePin: pin, itemId: item.id })
+      .subscribe({
+        next: () => {
+          this.fetchData(0, this.defaultPageSize);
+          this.orderItemService.emitUpdateTableEvent();
+        },
+        error: (error) => {
+          let message = error.error.errors[Object.keys(error.error.errors)[0]];
+          if (message === undefined) {
+            message = error.error.message;
+          }
+          this.toast(message);
+        },
+      });
   }
 
-  openDialog(item:OrderItem, action: string): void {
+  openDialog(item: OrderItem, action: string): void {
     const dialogRef = this.dialog.open(PinModalComponent, {
       width: '250px',
-      data: {pin: this.pin}
+      data: { pin: this.pin },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if(result.event === "CANCEL"){
+      if (result.event === 'CANCEL') {
         return;
       }
       this.onAction(item, action, result);
@@ -77,6 +94,9 @@ export class OrderItemTableViewComponent implements OnInit {
   }
 
   toast(message: string) {
-    this.snackBar.open(message, "Dismiss", {duration: 5000, verticalPosition: "bottom"});
+    this.snackBar.open(message, 'Dismiss', {
+      duration: 5000,
+      verticalPosition: 'bottom',
+    });
   }
 }

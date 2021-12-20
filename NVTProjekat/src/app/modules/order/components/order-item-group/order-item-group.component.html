@@ -1,0 +1,48 @@
+<div class="order-item-group">
+  <mat-grid-list cols="6" rowHeight="3:1">
+    <mat-grid-tile colspan="5"
+      ><span class="group-name">{{ group.name }}</span></mat-grid-tile
+    >
+    <mat-grid-tile colspan="1">
+      <button
+        [disabled]="group.status !== 'NEW'"
+        mat-raised-button
+        color="primary"
+        (click)="handleSendGroupButtonClick()"
+      >
+        Send group
+      </button>
+
+      <button
+        mat-icon-button
+        [matTooltip]="getGroupTooltip()"
+        [disabled]="group.status !== 'NEW'"
+        (click)="deleteOrderItemGroup()"
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          [ngStyle]="{ color: getGroupIconColor() }"
+          >{{ getGroupIcon() }}</mat-icon
+        >
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="6" rowHeight="4:1" class="order-item-group-header">
+    <mat-grid-tile colspan="1"><strong>Item index</strong></mat-grid-tile>
+    <mat-grid-tile colspan="2"><strong>Item name</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Amount</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Total price</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Actions</strong></mat-grid-tile>
+  </mat-grid-list>
+
+  <app-order-group-item
+    *ngFor="let item of group.orderItems; index as i"
+    [orderItem]="item"
+    [index]="i"
+    [orderGroupStatus]="group.status"
+    (onItemDeleted)="openDeleteDialog(item)"
+    (onItemUpdated)="openUpdateDialog(item)"
+  ></app-order-group-item>
+</div>

@@ -2,41 +2,53 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BartenderPageComponent } from './modules/order/pages/bartender-page/bartender-page.component';
 import { ChefPageComponent } from './modules/order/pages/chef-page/chef-page.component';
+import { OrderPageComponent } from './modules/order/pages/order-page/order-page.component';
 import { LayoutComponent } from './modules/root/components/layout/layout.component';
 import { WaiterPageComponent } from './modules/waiter/pages/waiter-page/waiter-page.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: LayoutComponent,
     children: [
       {
-        path: "auth",
-        loadChildren: () => import("./modules/auth/auth.module").then(m => m.AuthModule)
+        path: 'auth',
+        loadChildren: () =>
+          import('./modules/auth/auth.module').then((m) => m.AuthModule),
       },
       {
-        path: "employees",
-        loadChildren: () => import("./modules/employee/employee.module").then(m => m.EmployeeModule)
+        path: 'employees',
+        loadChildren: () =>
+          import('./modules/employee/employee.module').then(
+            (m) => m.EmployeeModule
+          ),
       },
       {
-        path: "super-users",
-        loadChildren: () => import("./modules/super-user/super-user.module").then(m => m.SuperUserModule)
+        path: 'super-users',
+        loadChildren: () =>
+          import('./modules/super-user/super-user.module').then(
+            (m) => m.SuperUserModule
+          ),
       },
       {
-        path: "reports",
-        loadChildren: () => import("./modules/report/report.module").then(m => m.ReportModule)
+        path: 'reports',
+        loadChildren: () =>
+          import('./modules/report/report.module').then((m) => m.ReportModule),
       },
       {
-        path: "sections",
-        loadChildren: () => import("./modules/section/section.module").then(m => m.SectionModule)
+        path: 'sections',
+        loadChildren: () =>
+          import('./modules/section/section.module').then(
+            (m) => m.SectionModule
+          ),
       },
       {
-        path: "chef",
+        path: 'chef',
         component: ChefPageComponent,
-        pathMatch: "full"
+        pathMatch: 'full',
       },
       {
-        path: "bartender",
+        path: 'bartender',
         component: BartenderPageComponent,
         pathMatch: "full"
       },
@@ -46,11 +58,18 @@ const routes: Routes = [
         pathMatch: "full"
       }
     ]
+        pathMatch: 'full',
+      },
+      {
+        path: 'order/:id',
+        component: OrderPageComponent,
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
