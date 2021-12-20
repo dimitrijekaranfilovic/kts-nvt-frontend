@@ -45,6 +45,17 @@ export class SectionTabsViewComponent implements OnInit {
     });
   }
 
+  onUpdateSection(section: ReadSectionResponse): void {
+    this.dialogService.open(CreateUpdateSectionDialogComponent, {
+      data: section
+    }).componentInstance.onSaveChanges.subscribe(request => {
+      this.sectionService.update(section.id, request).subscribe({
+        next: _ => section.name = request.name,
+        error: err => this.errorService.handle(err)
+      })
+    });
+  }
+
   removeTab(index: number): void {
     this.sections.splice(index, 1);
   }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 
 @Component({
@@ -9,10 +9,16 @@ import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 export class SectionTabComponent implements OnInit {
   @Input()
   section!: ReadSectionResponse;
+  @Output()
+  onUpdateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  updateSection(): void {
+    this.onUpdateSection.emit(this.section);
   }
 
 }

@@ -11,6 +11,9 @@
     *ngFor="let section of sections; let index = index"
     [label]="section.name"
   >
-    <app-section-tab [section]="section"></app-section-tab>
+    <app-section-tab
+      [section]="section"
+      (onUpdateSection)="onUpdateSection($event)"
+    ></app-section-tab>
   </mat-tab>
 </mat-tab-group>
