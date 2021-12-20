@@ -1,0 +1,92 @@
+<mat-card>
+  <mat-form-field class="full-width-input">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+      <input matStartDate formControlName="from" placeholder="Start date" />
+      <input
+        matEndDate
+        formControlName="to"
+        placeholder="End date"
+        (dateInput)="onDateRangeSubmit()"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="form.controls['from'].hasError('matStartDateInvalid')"
+      >Invalid start date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['to'].hasError('matEndDateInvalid')"
+      >Invalid end date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['from'].hasError('required')"
+      >Please provide start date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['to'].hasError('required')"
+      >Please provide end date.</mat-error
+    >
+  </mat-form-field>
+</mat-card>
+
+<mat-tab-group>
+  <mat-tab label="Dashboard"
+    ><mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'bar'"
+          [data]="cumulativeData"
+          [labels]="cumulativeLabels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="salaryExpensesData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="orderIncomesData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="orderCostsData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
+  <mat-tab label="Cumulative">
+    <app-report-chart
+      [type]="'bar'"
+      [data]="cumulativeData"
+      [labels]="cumulativeLabels"
+    ></app-report-chart>
+  </mat-tab>
+  <mat-tab label="Salary expenses">
+    <app-report-chart
+      [type]="'line'"
+      [data]="salaryExpensesData"
+      [labels]="labels"
+    ></app-report-chart>
+  </mat-tab>
+  <mat-tab label="Order incomes">
+    <app-report-chart
+      [type]="'line'"
+      [data]="orderIncomesData"
+      [labels]="labels"
+    ></app-report-chart>
+  </mat-tab>
+  <mat-tab label="Order costs">
+    <app-report-chart
+      [type]="'line'"
+      [data]="orderCostsData"
+      [labels]="labels"
+    ></app-report-chart>
+  </mat-tab>
+</mat-tab-group>
