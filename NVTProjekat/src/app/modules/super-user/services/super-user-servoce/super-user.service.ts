@@ -36,7 +36,7 @@ export class SuperUserService {
   }
 
   update(id: number, request: UpdateSuperUserRequest): Observable<void> {
-    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}`, request);
+    return this.http.put<void>(`${environment.basePath}/api/super-users/${id}`, request);
   }
 
   updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {
@@ -44,7 +44,7 @@ export class SuperUserService {
   }
 
   updatePassword(id: number, request: UpdatePasswordRequest): Observable<void> {
-    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/password`, request);
+    return this.http.put<void>(`${environment.basePath}/api/super-users/${id}/password`, request);
   }
 
   delete(id: number): Observable<void> {
