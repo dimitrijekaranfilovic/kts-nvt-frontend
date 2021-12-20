@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
+import { environment } from 'src/environments/environment';
 import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
 import { CreateSuperUserResponse } from '../../types/CreateSuperUserResponse';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
@@ -20,11 +21,11 @@ export class SuperUserService {
   ) { }
 
   create(request: CreateSuperUserRequest): Observable<CreateSuperUserResponse> {
-    return this.http.post<CreateSuperUserResponse>(`http://localhost:8081/api/super-users`, request);
+    return this.http.post<CreateSuperUserResponse>(`${environment.basePath}/api/super-users`, request);
   }
 
   read(page: number, size: number, params: ReadSuperusersRequest): Observable<PaginatedResponse<ReadSuperUsersResponse>> {
-    return this.http.get<PaginatedResponse<ReadSuperUsersResponse>>(`http://localhost:8081/api/super-users`, {
+    return this.http.get<PaginatedResponse<ReadSuperUsersResponse>>(`${environment.basePath}/api/super-users`, {
       params: {
         ...params,
         page: page,
@@ -39,7 +40,7 @@ export class SuperUserService {
   }
 
   updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {
-    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/salary`, request);
+    return this.http.put<void>(`${environment.basePath}/api/super-users/${id}/salary`, request);
   }
 
   updatePassword(id: number, request: UpdatePasswordRequest): Observable<void> {
@@ -47,6 +48,6 @@ export class SuperUserService {
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:8081/api/super-users/${id}`);
+    return this.http.delete<void>(`${environment.basePath}/api/super-users/${id}`);
   }
 }
