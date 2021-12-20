@@ -24,4 +24,21 @@ export class OrderService {
 
     return this.httpClient.put(url, { pin });
   }
+
+  deleteOrderItemGroup(
+    orderId: number,
+    orderItemGroupId: number,
+    pin: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/groups/${orderItemGroupId}`;
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        pin: pin,
+      },
+    };
+    return this.httpClient.delete(url, options);
+  }
 }

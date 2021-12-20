@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { OrderGroupItem } from '../../types/OrderGroupItem';
 import { OrderItem } from '../../types/OrderItem';
 
@@ -11,8 +11,13 @@ export class OrderGroupItemComponent implements OnInit {
   @Input() index: number = 0;
   @Input() orderItem!: OrderGroupItem;
   @Input() orderGroupStatus: string = 'NEW';
+  @Output() public onItemDeleted = new EventEmitter<OrderGroupItem>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  deleteItem(): void {
+    this.onItemDeleted.emit(this.orderItem);
+  }
 }

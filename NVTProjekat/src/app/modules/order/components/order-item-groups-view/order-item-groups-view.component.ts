@@ -45,6 +45,26 @@ export class OrderItemGroupsViewComponent implements OnInit {
       });
   }
 
+  deleteGroup(group: OrderItemGroup, pin: string): void {
+    this.orderService
+      .deleteOrderItemGroup(this.orderId, group.id, pin)
+      .subscribe({
+        next: () => {
+          this.orderItemGroups = this.orderItemGroups.filter(
+            (item) => item.id !== group.id
+          );
+          this.toast(`${group.name} successfully deleted.`);
+        },
+        error: (error) => {
+          let message = error.error.errors[Object.keys(error.error.errors)[0]];
+          if (message === undefined) {
+            message = error.error.message;
+          }
+          this.toast(message);
+        },
+      });
+  }
+
   toast(message: string) {
     this.snackBar.open(message, 'Dismiss', {
       duration: 5000,
@@ -52,7 +72,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
     });
   }
 
-  openDialog(group: OrderItemGroup): void {
+  openDialog(group: OrderItemGroup, action: string): void {
     const dialogRef = this.dialog.open(PinModalComponent, {
       width: '250px',
       data: { pin: this.pin },
@@ -62,8 +82,8 @@ export class OrderItemGroupsViewComponent implements OnInit {
       if (result.event === 'CANCEL') {
         return;
       }
-
-      this.sendGroup(group, result);
+      if (action === 'SEND') this.sendGroup(group, result);
+      else if (action === 'DELETE') this.deleteGroup(group, result);
     });
   }
 }

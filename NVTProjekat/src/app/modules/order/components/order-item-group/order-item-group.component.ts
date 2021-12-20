@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { OrderService } from '../../services/order.service';
+import { OrderGroupItem } from '../../types/OrderGroupItem';
 import { OrderItemGroup } from '../../types/OrderItemGroup';
 
 @Component({
@@ -9,8 +11,9 @@ import { OrderItemGroup } from '../../types/OrderItemGroup';
 export class OrderItemGroupComponent implements OnInit {
   @Input() group!: OrderItemGroup;
   @Output() public onGroupSent = new EventEmitter<OrderItemGroup>();
+  @Output() public onGroupDeleted = new EventEmitter<OrderItemGroup>();
 
-  constructor() {}
+  constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {}
 
@@ -34,5 +37,11 @@ export class OrderItemGroupComponent implements OnInit {
 
   handleSendGroupButtonClick(): void {
     this.onGroupSent.emit(this.group);
+  }
+
+  deleteOrderItem(orderItem: OrderGroupItem): void {}
+
+  deleteOrderItemGroup(): void {
+    this.onGroupDeleted.emit(this.group);
   }
 }

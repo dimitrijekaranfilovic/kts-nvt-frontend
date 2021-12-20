@@ -17,6 +17,7 @@
         mat-icon-button
         [matTooltip]="getGroupTooltip()"
         [disabled]="group.status !== 'NEW'"
+        (click)="deleteOrderItemGroup()"
       >
         <mat-icon
           aria-hidden="false"
@@ -40,5 +41,6 @@
     [orderItem]="item"
     [index]="i"
     [orderGroupStatus]="group.status"
+    (onItemDeleted)="deleteOrderItem(item)"
   ></app-order-group-item>
 </div>

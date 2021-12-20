@@ -1,7 +1,3 @@
-<!-- <p>{{ index + 1 }}. {{ orderItem.itemItemName }}</p> -->
-
-<!-- <p>{{ index + 1 }}. {{ orderItem.itemItemName }}</p> -->
-
 <mat-grid-list cols="6" rowHeight="4:1" class="order-group-item">
   <mat-grid-tile colspan="1" rowspan="1" class="order-group-item-index">{{
     index + 1
@@ -27,6 +23,7 @@
       color="warn"
       *ngIf="orderGroupStatus === 'NEW'"
       matTooltip="Delete item"
+      (click)="deleteItem()"
     >
       <mat-icon>delete_forever</mat-icon>
     </button>
