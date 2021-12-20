@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { ReportService } from '../../services/report-service/report.service';
+import { ReadReportsRequest } from '../../types/ReadReportsRequest';
+import { ReadReportsResponse } from '../../types/ReadReportsResponse';
 
 @Component({
   selector: 'app-report-page',
@@ -8,25 +12,66 @@ import { Color, Label } from 'ng2-charts';
   styleUrls: ['./report-page.component.scss']
 })
 export class ReportPageComponent {
-  public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-  ];
-  public lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  public lineChartOptions: (ChartOptions & { annotation?: any }) = {
+  lineChartData: ChartDataSets[] = [];
+  lineChartLabels: Label[] = [];
+  lineChartOptions: (ChartOptions & { annotation?: any }) = {
     responsive: true,
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true
+          }
+        }
+      ]
+    }
   };
-  public lineChartColors: Color[] = [
+  lineChartColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: '#3f51b5',
+      backgroundColor: 'rgba(63, 81, 181, 0.3)',
     },
   ];
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-  public lineChartPlugins = [];
+  lineChartLegend = true;
+  lineChartType = 'line';
+  lineChartPlugins = [];
 
-  constructor() { }
+  form: FormGroup;
+  reportData: ReadReportsResponse = { values: [], labels: [] }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private reportService: ReportService
+  ) {
+    this.form = this.formBuilder.group({
+      from: [new Date(new Date().getTime() - 30 * 24 * 60 * 60 * 1000), Validators.required],
+      to: [new Date(), Validators.required]
+    })
+  }
 
   ngOnInit() {
+    this.fetchData();
+  }
+
+  onDateRangeSubmit(): void {
+    if (!this.form.valid) {
+      return;
+    }
+    this.fetchData();
+  }
+
+  fetchData(): void {
+    const request: ReadReportsRequest = {
+      from: this.form.value.from.toISOString().slice(0, 10),
+      to: this.form.value.to.toISOString().slice(0, 10)
+    };
+    this.reportService.readOrderIncomes(request).subscribe(response => {
+      console.log(response);
+      this.lineChartData = [{
+        data: response.values,
+        label: 'Salary expenses'
+      }];
+      this.lineChartLabels = response.labels;
+    });
   }
 }

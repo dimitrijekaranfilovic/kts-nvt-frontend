@@ -1,12 +1,91 @@
-<div style="display: block;">
-    <canvas baseChart width="400" height="400"
-      [datasets]="lineChartData"
-      [labels]="lineChartLabels"
-      [options]="lineChartOptions"
-      [colors]="lineChartColors"
-      [legend]="lineChartLegend"
-      [chartType]="'line'"
-      [plugins]="lineChartPlugins">
-    </canvas>
-  </div>
-  
+<mat-card>
+  <mat-form-field class="full-width-input">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+      <input matStartDate formControlName="from" placeholder="Start date" />
+      <input
+        matEndDate
+        formControlName="to"
+        placeholder="End date"
+        (dateInput)="onDateRangeSubmit()"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+
+    <mat-error *ngIf="form.controls['from'].hasError('matStartDateInvalid')"
+      >Invalid start date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['to'].hasError('matEndDateInvalid')"
+      >Invalid end date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['from'].hasError('required')"
+      >Please provide start date.</mat-error
+    >
+    <mat-error *ngIf="form.controls['to'].hasError('required')"
+      >Please provide end date.</mat-error
+    >
+  </mat-form-field>
+</mat-card>
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="'bar'"
+        [plugins]="lineChartPlugins"
+      >
+      </canvas>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="'line'"
+        [plugins]="lineChartPlugins"
+      >
+      </canvas>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="'line'"
+        [plugins]="lineChartPlugins"
+      >
+      </canvas>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div style="display: block">
+      <canvas
+        baseChart
+        [datasets]="lineChartData"
+        [labels]="lineChartLabels"
+        [options]="lineChartOptions"
+        [colors]="lineChartColors"
+        [legend]="lineChartLegend"
+        [chartType]="'line'"
+        [plugins]="lineChartPlugins"
+      >
+      </canvas>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

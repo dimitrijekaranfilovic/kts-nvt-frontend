@@ -8,6 +8,6 @@ export const ReportRoutes: Routes = [
         pathMatch: "full",
         component: ReportPageComponent,
         canActivate: [RoleGuard],
-        data: { roles: ['ADMIN', 'MANAGER'] }
+        data: { roles: ['ADMIN'] }
     },
 ];
