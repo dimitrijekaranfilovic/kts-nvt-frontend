@@ -11,6 +11,6 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(auth: AuthRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>("http://localhost:8081/api/super-users/authenticate", auth);
+    return this.http.post<AuthResponse>("backend/api/super-users/authenticate", auth);
   }
 }

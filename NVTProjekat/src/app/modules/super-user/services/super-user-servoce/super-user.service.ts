@@ -18,11 +18,11 @@ export class SuperUserService {
   ) { }
 
   create(request: CreateSuperUserRequest): Observable<CreateSuperUserResponse> {
-    return this.http.post<CreateSuperUserResponse>(`http://localhost:8081/api/super-users`, request);
+    return this.http.post<CreateSuperUserResponse>(`backend/api/super-users`, request);
   }
 
   read(page: number, size: number, params: ReadSuperusersRequest): Observable<PaginatedResponse<ReadSuperUsersResponse>> {
-    return this.http.get<PaginatedResponse<ReadSuperUsersResponse>>(`http://localhost:8081/api/super-users`, {
+    return this.http.get<PaginatedResponse<ReadSuperUsersResponse>>(`backend/api/super-users`, {
       params: {
         ...params,
         page: page,
@@ -33,10 +33,10 @@ export class SuperUserService {
   }
 
   updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {
-    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/salary`, request);
+    return this.http.put<void>(`backend/api/super-users/${id}/salary`, request);
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`http://localhost:8081/api/super-users/${id}`);
+    return this.http.delete<void>(`backend/api/super-users/${id}`);
   }
 }
