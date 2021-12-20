@@ -4,6 +4,7 @@
   <app-order-item-group
     *ngFor="let group of orderItemGroups"
     [group]="group"
+    (onGroupSent)="openDialog(group)"
   ></app-order-item-group>
 </div>
 <div *ngIf="orderItemGroups.length === 0">

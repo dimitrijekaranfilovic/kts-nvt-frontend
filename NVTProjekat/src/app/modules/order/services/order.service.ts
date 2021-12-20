@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderItemGroup } from '../types/OrderItemGroup';
@@ -13,5 +13,15 @@ export class OrderService {
   getOrderItemGroups(orderId: number): Observable<OrderItemGroup[]> {
     const url = `${this.baseUrl}/${orderId}/groups`;
     return this.httpClient.get<OrderItemGroup[]>(url);
+  }
+
+  sendOrderItemGroup(
+    orderId: number,
+    orderItemGroupId: number,
+    pin: string
+  ): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/groups/${orderItemGroupId}`;
+
+    return this.httpClient.put(url, { pin });
   }
 }

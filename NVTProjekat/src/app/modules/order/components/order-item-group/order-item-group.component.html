@@ -8,6 +8,7 @@
         [disabled]="group.status !== 'NEW'"
         mat-raised-button
         color="primary"
+        (click)="handleSendGroupButtonClick()"
       >
         Send group
       </button>
@@ -25,6 +26,13 @@
         >
       </button>
     </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="6" rowHeight="4:1" class="order-item-group-header">
+    <mat-grid-tile colspan="1"><strong>Item index</strong></mat-grid-tile>
+    <mat-grid-tile colspan="2"><strong>Item name</strong></mat-grid-tile>
+    <mat-grid-tile colspan="1"><strong>Amount</strong></mat-grid-tile>
+    <mat-grid-tile colspan="2"><strong>Actions</strong></mat-grid-tile>
   </mat-grid-list>
 
   <app-order-group-item

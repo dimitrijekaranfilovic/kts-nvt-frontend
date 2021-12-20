@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { OrderItemGroup } from '../../types/OrderItemGroup';
 
 @Component({
@@ -8,6 +8,7 @@ import { OrderItemGroup } from '../../types/OrderItemGroup';
 })
 export class OrderItemGroupComponent implements OnInit {
   @Input() group!: OrderItemGroup;
+  @Output() public onGroupSent = new EventEmitter<OrderItemGroup>();
 
   constructor() {}
 
@@ -29,5 +30,9 @@ export class OrderItemGroupComponent implements OnInit {
     if (this.group.status === 'NEW') return 'Delete group';
     else if (this.group.status === 'SENT') return 'Group pending';
     else return 'Group prepared';
+  }
+
+  handleSendGroupButtonClick(): void {
+    this.onGroupSent.emit(this.group);
   }
 }
