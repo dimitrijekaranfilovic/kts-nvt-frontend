@@ -29,63 +29,31 @@
 </mat-card>
 <mat-grid-list cols="2" rowHeight="2:1">
   <mat-grid-tile>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [datasets]="lineChartData"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        [colors]="lineChartColors"
-        [legend]="lineChartLegend"
-        [chartType]="'bar'"
-        [plugins]="lineChartPlugins"
-      >
-      </canvas>
-    </div>
+    <app-report-chart
+      [type]="'bar'"
+      [data]="cumulativeData"
+      [labels]="cumulativeLabels"
+    ></app-report-chart>
   </mat-grid-tile>
   <mat-grid-tile>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [datasets]="lineChartData"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        [colors]="lineChartColors"
-        [legend]="lineChartLegend"
-        [chartType]="'line'"
-        [plugins]="lineChartPlugins"
-      >
-      </canvas>
-    </div>
+    <app-report-chart
+      [type]="'line'"
+      [data]="salaryExpensesData"
+      [labels]="labels"
+    ></app-report-chart>
   </mat-grid-tile>
   <mat-grid-tile>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [datasets]="lineChartData"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        [colors]="lineChartColors"
-        [legend]="lineChartLegend"
-        [chartType]="'line'"
-        [plugins]="lineChartPlugins"
-      >
-      </canvas>
-    </div>
+    <app-report-chart
+      [type]="'line'"
+      [data]="orderIncomesData"
+      [labels]="labels"
+    ></app-report-chart>
   </mat-grid-tile>
   <mat-grid-tile>
-    <div style="display: block">
-      <canvas
-        baseChart
-        [datasets]="lineChartData"
-        [labels]="lineChartLabels"
-        [options]="lineChartOptions"
-        [colors]="lineChartColors"
-        [legend]="lineChartLegend"
-        [chartType]="'line'"
-        [plugins]="lineChartPlugins"
-      >
-      </canvas>
-    </div>
+    <app-report-chart
+      [type]="'line'"
+      [data]="orderCostsData"
+      [labels]="labels"
+    ></app-report-chart>
   </mat-grid-tile>
 </mat-grid-list>

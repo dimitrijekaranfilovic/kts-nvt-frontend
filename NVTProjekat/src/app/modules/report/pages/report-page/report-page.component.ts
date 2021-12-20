@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { catchError, map, Observable } from 'rxjs';
 import { ReportService } from '../../services/report-service/report.service';
 import { ReadReportsRequest } from '../../types/ReadReportsRequest';
 import { ReadReportsResponse } from '../../types/ReadReportsResponse';
@@ -12,29 +13,12 @@ import { ReadReportsResponse } from '../../types/ReadReportsResponse';
   styleUrls: ['./report-page.component.scss']
 })
 export class ReportPageComponent {
-  lineChartData: ChartDataSets[] = [];
-  lineChartLabels: Label[] = [];
-  lineChartOptions: (ChartOptions & { annotation?: any }) = {
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true
-          }
-        }
-      ]
-    }
-  };
-  lineChartColors: Color[] = [
-    {
-      borderColor: '#3f51b5',
-      backgroundColor: 'rgba(63, 81, 181, 0.3)',
-    },
-  ];
-  lineChartLegend = true;
-  lineChartType = 'line';
-  lineChartPlugins = [];
+  cumulativeData: ChartDataSets[] = [];
+  cumulativeLabels: Label[] = ['Salary expenses', 'Order incomes', 'Order costs'];
+  salaryExpensesData: ChartDataSets[] = [];
+  orderIncomesData: ChartDataSets[] = [];
+  orderCostsData: ChartDataSets[] = [];
+  labels: Label[] = []
 
   form: FormGroup;
   reportData: ReadReportsResponse = { values: [], labels: [] }
@@ -65,13 +49,20 @@ export class ReportPageComponent {
       from: this.form.value.from.toISOString().slice(0, 10),
       to: this.form.value.to.toISOString().slice(0, 10)
     };
-    this.reportService.readOrderIncomes(request).subscribe(response => {
-      console.log(response);
-      this.lineChartData = [{
-        data: response.values,
-        label: 'Salary expenses'
-      }];
-      this.lineChartLabels = response.labels;
-    });
+    this.reportService.readSalaryExpenses(request).subscribe(salaryResponse => {
+      this.salaryExpensesData = [{ data: salaryResponse.values, label: 'Salary expenses' }];
+      this.labels = salaryResponse.labels;
+      const totalSalary = salaryResponse.values.reduce((x, y) => x + y, 0);
+      this.reportService.readOrderIncomes(request).subscribe(incomeResponse => {
+        this.orderIncomesData = [{ data: incomeResponse.values, label: 'Order incomes' }];
+        const totalOrderIncomes = incomeResponse.values.reduce((x, y) => x + y, 0);
+        this.reportService.readOrderCosts(request).subscribe(costResponse => {
+          this.orderCostsData = [{ data: costResponse.values, label: 'Order costs' }];
+          const totalOrderCosts = costResponse.values.reduce((x, y) => x + y, 0);
+          this.cumulativeData = [{ data: [totalSalary, totalOrderIncomes, totalOrderCosts], label: 'Cumulative data' }];
+        })
+      })
+    })
   }
+
 }

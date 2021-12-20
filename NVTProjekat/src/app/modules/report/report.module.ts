@@ -5,12 +5,14 @@ import { ReportRoutes } from './report.routes';
 import { ReportPageComponent } from './pages/report-page/report-page.component';
 import { MaterialModule } from 'src/app/material.module';
 import { ChartsModule } from 'ng2-charts';
+import { ReportChartComponent } from './components/report-chart/report-chart.component';
 
 
 
 @NgModule({
   declarations: [
-    ReportPageComponent
+    ReportPageComponent,
+    ReportChartComponent
   ],
   imports: [
     CommonModule,
