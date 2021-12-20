@@ -19,7 +19,7 @@ export class CreateUpdateSectionDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateUpdateSectionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public section: ReadSectionResponse
   ) {
-    this.isCreate = section.id !== 0;
+    this.isCreate = section.id === 0;
     this.form = this.formBuilder.group({
       name: [section.name, Validators.required]
     });
