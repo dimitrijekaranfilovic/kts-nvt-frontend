@@ -27,6 +27,9 @@
     <span class="link" *ngIf="loggedIn"
       ><a mat-button routerLink="/reports">Reports</a></span
     >
+    <span class="link" *ngIf="isAdmin"
+      ><a mat-button routerLink="/sections">Sections</a></span
+    >
     <span class="link" *ngIf="!loggedIn"
       ><a mat-button routerLink="/auth/login">Login</a></span
     >
