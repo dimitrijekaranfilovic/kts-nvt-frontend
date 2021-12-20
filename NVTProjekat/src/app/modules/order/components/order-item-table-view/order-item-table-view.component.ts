@@ -17,7 +17,7 @@ export class OrderItemTableViewComponent implements OnInit {
   @Input() itemType: string = "";
 
   displayedColumns: string[] = ['item', 'amount', 'sentAt', 'takenAt', 'takenBy','action1', 'action2'];
-  dataSource = new MatTableDataSource<OrderItem>();
+  dataSource!: MatTableDataSource<OrderItem>;
   pageNum: number = 0;
   pageSize: number = 0;
   totalPages: number = 0;
