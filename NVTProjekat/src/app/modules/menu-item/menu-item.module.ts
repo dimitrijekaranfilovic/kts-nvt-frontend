@@ -10,9 +10,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { AddMenuItemToExistingGroupDialogComponent } from './components/add-menu-item-to-existing-group-dialog/add-menu-item-to-existing-group-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [MenuItemCardComponent, WaiterMenuItemsDisplayComponent],
+  declarations: [
+    MenuItemCardComponent,
+    WaiterMenuItemsDisplayComponent,
+    AddMenuItemToExistingGroupDialogComponent,
+  ],
   imports: [
     CommonModule,
     MatCardModule,
@@ -23,6 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatInputModule,
     FormsModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   exports: [WaiterMenuItemsDisplayComponent],
 })

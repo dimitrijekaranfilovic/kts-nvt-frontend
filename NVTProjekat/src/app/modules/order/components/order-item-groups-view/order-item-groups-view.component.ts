@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo';
+import { OrderItemServiceService } from '../../services/order-item-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-item-groups-view',
@@ -16,12 +18,22 @@ export class OrderItemGroupsViewComponent implements OnInit {
   @Output() onGroupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
   public orderItemGroups: OrderItemGroup[] = [];
   private pin: string = '';
+  private orderItemAddedSubscription!: Subscription;
 
   constructor(
     private orderService: OrderService,
+    private orderItemService: OrderItemServiceService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.orderItemAddedSubscription = this.orderItemService
+      .onOrderItemAdded()
+      .subscribe((value) => {
+        this.orderItemGroups
+          .find((item) => item.id === value.groupId)
+          ?.orderItems.push(value.orderItem);
+      });
+  }
 
   ngOnInit(): void {
     this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {

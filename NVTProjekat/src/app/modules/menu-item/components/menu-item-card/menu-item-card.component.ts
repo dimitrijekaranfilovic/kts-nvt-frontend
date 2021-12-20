@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { OrderItemGroupReducedInfo } from 'src/app/modules/order/types/OrderItemGroupReducedInfo';
+import { AddMenuItemToExistingGroup } from '../../types/AddMenuItemToExistingGroup';
 import { MenuItem } from '../../types/MenuItem';
 @Component({
   selector: 'app-menu-item-card',
@@ -9,12 +10,17 @@ import { MenuItem } from '../../types/MenuItem';
 export class MenuItemCardComponent implements OnInit {
   @Input() menuItem!: MenuItem;
   @Input() groups: OrderItemGroupReducedInfo[] = [];
+  @Output() onMenuItemAdded = new EventEmitter<AddMenuItemToExistingGroup>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  checkGroups(): void {
-    console.log(this.groups);
+  addMenuItem(group: OrderItemGroupReducedInfo): void {
+    const data: AddMenuItemToExistingGroup = {
+      menuItemId: this.menuItem.id,
+      groupdId: group.id,
+    };
+    this.onMenuItemAdded.emit(data);
   }
 }

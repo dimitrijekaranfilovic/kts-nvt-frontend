@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { TakeOrderItemRequest } from '../types/TakeOrderItemRequest';
 import { EventEmitter } from '@angular/core';
+import { AddOrderItem } from '../types/AddOrderItem';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderItemServiceService {
   updateTable: EventEmitter<any> = new EventEmitter();
+  addOrderItemSubject = new Subject<any>();
 
   constructor(private http: HttpClient) {}
 
@@ -60,5 +62,28 @@ export class OrderItemServiceService {
       pin: pin,
       amount: newAmount,
     });
+  }
+
+  addOrderItem(
+    orderItemGroupId: number,
+    menuItemId: number,
+    amount: number,
+    pin: string
+  ): Observable<any> {
+    const url = `http://localhost:8081/api/order-items`;
+    return this.http.post(url, {
+      orderItemGroupId,
+      menuItemId,
+      amount,
+      pin,
+    });
+  }
+
+  emitAddOrderItemSubject(event: AddOrderItem): void {
+    this.addOrderItemSubject.next(event);
+  }
+
+  onOrderItemAdded(): Observable<any> {
+    return this.addOrderItemSubject.asObservable();
   }
 }

@@ -13,6 +13,7 @@
       <app-menu-item-card
         [menuItem]="item"
         [groups]="groups"
+        (onMenuItemAdded)="openAddItemToExistingGroupDialog($event)"
       ></app-menu-item-card>
     </mat-grid-tile>
   </mat-grid-list>
