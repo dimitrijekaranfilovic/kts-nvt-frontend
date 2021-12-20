@@ -11,6 +11,7 @@ import { OrderModule } from './modules/order/order.module';
 import { RootModule } from './modules/root/root.module';
 import { MaterialModule } from './material.module';
 import { SuperUserModule } from './modules/super-user/super-user.module';
+import { ReportModule } from './modules/report/report.module';
 
 @NgModule({
   declarations: [
@@ -24,10 +25,11 @@ import { SuperUserModule } from './modules/super-user/super-user.module';
     MaterialModule,
     EmployeeModule,
     SuperUserModule,
+    ReportModule,
     AuthModule,
     SharedModule,
     OrderModule,
-    RootModule
+    RootModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import("./modules/super-user/super-user.module").then(m => m.SuperUserModule)
       },
       {
+        path: "reports",
+        loadChildren: () => import("./modules/report/report.module").then(m => m.ReportModule)
+      },
+      {
         path: "chef",
         component: ChefPageComponent,
         pathMatch: "full"
