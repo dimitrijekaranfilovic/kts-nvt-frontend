@@ -27,33 +27,66 @@
     >
   </mat-form-field>
 </mat-card>
-<mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>
+
+<mat-tab-group>
+  <mat-tab label="Dashboard"
+    ><mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'bar'"
+          [data]="cumulativeData"
+          [labels]="cumulativeLabels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="salaryExpensesData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="orderIncomesData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <app-report-chart
+          [type]="'line'"
+          [data]="orderCostsData"
+          [labels]="labels"
+        ></app-report-chart>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-tab>
+  <mat-tab label="Cumulative">
     <app-report-chart
       [type]="'bar'"
       [data]="cumulativeData"
       [labels]="cumulativeLabels"
     ></app-report-chart>
-  </mat-grid-tile>
-  <mat-grid-tile>
+  </mat-tab>
+  <mat-tab label="Salary expenses">
     <app-report-chart
       [type]="'line'"
       [data]="salaryExpensesData"
       [labels]="labels"
     ></app-report-chart>
-  </mat-grid-tile>
-  <mat-grid-tile>
+  </mat-tab>
+  <mat-tab label="Order incomes">
     <app-report-chart
       [type]="'line'"
       [data]="orderIncomesData"
       [labels]="labels"
     ></app-report-chart>
-  </mat-grid-tile>
-  <mat-grid-tile>
+  </mat-tab>
+  <mat-tab label="Order costs">
     <app-report-chart
       [type]="'line'"
       [data]="orderCostsData"
       [labels]="labels"
     ></app-report-chart>
-  </mat-grid-tile>
-</mat-grid-list>
+  </mat-tab>
+</mat-tab-group>
