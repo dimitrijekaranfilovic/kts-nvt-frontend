@@ -1,7 +1,8 @@
 {
-	"/api":{
+	"/backend/*":{
 		"target": "http://localhost:8081",
 		"secure": false,
-		"pathRewrite": {"^/api" : ""}
+		"pathRewrite": {"^/backend" : ""},
+		"logLevel": "debug"
 	}
 }
