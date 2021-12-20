@@ -1,8 +1,12 @@
 <div class="container">
   <div>
-    <button mat-flat-button color="primary" (click)="updateSection()">Update section</button>
+    <button mat-flat-button color="primary" (click)="updateSection()">
+      Update section
+    </button>
     <button mat-flat-button color="primary">Add new table</button>
-    <button mat-flat-button color="primary">Delete section</button>
+    <button mat-flat-button color="primary" (click)="deleteSection()">
+      Delete section
+    </button>
   </div>
   <p>HERE WILL GO SEATING LAYOUT FOR SECTION: {{ section.name }}</p>
 </div>

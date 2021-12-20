@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { SectionService } from '../../services/section-service/section.service';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
@@ -18,12 +19,14 @@ export class SectionTabsViewComponent implements OnInit {
   constructor(
     private sectionService: SectionService,
     private dialogService: MatDialog,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
     this.sectionService.read().subscribe(response => {
       this.sections = response;
+      this.sections.sort((s1, s2) => s1.id - s2.id);
     })
   }
 
@@ -56,8 +59,17 @@ export class SectionTabsViewComponent implements OnInit {
     });
   }
 
-  removeTab(index: number): void {
-    this.sections.splice(index, 1);
+  onDeleteSection(section: ReadSectionResponse): void {
+    this.confirmationService.confirm({
+      title: 'Delete section',
+      message: `Are you sure you want to delete section '${section.name}'?`
+    }).subscribe(confirmation => {
+      if (confirmation) {
+        this.sectionService.delete(section.id).subscribe({
+          next: _ => this.sections = this.sections.filter(s => s.id !== section.id),
+          error: err => this.errorService.handle(err)
+        })
+      }
+    })
   }
-
 }

@@ -27,4 +27,8 @@ export class SectionService {
   update(id: number, request: UpdateSectionRequest): Observable<void> {
     return this.http.put<void>(`${environment.basePath}/api/sections/${id}`, request);
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${environment.basePath}/api/sections/${id}`);
+  }
 }

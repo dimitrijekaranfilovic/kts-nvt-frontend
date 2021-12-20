@@ -11,6 +11,8 @@ export class SectionTabComponent implements OnInit {
   section!: ReadSectionResponse;
   @Output()
   onUpdateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
+  @Output()
+  onDeleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
 
   constructor() { }
 
@@ -19,6 +21,10 @@ export class SectionTabComponent implements OnInit {
 
   updateSection(): void {
     this.onUpdateSection.emit(this.section);
+  }
+
+  deleteSection(): void {
+    this.onDeleteSection.emit(this.section);
   }
 
 }
