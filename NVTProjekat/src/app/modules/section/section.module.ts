@@ -5,13 +5,17 @@ import { SectionRoutes } from './section.routes';
 import { MaterialModule } from 'src/app/material.module';
 import { SectionsPageComponent } from './pages/sections-page/sections-page.component';
 import { SectionTabsViewComponent } from './components/section-tabs-view/section-tabs-view.component';
+import { SectionTabComponent } from './components/section-tab/section-tab.component';
+import { CreateUpdateSectionDialogComponent } from './components/create-update-section-dialog/create-update-section-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     SectionsPageComponent,
-    SectionTabsViewComponent
+    SectionTabsViewComponent,
+    SectionTabComponent,
+    CreateUpdateSectionDialogComponent
   ],
   imports: [
     CommonModule,

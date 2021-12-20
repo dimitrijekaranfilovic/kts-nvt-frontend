@@ -1,8 +1,16 @@
+<div>
+  <button mat-flat-button color="primary" (click)="onCreateSection()">
+    Create new section
+  </button>
+</div>
 <mat-tab-group
   [selectedIndex]="selected.value"
   (selectedIndexChange)="selected.setValue($event)"
 >
-  <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab.name">
-    <p>HERE WILL GO SEATING LAYOUT FOR SECTION: {{ tab.name }}</p>
+  <mat-tab
+    *ngFor="let section of sections; let index = index"
+    [label]="section.name"
+  >
+    <app-section-tab [section]="section"></app-section-tab>
   </mat-tab>
 </mat-tab-group>
