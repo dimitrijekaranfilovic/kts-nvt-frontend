@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>{{ isCreate ? "Create" : "Update" }} section</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Section name"
+        formControlName="name"
+        required
+      />
+      <mat-error> Please provide a valid section name. </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="basic"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      [disabled]="!form.valid"
+      color="primary"
+      type="submit"
+    >
+      Save changes
+    </button>
+  </div>
+</form>
