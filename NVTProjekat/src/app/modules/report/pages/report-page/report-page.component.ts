@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, Label } from 'ng2-charts';
-import { catchError, map, Observable } from 'rxjs';
+import { ChartDataSets } from 'chart.js';
+import * as moment from 'moment';
+import { Label } from 'ng2-charts';
 import { ReportService } from '../../services/report-service/report.service';
 import { ReadReportsRequest } from '../../types/ReadReportsRequest';
 import { ReadReportsResponse } from '../../types/ReadReportsResponse';
@@ -46,8 +46,8 @@ export class ReportPageComponent {
 
   fetchData(): void {
     const request: ReadReportsRequest = {
-      from: this.form.value.from.toISOString().slice(0, 10),
-      to: this.form.value.to.toISOString().slice(0, 10)
+      from: moment(this.form.value.from).format('yyy-MM-DD'),
+      to: moment(this.form.value.to).format('yyy-MM-DD')
     };
     this.reportService.readSalaryExpenses(request).subscribe(salaryResponse => {
       this.salaryExpensesData = [{ data: salaryResponse.values, label: 'Salary expenses' }];
