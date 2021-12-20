@@ -6,6 +6,7 @@ import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
 import { CreateSuperUserResponse } from '../../types/CreateSuperUserResponse';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 import { ReadSuperUsersResponse } from '../../types/ReadSuperUsersResponse';
+import { UpdatePasswordRequest } from '../../types/UpdatePasswordRequest';
 import { UpdateSuperUserRequest } from '../../types/UpdateSuperUserRequest';
 import { UpdateSuperUserSalaryRequest } from '../../types/UpdateSuperUserSalaryRequest';
 
@@ -39,6 +40,10 @@ export class SuperUserService {
 
   updateSalary(id: number, request: UpdateSuperUserSalaryRequest): Observable<void> {
     return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/salary`, request);
+  }
+
+  updatePassword(id: number, request: UpdatePasswordRequest): Observable<void> {
+    return this.http.put<void>(`http://localhost:8081/api/super-users/${id}/password`, request);
   }
 
   delete(id: number): Observable<void> {

@@ -9,6 +9,7 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
 import { UpdateSuperUserSalaryDialogComponent } from './components/update-super-user-salary-dialog/update-super-user-salary-dialog.component';
 import { CreateSuperUserDialogComponent } from './components/create-super-user-dialog/create-super-user-dialog.component';
 import { UpdateProfilePageComponent } from './pages/update-profile-page/update-profile-page.component';
+import { UpdatePasswordPageComponent } from './pages/update-password-page/update-password-page.component';
 
 
 
@@ -19,7 +20,8 @@ import { UpdateProfilePageComponent } from './pages/update-profile-page/update-p
     SearchFormComponent,
     UpdateSuperUserSalaryDialogComponent,
     CreateSuperUserDialogComponent,
-    UpdateProfilePageComponent
+    UpdateProfilePageComponent,
+    UpdatePasswordPageComponent
   ],
   imports: [
     CommonModule,
