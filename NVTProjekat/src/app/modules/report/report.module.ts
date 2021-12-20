@@ -7,18 +7,13 @@ import { MaterialModule } from 'src/app/material.module';
 import { ChartsModule } from 'ng2-charts';
 import { ReportChartComponent } from './components/report-chart/report-chart.component';
 
-
-
 @NgModule({
-  declarations: [
-    ReportPageComponent,
-    ReportChartComponent
-  ],
+  declarations: [ReportPageComponent, ReportChartComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(ReportRoutes),
     MaterialModule,
-    ChartsModule
-  ]
+    ChartsModule,
+  ],
 })
-export class ReportModule { }
+export class ReportModule {}

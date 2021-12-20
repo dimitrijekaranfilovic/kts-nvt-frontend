@@ -113,4 +113,6 @@ export class OrderItemGroupsViewComponent implements OnInit {
       else if (action === 'DELETE') this.deleteGroup(group, result);
     });
   }
+
+  chargeOrder(): void {}
 }
