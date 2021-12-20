@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BartenderPageComponent } from './modules/order/pages/bartender-page/bartender-page.component';
 import { ChefPageComponent } from './modules/order/pages/chef-page/chef-page.component';
 import { LayoutComponent } from './modules/root/components/layout/layout.component';
+import { WaiterPageComponent } from './modules/waiter/pages/waiter-page/waiter-page.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
       {
         path: "bartender",
         component: BartenderPageComponent,
+        pathMatch: "full"
+      },
+      {
+        path: "waiter",
+        component: WaiterPageComponent,
         pathMatch: "full"
       }
     ]
