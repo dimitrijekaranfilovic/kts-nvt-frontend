@@ -22,6 +22,9 @@ import { OrderGroupItemComponent } from './components/order-group-item/order-gro
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { UpdateItemModalComponent } from './components/update-item-modal/update-item-modal.component';
+import { RouterModule } from '@angular/router';
+import { OrderRoutes } from './order.routes';
+import { MaterialModule } from 'src/app/material.module';
 
 @NgModule({
   declarations: [
@@ -38,18 +41,8 @@ import { UpdateItemModalComponent } from './components/update-item-modal/update-
   imports: [
     CommonModule,
     MenuItemModule,
-    MatTableModule,
-    MatPaginatorModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatSnackBarModule,
-    MatIconModule,
-    MatGridListModule,
-    MatTooltipModule,
+    MaterialModule,
+    RouterModule.forChild(OrderRoutes)
   ],
 })
 export class OrderModule {}
