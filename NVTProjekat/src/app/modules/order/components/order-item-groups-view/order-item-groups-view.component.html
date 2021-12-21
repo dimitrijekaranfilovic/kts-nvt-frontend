@@ -1,4 +1,7 @@
-<div class="empty"></div>
+<app-order-end
+  [groups]="orderItemGroups"
+  (onOrderStatusChanged)="openChangeOrderStatusDialog($event)"
+></app-order-end>
 
 <div class="order-item-group-view" *ngIf="orderItemGroups.length > 0">
   <app-order-item-group

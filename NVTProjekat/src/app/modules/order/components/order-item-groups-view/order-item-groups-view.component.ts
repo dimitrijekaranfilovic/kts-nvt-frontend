@@ -44,13 +44,16 @@ export class OrderItemGroupsViewComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {
       this.orderItemGroups = response;
-      const groups = this.orderItemGroups.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-        };
-      });
-      this.onGroupsLoaded.emit(groups);
+      this.onGroupsLoaded.emit(this.getReducedGroups());
+    });
+  }
+
+  getReducedGroups(): OrderItemGroupReducedInfo[] {
+    return this.orderItemGroups.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+      };
     });
   }
 
@@ -112,5 +115,53 @@ export class OrderItemGroupsViewComponent implements OnInit {
       if (action === 'SEND') this.sendGroup(group, result);
       else if (action === 'DELETE') this.deleteGroup(group, result);
     });
+  }
+
+  openChangeOrderStatusDialog(action: string): void {
+    const dialogRef = this.dialog.open(PinModalComponent, {
+      width: '250px',
+      data: { pin: this.pin },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.event === 'CANCEL') {
+        return;
+      }
+      if (action === 'CHARGE') {
+        this.orderService.chargeOrder(this.orderId, result).subscribe({
+          next: () => {
+            //TODO: ovdje vidi hoce li redirect na prethodnu stranicu
+            this.toast(`Order ${this.orderId} successfully charged.`);
+          },
+          error: (error) => {
+            let message =
+              error.error.errors[Object.keys(error.error.errors)[0]];
+            if (message === undefined) {
+              message = error.error.message;
+            }
+            this.toast(message);
+          },
+        });
+      } else if (action === 'CANCEL') {
+        this.orderService.cancelOrder(this.orderId, result).subscribe({
+          next: () => {
+            //TODO: ovdje vidi hoce li redirect na prethodnu stranicu
+            this.toast(`Order ${this.orderId} successfully cancelled.`);
+          },
+          error: (error) => {
+            let message =
+              error.error.errors[Object.keys(error.error.errors)[0]];
+            if (message === undefined) {
+              message = error.error.message;
+            }
+            this.toast(message);
+          },
+        });
+      }
+    });
+  }
+
+  changeOrderStatus(action: string) {
+    if (action === 'CHARGE') {
+    }
   }
 }

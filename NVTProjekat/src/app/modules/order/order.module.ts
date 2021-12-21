@@ -25,6 +25,7 @@ import { UpdateItemModalComponent } from './components/update-item-modal/update-
 import { RouterModule } from '@angular/router';
 import { OrderRoutes } from './order.routes';
 import { MaterialModule } from 'src/app/material.module';
+import { OrderEndComponent } from './components/order-end/order-end.component';
 
 @NgModule({
   declarations: [
@@ -37,12 +38,13 @@ import { MaterialModule } from 'src/app/material.module';
     OrderItemGroupsViewComponent,
     OrderGroupItemComponent,
     UpdateItemModalComponent,
+    OrderEndComponent,
   ],
   imports: [
     CommonModule,
     MenuItemModule,
     MaterialModule,
-    RouterModule.forChild(OrderRoutes)
+    RouterModule.forChild(OrderRoutes),
   ],
 })
 export class OrderModule {}

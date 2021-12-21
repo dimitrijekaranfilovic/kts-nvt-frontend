@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderService {
   private baseUrl: string = `${environment.basePath}/api/orders`;
+  private groupsUpdatedSubject = new Subject<any>();
   constructor(private httpClient: HttpClient) {}
   private orderItemGroupAddedSubject = new Subject<any>();
 
@@ -70,5 +71,15 @@ export class OrderService {
 
   onOrderItemGroupAdded(): Observable<any> {
     return this.orderItemGroupAddedSubject.asObservable();
+  }
+
+  chargeOrder(orderId: number, pin: string): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/charge`;
+    return this.httpClient.put(url, { pin });
+  }
+
+  cancelOrder(orderId: number, pin: string): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/cancel`;
+    return this.httpClient.put(url, { pin });
   }
 }
