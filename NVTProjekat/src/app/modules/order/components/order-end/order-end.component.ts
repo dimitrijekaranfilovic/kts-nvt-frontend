@@ -8,7 +8,7 @@ import { OrderItemGroup } from '../../types/OrderItemGroup';
 })
 export class OrderEndComponent implements OnInit {
   @Input() groups: OrderItemGroup[] = [];
-  @Output() onOrderCharged = new EventEmitter<any>();
+  @Output() onOrderStatusChanged = new EventEmitter<string>();
 
   constructor() {}
 
@@ -26,6 +26,7 @@ export class OrderEndComponent implements OnInit {
   }
 
   isOrderNew(): boolean {
+    //moze da se otkaze jedino ako nema grupa koje su SENT ili DONE
     return (
       this.groups.find(
         (item) => item.status === 'SENT' || item.status === 'DONE'
@@ -33,7 +34,15 @@ export class OrderEndComponent implements OnInit {
     );
   }
 
-  chargeOrder(): void {
-    this.onOrderCharged.emit();
+  isOrderDone(): boolean {
+    //moze da se naplati jedino ako su sve grupe DONE
+    return (
+      this.groups.filter((item) => item.status === 'DONE').length ===
+      this.groups.length
+    );
+  }
+
+  changeOrderStatus(action: string) {
+    this.onOrderStatusChanged.emit(action);
   }
 }

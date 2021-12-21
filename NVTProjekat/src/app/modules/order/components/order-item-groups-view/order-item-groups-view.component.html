@@ -1,6 +1,6 @@
 <app-order-end
   [groups]="orderItemGroups"
-  (onOrderCharged)="chargeOrder()"
+  (onOrderStatusChanged)="openChangeOrderStatusDialog($event)"
 ></app-order-end>
 
 <div class="order-item-group-view" *ngIf="orderItemGroups.length > 0">

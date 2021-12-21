@@ -72,4 +72,14 @@ export class OrderService {
   onOrderItemGroupAdded(): Observable<any> {
     return this.orderItemGroupAddedSubject.asObservable();
   }
+
+  chargeOrder(orderId: number, pin: string): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/charge`;
+    return this.httpClient.put(url, { pin });
+  }
+
+  cancelOrder(orderId: number, pin: string): Observable<any> {
+    const url = `${this.baseUrl}/${orderId}/cancel`;
+    return this.httpClient.put(url, { pin });
+  }
 }

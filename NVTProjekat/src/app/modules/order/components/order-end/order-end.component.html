@@ -2,10 +2,20 @@
   <div>
     <h2>Total: {{ getTotalPrice() }}</h2>
   </div>
-  <button mat-raised-button color="primary" (click)="chargeOrder()">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="changeOrderStatus('CHARGE')"
+    [disabled]="!isOrderDone()"
+  >
     Charge order
   </button>
-  <button mat-raised-button color="warn" [disabled]="!isOrderNew()">
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="changeOrderStatus('CANCEL')"
+    [disabled]="!isOrderNew()"
+  >
     Cancel order
   </button>
 </div>
