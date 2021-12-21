@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderService {
   private baseUrl: string = `${environment.basePath}/api/orders`;
+  private groupsUpdatedSubject = new Subject<any>();
   constructor(private httpClient: HttpClient) {}
   private orderItemGroupAddedSubject = new Subject<any>();
 

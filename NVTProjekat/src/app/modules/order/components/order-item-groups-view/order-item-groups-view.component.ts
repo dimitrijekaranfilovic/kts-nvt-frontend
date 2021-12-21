@@ -44,13 +44,16 @@ export class OrderItemGroupsViewComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {
       this.orderItemGroups = response;
-      const groups = this.orderItemGroups.map((item) => {
-        return {
-          id: item.id,
-          name: item.name,
-        };
-      });
-      this.onGroupsLoaded.emit(groups);
+      this.onGroupsLoaded.emit(this.getReducedGroups());
+    });
+  }
+
+  getReducedGroups(): OrderItemGroupReducedInfo[] {
+    return this.orderItemGroups.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+      };
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PaginatedResponse } from 'src/app/modules/shared/types/PaginatedResponse';
 import { MenuItemService } from '../../services/menu-item.service';
 import { MenuItem } from '../../types/MenuItem';
@@ -22,6 +22,8 @@ import { OrderService } from 'src/app/modules/order/services/order.service';
 export class WaiterMenuItemsDisplayComponent implements OnInit {
   @Input() public groups: OrderItemGroupReducedInfo[] = [];
   @Input() public orderId!: number;
+  private onOrderItemGroupAddedSubscription!: Subscription;
+
   public menuItemName: string = '';
   public content: MenuItem[] = [];
   public currentPage: number = 0;
@@ -38,7 +40,16 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
     private orderService: OrderService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.onOrderItemGroupAddedSubscription = this.orderService
+      .onOrderItemGroupAdded()
+      .subscribe((result) =>
+        this.groups.push({
+          id: result.id,
+          name: result.name,
+        })
+      );
+  }
 
   ngOnInit(): void {
     this.search();
