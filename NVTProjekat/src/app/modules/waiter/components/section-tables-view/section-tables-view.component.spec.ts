@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SectionTabsViewComponent } from './section-tabs-view.component';
+import { SectionTablesViewComponent } from './section-tables-view.component';
 
-describe('SectionTabsViewComponent', () => {
-  let component: SectionTabsViewComponent;
-  let fixture: ComponentFixture<SectionTabsViewComponent>;
+describe('SectionTablesViewComponent', () => {
+  let component: SectionTablesViewComponent;
+  let fixture: ComponentFixture<SectionTablesViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SectionTabsViewComponent ]
+      declarations: [ SectionTablesViewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SectionTabsViewComponent);
+    fixture = TestBed.createComponent(SectionTablesViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

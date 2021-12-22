@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Table } from 'src/app/modules/waiter/types/Table';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 
 @Component({
@@ -7,12 +8,14 @@ import { ReadSectionResponse } from '../../types/ReadSectionResponse';
   styleUrls: ['./section-tab.component.scss']
 })
 export class SectionTabComponent implements OnInit {
-  @Input()
-  section!: ReadSectionResponse;
+  @Input() section!: ReadSectionResponse;
+  @Input() tables!: Table[] | undefined;
+
   @Output()
   onUpdateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
   @Output()
   onDeleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
+  @Output() onAddTable: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
 
   constructor() { }
 
@@ -25,6 +28,10 @@ export class SectionTabComponent implements OnInit {
 
   deleteSection(): void {
     this.onDeleteSection.emit(this.section);
+  }
+
+  addTable(): void {
+    this.onAddTable.emit(this.section);
   }
 
 }

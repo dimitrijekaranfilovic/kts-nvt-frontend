@@ -4,7 +4,7 @@ import { SectionsPageComponent } from "./pages/sections-page/sections-page.compo
 
 export const SectionRoutes: Routes = [
     {
-        path: "",
+        path: "manage",
         pathMatch: "full",
         component: SectionsPageComponent,
         canActivate: [RoleGuard],

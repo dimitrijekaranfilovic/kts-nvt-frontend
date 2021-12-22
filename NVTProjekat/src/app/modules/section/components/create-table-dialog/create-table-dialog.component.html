@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1 mat-dialog-title>Create new table</h1>
+    <div mat-dialog-content>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Table number"
+          formControlName="number"
+          required
+        />
+        <mat-error> Please provide a valid table number. </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="X coordinate"
+          formControlName="x"
+          required
+        />
+        <mat-error> Please provide a valid x coordinate. </mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Y coordinate"
+          formControlName="y"
+          required
+        />
+        <mat-error> Please provide a valid y coordinate. </mat-error>
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button
+        mat-flat-button
+        color="basic"
+        type="button"
+        (click)="onCancelClick()"
+      >
+        Cancel
+      </button>
+      <button
+        mat-flat-button
+        [disabled]="!form.valid"
+        color="primary"
+        type="submit"
+      >
+        Save changes
+      </button>
+    </div>
+  </form>

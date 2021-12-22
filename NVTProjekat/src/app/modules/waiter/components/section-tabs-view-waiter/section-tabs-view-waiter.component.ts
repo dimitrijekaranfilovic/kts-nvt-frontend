@@ -5,15 +5,16 @@ import { WaiterSectionServiceService } from '../../services/waiter-section-servi
 import { Table } from '../../types/Table';
 
 @Component({
-  selector: 'app-section-tabs-view',
-  templateUrl: './section-tabs-view.component.html',
-  styleUrls: ['./section-tabs-view.component.scss']
+  selector: 'app-section-tabs-view-waiter',
+  templateUrl: './section-tabs-view-waiter.component.html',
+  styleUrls: ['./section-tabs-view-waiter.component.scss']
 })
-export class SectionTabsViewComponent implements OnInit {
+export class SectionTabsViewWaiterComponent implements OnInit {
 
-  tables!: Table[];
+  tables: Map<number, Table[]> = new Map<number, Table[]>();
   sections!: Section[];
   selected = new FormControl(0);
+  counter: number = 1;
 
   constructor(private sectionService: WaiterSectionServiceService) { }
 
@@ -25,6 +26,16 @@ export class SectionTabsViewComponent implements OnInit {
   }
 
   onTabSelect(event: any): void {
-    this.sectionService.getTablesForSection(event.index + 1).subscribe(response => this.tables = response);
+    if(event){
+      this.fetchTables(event.index + 1);
+    }
+    else{
+      this.fetchTables(1);
+    }
+    }
+
+  fetchTables(index: number) {
+    this.sectionService.getTablesForSection(index).subscribe(response => this.tables.set(index, response));
   }
+
 }
