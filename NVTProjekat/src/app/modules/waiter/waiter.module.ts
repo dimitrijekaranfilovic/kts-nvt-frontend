@@ -5,9 +5,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { RouterModule } from '@angular/router';
 import { WaiterRoutes } from './waiter.routes';
 import { SectionTablesViewComponent } from './components/section-tables-view/section-tables-view.component';
-import { KonvaModule } from "ng2-konva";
+import { KonvaModule } from 'ng2-konva';
 import { SectionTabsViewWaiterComponent } from './components/section-tabs-view-waiter/section-tabs-view-waiter.component';
-
 
 @NgModule({
   declarations: [
@@ -19,10 +18,8 @@ import { SectionTabsViewWaiterComponent } from './components/section-tabs-view-w
     CommonModule,
     MaterialModule,
     RouterModule.forChild(WaiterRoutes),
-    KonvaModule
+    KonvaModule,
   ],
-  exports: [
-    SectionTablesViewComponent
-  ]
+  exports: [SectionTablesViewComponent],
 })
-export class WaiterModule { }
+export class WaiterModule {}
