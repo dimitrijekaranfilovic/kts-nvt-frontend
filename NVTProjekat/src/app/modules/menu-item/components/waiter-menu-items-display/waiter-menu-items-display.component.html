@@ -1,9 +1,9 @@
 <div>
   <div class="example-form">
-    <form class="input-form">
+    <form class="input-form" [formGroup]="form">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Enter menu item name</mat-label>
-        <input matInput [(ngModel)]="menuItemName" name="menuItemName" />
+        <input matInput formControlName="itemName" />
       </mat-form-field>
     </form>
     <button mat-flat-button color="primary" (click)="search()">Search</button>

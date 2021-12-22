@@ -26,9 +26,11 @@ export class PinModalComponent implements OnInit {
   ngOnInit(): void {}
 
   onCancelClick(): void {
+    console.log('CANCEL');
     this.dialogRef.close({ event: 'CANCEL' });
   }
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    event.stopPropagation();
     if (!this.form.valid) {
       return;
     }

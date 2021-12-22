@@ -73,6 +73,7 @@ export class OrderItemGroupComponent implements OnInit {
       .subscribe({
         next: () => {
           orderItem.amount = newAmount;
+          this.toast(`${orderItem.itemItemName} successfully updated.`);
         },
         error: (error) => {
           let message = error.error.errors[Object.keys(error.error.errors)[0]];

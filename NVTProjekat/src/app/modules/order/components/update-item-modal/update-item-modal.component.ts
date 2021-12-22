@@ -31,7 +31,8 @@ export class UpdateItemModalComponent implements OnInit {
   onCancelClick(): void {
     this.dialogRef.close({ event: 'CANCEL' });
   }
-  onSubmit(): void {
+  onSubmit(event: Event): void {
+    event.stopPropagation();
     if (!this.form.valid) {
       return;
     }

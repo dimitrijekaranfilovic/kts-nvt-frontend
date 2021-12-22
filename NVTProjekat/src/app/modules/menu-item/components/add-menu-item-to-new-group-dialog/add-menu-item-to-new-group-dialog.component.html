@@ -1,37 +1,42 @@
-<h1 mat-dialog-title>Add order item</h1>
-<div mat-dialog-content>
-  <p>Enter your PIN:</p>
-  <mat-form-field appearance="fill">
-    <mat-label>PIN code</mat-label>
-    <input matInput [(ngModel)]="data.pin" />
-  </mat-form-field>
-</div>
-<div mat-dialog-content>
-  <p>Enter amount:</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Amount</mat-label>
-    <input matInput [(ngModel)]="data.amount" />
-  </mat-form-field>
-</div>
-<div mat-dialog-content>
-  <p>Enter group name:</p>
-  <mat-form-field appearance="fill">
-    <mat-label>Group name</mat-label>
-    <input matInput [(ngModel)]="data.groupName" />
-  </mat-form-field>
-</div>
+<form [formGroup]="form">
+  <h1 mat-dialog-title>Add order item</h1>
+  <div mat-dialog-content>
+    <p>Enter your PIN:</p>
+    <mat-form-field appearance="fill">
+      <mat-label>PIN code</mat-label>
+      <input matInput formControlName="pin" />
+      <mat-error>Please provide a valid PIN.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <p>Enter amount:</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput formControlName="amount" type="number" />
+      <mat-error>Please provide a valid amount.</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-content>
+    <p>Enter group name:</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Group name</mat-label>
+      <input matInput formControlName="groupName" />
+      <mat-error>Please provide a valid group name.</mat-error>
+    </mat-form-field>
+  </div>
 
-<div mat-dialog-actions>
-  <button mat-raised-button color="warn" (click)="onNoClick(data, 'CANCEL')">
-    Cancel
-  </button>
-  <button
-    mat-raised-button
-    color="primary"
-    [ngStyle]="{ 'margin-left': '43px' }"
-    [mat-dialog-close]="data"
-    cdkFocusInitial
-  >
-    Confirm
-  </button>
-</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancelClick()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [ngStyle]="{ 'margin-left': '43px' }"
+      [disabled]="!form.valid"
+      (click)="onSubmit($event)"
+    >
+      Confirm
+    </button>
+  </div>
+</form>
