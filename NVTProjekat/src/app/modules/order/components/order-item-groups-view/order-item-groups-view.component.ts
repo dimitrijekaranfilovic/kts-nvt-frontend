@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class OrderItemGroupsViewComponent implements OnInit {
   @Input() orderId!: number;
-  @Output() onGroupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
+  @Output() groupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
   public orderItemGroups: OrderItemGroup[] = [];
   private pin: string = '';
   private orderItemAddedSubscription!: Subscription;
@@ -46,7 +46,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {
       this.orderItemGroups = response;
-      this.onGroupsLoaded.emit(this.getReducedGroups());
+      this.groupsLoaded.emit(this.getReducedGroups());
     });
   }
 

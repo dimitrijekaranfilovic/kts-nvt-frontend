@@ -11,7 +11,7 @@ export interface DialogData {
   templateUrl: './pin-modal.component.html',
   styleUrls: ['./pin-modal.component.scss'],
 })
-export class PinModalComponent implements OnInit {
+export class PinModalComponent {
   form!: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -22,8 +22,6 @@ export class PinModalComponent implements OnInit {
       pin: [data.pin, [Validators.required, Validators.minLength(1)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onCancelClick(): void {
     console.log('CANCEL');

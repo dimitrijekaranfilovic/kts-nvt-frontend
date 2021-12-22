@@ -12,7 +12,7 @@ export interface AddMenuItemToExistingGroupData {
   templateUrl: './add-menu-item-to-existing-group-dialog.component.html',
   styleUrls: ['./add-menu-item-to-existing-group-dialog.component.scss'],
 })
-export class AddMenuItemToExistingGroupDialogComponent implements OnInit {
+export class AddMenuItemToExistingGroupDialogComponent {
   form!: FormGroup;
 
   constructor(
@@ -25,8 +25,6 @@ export class AddMenuItemToExistingGroupDialogComponent implements OnInit {
       amount: [data.amount, [Validators.required, Validators.min(1)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onCancelClick(): void {
     this.dialogRef.close({ event: 'CANCEL' });

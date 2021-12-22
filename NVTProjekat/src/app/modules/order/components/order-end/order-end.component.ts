@@ -6,13 +6,11 @@ import { OrderItemGroup } from '../../types/OrderItemGroup';
   templateUrl: './order-end.component.html',
   styleUrls: ['./order-end.component.scss'],
 })
-export class OrderEndComponent implements OnInit {
+export class OrderEndComponent {
   @Input() groups: OrderItemGroup[] = [];
-  @Output() onOrderStatusChanged = new EventEmitter<string>();
+  @Output() orderStatusChanged = new EventEmitter<string>();
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   getTotalPrice(): number {
     return this.groups.reduce((totalGroups, currentGroup) => {
@@ -43,6 +41,6 @@ export class OrderEndComponent implements OnInit {
   }
 
   changeOrderStatus(action: string) {
-    this.onOrderStatusChanged.emit(action);
+    this.orderStatusChanged.emit(action);
   }
 }

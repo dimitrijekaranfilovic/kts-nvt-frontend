@@ -12,7 +12,7 @@ export interface UpdateDialogData {
   templateUrl: './update-item-modal.component.html',
   styleUrls: ['./update-item-modal.component.scss'],
 })
-export class UpdateItemModalComponent implements OnInit {
+export class UpdateItemModalComponent {
   form!: FormGroup;
 
   constructor(
@@ -25,8 +25,6 @@ export class UpdateItemModalComponent implements OnInit {
       newAmount: [data.newAmount, [Validators.required, Validators.min(1)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onCancelClick(): void {
     this.dialogRef.close({ event: 'CANCEL' });

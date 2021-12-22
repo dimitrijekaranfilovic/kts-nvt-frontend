@@ -9,21 +9,19 @@ import { MenuItem } from '../../types/MenuItem';
   templateUrl: './menu-item-card.component.html',
   styleUrls: ['./menu-item-card.component.scss'],
 })
-export class MenuItemCardComponent implements OnInit {
+export class MenuItemCardComponent {
   @Input() menuItem!: MenuItem;
   @Input() groups: OrderItemGroupReducedInfo[] = [];
-  @Output() onMenuItemAdded = new EventEmitter<AddMenuItem>();
+  @Output() menuItemAdded = new EventEmitter<AddMenuItem>();
 
   constructor() {}
-
-  ngOnInit(): void {}
 
   addMenuItemToExistingGroup(group: OrderItemGroupReducedInfo): void {
     const data: AddMenuItem = {
       menuItemId: this.menuItem.id,
       groupdId: group.id,
     };
-    this.onMenuItemAdded.emit(data);
+    this.menuItemAdded.emit(data);
   }
 
   addMenuItemToNewGroup(): void {
@@ -31,6 +29,6 @@ export class MenuItemCardComponent implements OnInit {
       menuItemId: this.menuItem.id,
       groupdId: undefined,
     };
-    this.onMenuItemAdded.emit(data);
+    this.menuItemAdded.emit(data);
   }
 }

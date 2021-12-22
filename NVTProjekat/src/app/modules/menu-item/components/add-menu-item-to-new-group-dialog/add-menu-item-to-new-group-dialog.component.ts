@@ -12,7 +12,7 @@ export interface AddMenuItemToNewGroupData {
   templateUrl: './add-menu-item-to-new-group-dialog.component.html',
   styleUrls: ['./add-menu-item-to-new-group-dialog.component.scss'],
 })
-export class AddMenuItemToNewGroupDialogComponent implements OnInit {
+export class AddMenuItemToNewGroupDialogComponent {
   form!: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -28,8 +28,6 @@ export class AddMenuItemToNewGroupDialogComponent implements OnInit {
       ],
     });
   }
-
-  ngOnInit(): void {}
 
   onCancelClick(): void {
     this.dialogRef.close({ event: 'CANCEL' });
