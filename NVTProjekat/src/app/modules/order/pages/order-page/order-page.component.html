@@ -4,7 +4,7 @@
     <h2 [align]="'center'">Order item groups</h2>
     <app-order-item-groups-view
       [orderId]="orderId"
-      (onGroupsLoaded)="setGroups($event)"
+      (groupsLoaded)="setGroups($event)"
     ></app-order-item-groups-view>
   </div>
   <div class="column">

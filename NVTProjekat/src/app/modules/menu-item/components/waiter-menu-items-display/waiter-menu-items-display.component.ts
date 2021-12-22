@@ -13,6 +13,7 @@ import { OrderItemServiceService } from 'src/app/modules/order/services/order-it
 import { AddOrderItem } from 'src/app/modules/order/types/AddOrderItem';
 import { AddMenuItemToNewGroupDialogComponent } from '../add-menu-item-to-new-group-dialog/add-menu-item-to-new-group-dialog.component';
 import { OrderService } from 'src/app/modules/order/services/order.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-waiter-menu-items-display',
@@ -23,7 +24,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   @Input() public groups: OrderItemGroupReducedInfo[] = [];
   @Input() public orderId!: number;
   private onOrderItemGroupAddedSubscription!: Subscription;
-
+  form!: FormGroup;
   public menuItemName: string = '';
   public content: MenuItem[] = [];
   public currentPage: number = 0;
@@ -35,12 +36,16 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   public groupName: string = '';
 
   constructor(
+    private formBuilder: FormBuilder,
     private menuItemService: MenuItemService,
     private orderItemService: OrderItemServiceService,
     private orderService: OrderService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
+    this.form = this.formBuilder.group({
+      itemName: [this.menuItemName],
+    });
     this.onOrderItemGroupAddedSubscription = this.orderService
       .onOrderItemGroupAdded()
       .subscribe((result) =>
@@ -65,7 +70,8 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
 
   getMenuItems(): Observable<PaginatedResponse<MenuItem>> {
     return this.menuItemService.getPaginatedMenuItems(
-      this.menuItemName,
+      //this.menuItemName,
+      this.form.value.itemName,
       this.currentPage,
       this.pageSize,
       'item.name'
@@ -119,6 +125,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
         }
       );
       dialogRef.afterClosed().subscribe((result) => {
+        console.log('Result:', result);
         if (result.event === 'CANCEL') {
           return;
         }

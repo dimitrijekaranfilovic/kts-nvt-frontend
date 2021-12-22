@@ -42,7 +42,7 @@
     [orderItem]="item"
     [index]="i"
     [orderGroupStatus]="group.status"
-    (onItemDeleted)="openDeleteDialog(item)"
-    (onItemUpdated)="openUpdateDialog(item)"
+    (itemDeleted)="openDeleteDialog(item)"
+    (itemUpdated)="openUpdateDialog(item)"
   ></app-order-group-item>
 </div>

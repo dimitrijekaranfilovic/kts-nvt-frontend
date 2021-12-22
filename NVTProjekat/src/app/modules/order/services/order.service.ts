@@ -5,6 +5,7 @@ import { OrderItemGroup } from '../types/OrderItemGroup';
 import { OrderItemGroupReducedInfo } from '../types/OrderItemGroupReducedInfo';
 import { OrderItemServiceService } from './order-item-service.service';
 import { environment } from 'src/environments/environment';
+import { CreateOrderResponse } from '../types/CreateOrderResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -81,5 +82,17 @@ export class OrderService {
   cancelOrder(orderId: number, pin: string): Observable<any> {
     const url = `${this.baseUrl}/${orderId}/cancel`;
     return this.httpClient.put(url, { pin });
+  }
+
+  createOrder(tableId: number, pin: string): Observable<CreateOrderResponse> {
+    return this.httpClient.post<CreateOrderResponse>(this.baseUrl, {
+      pin,
+      tableId,
+    });
+  }
+
+  getOrderIdForTable(tableId: number): Observable<number> {
+    const url = `${this.baseUrl}/for-table?tableId=${tableId}`;
+    return this.httpClient.get<number>(url);
   }
 }

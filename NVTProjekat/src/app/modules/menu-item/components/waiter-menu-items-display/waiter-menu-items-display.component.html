@@ -1,9 +1,9 @@
 <div>
   <div class="example-form">
-    <form class="input-form">
+    <form class="input-form" [formGroup]="form">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Enter menu item name</mat-label>
-        <input matInput [(ngModel)]="menuItemName" name="menuItemName" />
+        <input matInput formControlName="itemName" />
       </mat-form-field>
     </form>
     <button mat-flat-button color="primary" (click)="search()">Search</button>
@@ -13,7 +13,7 @@
       <app-menu-item-card
         [menuItem]="item"
         [groups]="groups"
-        (onMenuItemAdded)="openAddItem($event)"
+        (menuItemAdded)="openAddItem($event)"
       ></app-menu-item-card>
     </mat-grid-tile>
   </mat-grid-list>

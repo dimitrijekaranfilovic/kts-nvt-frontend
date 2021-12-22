@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-item-groups-view',
@@ -15,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class OrderItemGroupsViewComponent implements OnInit {
   @Input() orderId!: number;
-  @Output() onGroupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
+  @Output() groupsLoaded = new EventEmitter<OrderItemGroupReducedInfo[]>();
   public orderItemGroups: OrderItemGroup[] = [];
   private pin: string = '';
   private orderItemAddedSubscription!: Subscription;
@@ -25,7 +26,8 @@ export class OrderItemGroupsViewComponent implements OnInit {
     private orderService: OrderService,
     private orderItemService: OrderItemServiceService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.orderItemAddedSubscription = this.orderItemService
       .onOrderItemAdded()
@@ -44,7 +46,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
   ngOnInit(): void {
     this.orderService.getOrderItemGroups(this.orderId).subscribe((response) => {
       this.orderItemGroups = response;
-      this.onGroupsLoaded.emit(this.getReducedGroups());
+      this.groupsLoaded.emit(this.getReducedGroups());
     });
   }
 
@@ -129,7 +131,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
       if (action === 'CHARGE') {
         this.orderService.chargeOrder(this.orderId, result).subscribe({
           next: () => {
-            //TODO: ovdje vidi hoce li redirect na prethodnu stranicu
+            this.router.navigate(['/waiter']);
             this.toast(`Order ${this.orderId} successfully charged.`);
           },
           error: (error) => {
@@ -144,7 +146,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
       } else if (action === 'CANCEL') {
         this.orderService.cancelOrder(this.orderId, result).subscribe({
           next: () => {
-            //TODO: ovdje vidi hoce li redirect na prethodnu stranicu
+            this.router.navigate(['/waiter']);
             this.toast(`Order ${this.orderId} successfully cancelled.`);
           },
           error: (error) => {

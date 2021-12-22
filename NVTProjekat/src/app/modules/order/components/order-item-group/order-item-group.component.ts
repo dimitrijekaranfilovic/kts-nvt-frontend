@@ -12,10 +12,10 @@ import { UpdateItemModalComponent } from '../update-item-modal/update-item-modal
   templateUrl: './order-item-group.component.html',
   styleUrls: ['./order-item-group.component.scss'],
 })
-export class OrderItemGroupComponent implements OnInit {
+export class OrderItemGroupComponent {
   @Input() group!: OrderItemGroup;
-  @Output() public onGroupSent = new EventEmitter<OrderItemGroup>();
-  @Output() public onGroupDeleted = new EventEmitter<OrderItemGroup>();
+  @Output() public groupSent = new EventEmitter<OrderItemGroup>();
+  @Output() public groupDeleted = new EventEmitter<OrderItemGroup>();
   private pin: string = '';
   private newAmount: number = 0;
 
@@ -24,8 +24,6 @@ export class OrderItemGroupComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {}
-
-  ngOnInit(): void {}
 
   getGroupIcon(): string {
     if (this.group.status === 'NEW') return 'delete_forever';
@@ -46,7 +44,7 @@ export class OrderItemGroupComponent implements OnInit {
   }
 
   handleSendGroupButtonClick(): void {
-    this.onGroupSent.emit(this.group);
+    this.groupSent.emit(this.group);
   }
 
   deleteOrderItem(orderItem: OrderGroupItem, pin: string): void {
@@ -73,6 +71,7 @@ export class OrderItemGroupComponent implements OnInit {
       .subscribe({
         next: () => {
           orderItem.amount = newAmount;
+          this.toast(`${orderItem.itemItemName} successfully updated.`);
         },
         error: (error) => {
           let message = error.error.errors[Object.keys(error.error.errors)[0]];
@@ -85,7 +84,7 @@ export class OrderItemGroupComponent implements OnInit {
   }
 
   deleteOrderItemGroup(): void {
-    this.onGroupDeleted.emit(this.group);
+    this.groupDeleted.emit(this.group);
   }
 
   toast(message: string) {

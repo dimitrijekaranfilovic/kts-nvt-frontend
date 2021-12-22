@@ -1,14 +1,14 @@
 <app-order-end
   [groups]="orderItemGroups"
-  (onOrderStatusChanged)="openChangeOrderStatusDialog($event)"
+  (orderStatusChanged)="openChangeOrderStatusDialog($event)"
 ></app-order-end>
 
 <div class="order-item-group-view" *ngIf="orderItemGroups.length > 0">
   <app-order-item-group
     *ngFor="let group of orderItemGroups"
     [group]="group"
-    (onGroupSent)="openDialog(group, 'SEND')"
-    (onGroupDeleted)="openDialog(group, 'DELETE')"
+    (groupSent)="openDialog(group, 'SEND')"
+    (groupDeleted)="openDialog(group, 'DELETE')"
   ></app-order-item-group>
 </div>
 <div *ngIf="orderItemGroups.length === 0">

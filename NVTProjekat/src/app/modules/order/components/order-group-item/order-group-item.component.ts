@@ -7,22 +7,18 @@ import { OrderItem } from '../../types/OrderItem';
   templateUrl: './order-group-item.component.html',
   styleUrls: ['./order-group-item.component.scss'],
 })
-export class OrderGroupItemComponent implements OnInit {
+export class OrderGroupItemComponent {
   @Input() index: number = 0;
   @Input() orderItem!: OrderGroupItem;
   @Input() orderGroupStatus: string = 'NEW';
-  @Output() public onItemDeleted = new EventEmitter<OrderGroupItem>();
-  @Output() public onItemUpdated = new EventEmitter<OrderGroupItem>();
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  @Output() public itemDeleted = new EventEmitter<OrderGroupItem>();
+  @Output() public itemUpdated = new EventEmitter<OrderGroupItem>();
 
   deleteItem(): void {
-    this.onItemDeleted.emit(this.orderItem);
+    this.itemDeleted.emit(this.orderItem);
   }
 
   updateItem(): void {
-    this.onItemUpdated.emit(this.orderItem);
+    this.itemUpdated.emit(this.orderItem);
   }
 }

@@ -1,26 +1,25 @@
-<h1 mat-dialog-title>CONFIRMATION</h1>
-<div mat-dialog-content>
-  <p>Enter your PIN:</p>
-  <mat-form-field appearance="fill">
-    <mat-label>PIN code</mat-label>
-    <input matInput [(ngModel)]="data.pin" />
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button
-    mat-raised-button
-    color="warn"
-    (click)="onNoClick(data.pin, 'CANCEL')"
-  >
-    Cancel
-  </button>
-  <button
-    mat-raised-button
-    color="primary"
-    [ngStyle]="{ 'margin-left': '43px' }"
-    [mat-dialog-close]="data.pin"
-    cdkFocusInitial
-  >
-    Confirm
-  </button>
-</div>
+<form [formGroup]="form">
+  <h1 mat-dialog-title>CONFIRMATION</h1>
+  <div mat-dialog-content>
+    <p>Enter your PIN:</p>
+    <mat-form-field appearance="fill">
+      <mat-label>PIN code</mat-label>
+      <input matInput formControlName="pin" />
+      <mat-error> Please provide a valid PIN. </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="onCancelClick()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      [ngStyle]="{ 'margin-left': '43px' }"
+      [disabled]="!form.valid"
+      (click)="onSubmit($event)"
+    >
+      Confirm
+    </button>
+  </div>
+</form>
