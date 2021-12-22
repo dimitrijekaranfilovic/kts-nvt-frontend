@@ -19,17 +19,14 @@ export class PinModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
     this.form = this.formBuilder.group({
-      pin: [this.data.pin, [Validators.required, Validators.minLength(1)]],
+      pin: [data.pin, [Validators.required, Validators.minLength(1)]],
     });
   }
 
   ngOnInit(): void {}
 
-  onNoClick(pin: string, event: string): void {
-    this.dialogRef.close({ pin, event });
-  }
   onCancelClick(): void {
-    this.dialogRef.close({ pin: this.data.pin, event: 'CANCEL' });
+    this.dialogRef.close({ event: 'CANCEL' });
   }
   onSubmit(): void {
     if (!this.form.valid) {
