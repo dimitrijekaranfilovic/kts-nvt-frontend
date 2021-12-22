@@ -24,7 +24,7 @@ export class OrderItemTableViewComponent implements OnInit {
     'action1',
     'action2',
   ];
-  dataSource!: MatTableDataSource<OrderItem>;
+  dataSource: MatTableDataSource<OrderItem> = new MatTableDataSource<OrderItem>();
   pageNum: number = 0;
   pageSize: number = 0;
   totalPages: number = 0;

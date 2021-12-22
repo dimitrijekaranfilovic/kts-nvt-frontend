@@ -22,7 +22,9 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "chart.js": "^2.9.4",
+    "konva": "^8.3.1",
     "ng2-charts": "^2.4.2",
+    "ng2-konva": "^6.0.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

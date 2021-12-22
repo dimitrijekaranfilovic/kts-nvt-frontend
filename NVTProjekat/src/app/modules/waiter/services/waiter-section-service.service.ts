@@ -17,6 +17,7 @@ export class WaiterSectionServiceService {
   }
 
   getTablesForSection(sectionNum: number): Observable<Table[]>{
+    //console.log("Section num je ", sectionNum);
     return this.http.get<Table[]>(`${environment.basePath}/api/sections/${sectionNum}/tables`);
   }
 }

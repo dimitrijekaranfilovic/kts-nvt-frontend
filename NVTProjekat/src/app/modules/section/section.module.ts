@@ -7,7 +7,8 @@ import { SectionsPageComponent } from './pages/sections-page/sections-page.compo
 import { SectionTabsViewComponent } from './components/section-tabs-view/section-tabs-view.component';
 import { SectionTabComponent } from './components/section-tab/section-tab.component';
 import { CreateUpdateSectionDialogComponent } from './components/create-update-section-dialog/create-update-section-dialog.component';
-
+import { CreateTableDialogComponent } from './components/create-table-dialog/create-table-dialog.component';
+import { WaiterModule } from '../waiter/waiter.module';
 
 
 @NgModule({
@@ -15,12 +16,14 @@ import { CreateUpdateSectionDialogComponent } from './components/create-update-s
     SectionsPageComponent,
     SectionTabsViewComponent,
     SectionTabComponent,
-    CreateUpdateSectionDialogComponent
+    CreateUpdateSectionDialogComponent,
+    CreateTableDialogComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(SectionRoutes),
-    MaterialModule
+    MaterialModule,
+    WaiterModule
   ]
 })
 export class SectionModule { }

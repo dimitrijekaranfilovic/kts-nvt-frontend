@@ -9,7 +9,7 @@ import { ReadSectionResponse } from '../../types/ReadSectionResponse';
   templateUrl: './create-update-section-dialog.component.html',
   styleUrls: ['./create-update-section-dialog.component.scss']
 })
-export class CreateUpdateSectionDialogComponent implements OnInit {
+export class CreateUpdateSectionDialogComponent {
   form: FormGroup;
   isCreate: boolean = true;
   onSaveChanges: EventEmitter<CreateSectionRequest> = new EventEmitter<CreateSectionRequest>();
@@ -23,9 +23,6 @@ export class CreateUpdateSectionDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [section.name, Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onCancelClick(): void {

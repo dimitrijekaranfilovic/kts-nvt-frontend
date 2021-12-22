@@ -37,7 +37,7 @@ export class UpdateProfilePageComponent implements OnInit {
     if (!this.form.valid || !this.user) {
       return;
     }
-    console.log(this.form.value);
+    //console.log(this.form.value);
     this.superUserService.update(this.user?.id, this.form.value).subscribe({
       next: _ => {
         this.currentUserService.update(this.form.value);
