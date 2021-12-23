@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { Table } from 'src/app/modules/waiter/types/Table';
 import { TableOrder } from 'src/app/modules/waiter/types/TableOrder';
+import { DeleteTableRequest } from '../../types/DeleteTableRequest';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 
 @Component({
@@ -18,12 +18,12 @@ export class SectionTabComponent {
   @Output()
   onDeleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
   @Output() onAddTable: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
-  @Output() onDeleteTable: EventEmitter<number> = new EventEmitter<number>();
+  @Output() onDeleteTable: EventEmitter<DeleteTableRequest> = new EventEmitter<DeleteTableRequest>();
 
   selectedTableId: number = 0;
   selectedTableNumber: number = 0;
 
-  constructor(private confirmationService: ConfirmationService) { }
+  constructor() { }
 
   updateSection(): void {
     this.onUpdateSection.emit(this.section);
@@ -38,16 +38,7 @@ export class SectionTabComponent {
   }
 
   deleteTable(): void {
-    this.confirmationService.confirm({
-      title: `Table deletion`,
-      message: `Are you sure you want to delete table with number: ${this.selectedTableNumber}?`,
-      yes: 'Yes',
-      no: 'No'
-    }).subscribe(confirmation => {
-      if (confirmation) {
-        this.onDeleteTable.emit(this.selectedTableId);
-      }
-    })
+    this.onDeleteTable.emit({id: this.selectedTableId, number: this.selectedTableNumber});
   }
 
   selectTable(tableInfo: TableOrder) {
