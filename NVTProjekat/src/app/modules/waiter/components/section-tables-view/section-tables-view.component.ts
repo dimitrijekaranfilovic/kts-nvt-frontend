@@ -60,7 +60,7 @@ export class SectionTablesViewComponent implements OnInit {
           shadowOffsetX: 5,
           shadowOffsetY: 5,
           shadowOpacity: 0.6,
-          name: '' + table.id,
+          name: '' + table.number,
           id: '' + table.id,
           fillAfterStrokeEnabled: true,
           listening: true,
@@ -84,14 +84,17 @@ export class SectionTablesViewComponent implements OnInit {
   }
 
   onClick(event: any) {
-    let tableId = Number(event.cacheProps.name);
+    let tableId: number = Number(event.cacheProps.id);
+    let tableNum: number = Number(event.cacheProps.name);
     const stage = this.stage.getStage();
     const table = this.tables?.find((table) => table.id === tableId);
 
     const tableOrder: TableOrder = {
       tableAvailable: table?.available,
       tableId: tableId,
+      tableNumber: tableNum,
     };
+
     this.onTableClicked.emit(tableOrder);
 
     this.ref.tick();

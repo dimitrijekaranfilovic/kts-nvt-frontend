@@ -16,7 +16,7 @@ export class TableService {
     return this.http.post<Table>(`${environment.basePath}/api/sections/${sectionId}/tables`, table);
   }
 
-  deleteTable(tableId: number): void {
-    this.http.delete(`${environment.basePath}/api/sections/tables/${tableId}`);
+  deleteTable(tableId: number): Observable<void> {
+    return this.http.delete<void>(`${environment.basePath}/api/sections/tables/${tableId}`);
   }
 }

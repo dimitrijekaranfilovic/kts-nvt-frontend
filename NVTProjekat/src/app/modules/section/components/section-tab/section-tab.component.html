@@ -7,7 +7,7 @@
     <button mat-flat-button color="primary" (click)="deleteSection()">
       Delete section
     </button>
-    <button mat-flat-button color="accent">Delete table</button>
+    <button mat-flat-button color="accent" [disabled]="selectedTableId === 0" (click)="deleteTable()" >Delete table {{selectedTableNumber > 0 ? selectedTableNumber : ''}}</button>
   </div>
-  <app-section-tables-view [draggable]="true" [tables]="tables" [sectionId]="section.id" *ngIf="tables"></app-section-tables-view>
+  <app-section-tables-view [draggable]="true" [tables]="tables" [sectionId]="section.id" *ngIf="tables" (onTableClicked)="selectTable($event)" ></app-section-tables-view>
 </div>

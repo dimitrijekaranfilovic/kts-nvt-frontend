@@ -8,6 +8,7 @@ import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/wai
 import { Table } from 'src/app/modules/waiter/types/Table';
 import { SectionService } from '../../services/section-service/section.service';
 import { TableService } from '../../services/table-service/table.service';
+import { DeleteTableRequest } from '../../types/DeleteTableRequest';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 import { CreateTableDialogComponent } from '../create-table-dialog/create-table-dialog.component';
 import { CreateUpdateSectionDialogComponent } from '../create-update-section-dialog/create-update-section-dialog.component';
@@ -80,7 +81,6 @@ export class SectionTabsViewComponent implements OnInit {
       request.r = 50;
       this.tableService.createTable(request, section.id).subscribe({
         next: (response) => {
-          //console.log(response);
           this.fetchData();
           window.location.reload();
         },
@@ -116,6 +116,27 @@ export class SectionTabsViewComponent implements OnInit {
           next: _ => this.sections = this.sections.filter(s => s.id !== section.id),
           error: err => this.errorService.handle(err)
         })
+      }
+    })
+  }
+
+  onDeleteTable(table: DeleteTableRequest): void {
+    this.confirmationService.confirm({
+      title: `Table deletion`,
+      message: `Are you sure you want to delete table with number: ${table.number}?`,
+      yes: 'Yes',
+      no: 'No'
+    }).subscribe(confirmation => {
+      if (confirmation) {
+        this.tableService.deleteTable(table.id).subscribe({
+          next: () => {
+            this.fetchData();
+            window.location.reload();
+          },
+          error: (err) => {
+            this.errorService.handle(err);
+          }
+        });  
       }
     })
   }
