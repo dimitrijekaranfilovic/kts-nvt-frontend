@@ -30,7 +30,7 @@ export class SectionTabsViewComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private tableService: TableService,
     private snackBar: MatSnackBar,
-    private waiterSectionService: WaiterSectionServiceService 
+    private waiterSectionService: WaiterSectionServiceService
   ) { }
 
   ngOnInit(): void {
@@ -40,8 +40,8 @@ export class SectionTabsViewComponent implements OnInit {
     })
   }
 
-  fetchData(){
-    this.waiterSectionService.getTablesForSection(this.selected.value + 1).subscribe(response =>{ 
+  fetchData() {
+    this.waiterSectionService.getTablesForSection(this.selected.value + 1).subscribe(response => {
       this.tables.set(this.selected.value + 1, response);
     });
   }
@@ -56,7 +56,7 @@ export class SectionTabsViewComponent implements OnInit {
       data: {
         id: 0, name: ''
       }
-    }).componentInstance.onSaveChanges.subscribe(request => {
+    }).componentInstance.saveChanges.subscribe(request => {
       this.sectionService.create(request).subscribe({
         next: response => {
           this.sections.push({
@@ -70,14 +70,14 @@ export class SectionTabsViewComponent implements OnInit {
   }
 
   onAddTable(section: ReadSectionResponse): void {
-    this.dialogService.open(CreateTableDialogComponent,{
+    this.dialogService.open(CreateTableDialogComponent, {
       data: {
-        number: 1, 
+        number: 1,
         x: 0,
         y: 0,
         r: 50
       }
-    }).componentInstance.onSaveChanges.subscribe(request => {
+    }).componentInstance.saveChanges.subscribe(request => {
       request.r = 50;
       this.tableService.createTable(request, section.id).subscribe({
         next: (response) => {
@@ -91,14 +91,14 @@ export class SectionTabsViewComponent implements OnInit {
           }
           this.toast(message);
         }
-    })
+      })
     });
   }
 
   onUpdateSection(section: ReadSectionResponse): void {
     this.dialogService.open(CreateUpdateSectionDialogComponent, {
       data: section
-    }).componentInstance.onSaveChanges.subscribe(request => {
+    }).componentInstance.saveChanges.subscribe(request => {
       this.sectionService.update(section.id, request).subscribe({
         next: _ => section.name = request.name,
         error: err => this.errorService.handle(err)
@@ -136,7 +136,7 @@ export class SectionTabsViewComponent implements OnInit {
           error: (err) => {
             this.errorService.handle(err);
           }
-        });  
+        });
       }
     })
   }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
 
@@ -7,12 +7,12 @@ import { ReadSuperusersRequest } from '../../types/ReadSuperUsersRequest';
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss']
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent {
   form: FormGroup;
   @Output()
-  onSearchSuperUsers: EventEmitter<ReadSuperusersRequest> = new EventEmitter<ReadSuperusersRequest>();
+  searchSuperUsers: EventEmitter<ReadSuperusersRequest> = new EventEmitter<ReadSuperusersRequest>();
   @Output()
-  onCreateSuperUser: EventEmitter<void> = new EventEmitter<void>();
+  createSuperUser: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private formBuilder: FormBuilder
@@ -25,14 +25,11 @@ export class SearchFormComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(): void {
     if (!this.form.valid) {
       return;
     }
-    this.onSearchSuperUsers.emit(this.form.value);
+    this.searchSuperUsers.emit(this.form.value);
   }
 
   onReset(): void {
@@ -42,11 +39,11 @@ export class SearchFormComponent implements OnInit {
       salaryUpperBound: 10000,
       type: ''
     });
-    this.onSearchSuperUsers.emit(this.form.value);
+    this.searchSuperUsers.emit(this.form.value);
   }
 
   onCreateClick(): void {
-    this.onCreateSuperUser.emit();
+    this.createSuperUser.emit();
   }
 
 }

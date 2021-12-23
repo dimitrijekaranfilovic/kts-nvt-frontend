@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 
@@ -7,7 +7,7 @@ import { Color, Label } from 'ng2-charts';
   templateUrl: './report-chart.component.html',
   styleUrls: ['./report-chart.component.scss']
 })
-export class ReportChartComponent implements OnInit {
+export class ReportChartComponent {
   @Input()
   data: ChartDataSets[] = [];
   @Input()
@@ -33,11 +33,4 @@ export class ReportChartComponent implements OnInit {
       backgroundColor: 'rgba(63, 81, 181, 0.3)',
     },
   ];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-
 }

@@ -4,17 +4,22 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MaterialModule } from 'src/app/material.module';
+import { SuchEmptyComponent } from './components/such-empty/such-empty.component';
 
 
 
 
 @NgModule({
   declarations: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    SuchEmptyComponent
   ],
   imports: [
     CommonModule,
     MaterialModule
+  ],
+  exports: [
+    SuchEmptyComponent,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

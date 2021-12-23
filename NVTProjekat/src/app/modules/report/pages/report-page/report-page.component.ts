@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
@@ -12,7 +12,7 @@ import { ReadReportsResponse } from '../../types/ReadReportsResponse';
   templateUrl: './report-page.component.html',
   styleUrls: ['./report-page.component.scss']
 })
-export class ReportPageComponent {
+export class ReportPageComponent implements OnInit {
   cumulativeData: ChartDataSets[] = [];
   cumulativeLabels: Label[] = ['Salary expenses', 'Order incomes', 'Order costs'];
   salaryExpensesData: ChartDataSets[] = [];

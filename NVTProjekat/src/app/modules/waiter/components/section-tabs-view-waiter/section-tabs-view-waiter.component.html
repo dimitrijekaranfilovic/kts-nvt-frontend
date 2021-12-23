@@ -5,7 +5,7 @@
 >
   <mat-tab *ngFor="let section of sections" [label]="section.name">
     <app-section-tables-view
-      (onTableClicked)="openDialog($event)"
+      (tableClicked)="openDialog($event)"
       [draggable]="false"
       [tables]="tables.get(section.id)"
       [sectionId]="section.id"

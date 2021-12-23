@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { UpdateEmployeeSalaryDialogComponent } from './components/update-employee-salary-dialog/update-employee-salary-dialog.component';
 import { CreateUpdateEmployeeDialogComponent } from './components/create-update-employee-dialog/create-update-employee-dialog.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -22,7 +23,8 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
   imports: [
     CommonModule,
     RouterModule.forChild(EmployeeRoutes),
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class EmployeeModule { }

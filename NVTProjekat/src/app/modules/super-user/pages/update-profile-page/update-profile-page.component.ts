@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
@@ -11,7 +11,7 @@ import { SuperUserService } from '../../services/super-user-servoce/super-user.s
   templateUrl: './update-profile-page.component.html',
   styleUrls: ['./update-profile-page.component.scss']
 })
-export class UpdateProfilePageComponent implements OnInit {
+export class UpdateProfilePageComponent {
   form: FormGroup;
   user: AuthResponse | null;
 
@@ -30,14 +30,10 @@ export class UpdateProfilePageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(): void {
     if (!this.form.valid || !this.user) {
       return;
     }
-    //console.log(this.form.value);
     this.superUserService.update(this.user?.id, this.form.value).subscribe({
       next: _ => {
         this.currentUserService.update(this.form.value);

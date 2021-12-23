@@ -25,7 +25,7 @@ export class SectionTablesViewComponent implements OnInit {
   @Input() tables: Table[] | undefined = [];
   @Input() sectionId!: number;
   @Input() draggable?: boolean;
-  @Output() onTableClicked: EventEmitter<TableOrder> =
+  @Output() tableClicked: EventEmitter<TableOrder> =
     new EventEmitter<TableOrder>();
 
   public width = 1200;
@@ -38,7 +38,7 @@ export class SectionTablesViewComponent implements OnInit {
     height: this.height,
   });
 
-  constructor(private ref: ApplicationRef) {}
+  constructor(private ref: ApplicationRef) { }
 
   public ngOnInit() {
     this.list = [];
@@ -95,7 +95,7 @@ export class SectionTablesViewComponent implements OnInit {
       tableNumber: tableNum,
     };
 
-    this.onTableClicked.emit(tableOrder);
+    this.tableClicked.emit(tableOrder);
 
     this.ref.tick();
     stage.draw();

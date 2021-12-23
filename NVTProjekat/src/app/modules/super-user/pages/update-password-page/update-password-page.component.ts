@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
@@ -11,7 +11,7 @@ import { SuperUserService } from '../../services/super-user-servoce/super-user.s
   templateUrl: './update-password-page.component.html',
   styleUrls: ['./update-password-page.component.scss']
 })
-export class UpdatePasswordPageComponent implements OnInit {
+export class UpdatePasswordPageComponent {
   form: FormGroup;
 
   constructor(
@@ -27,9 +27,6 @@ export class UpdatePasswordPageComponent implements OnInit {
       newPassword: newPasswordControl,
       confirmPassword: ['', [Validators.required, mustMatchValidator(newPasswordControl)]]
     })
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {

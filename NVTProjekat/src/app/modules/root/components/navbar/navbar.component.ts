@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
 
@@ -7,7 +7,7 @@ import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
   @Input()
   loggedIn: boolean = false;
@@ -24,9 +24,6 @@ export class NavbarComponent implements OnInit {
     private currentUserService: CurrentUserService,
     private router: Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   logout(): void {
     this.currentUserService.removeCurrentUser();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CurrentUserService } from 'src/app/modules/auth/services/currrent-user-service/current-user.service';
 import { AuthResponse } from 'src/app/modules/auth/types/AuthResponse';
 
@@ -7,7 +7,7 @@ import { AuthResponse } from 'src/app/modules/auth/types/AuthResponse';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
 
   loggedIn: boolean = false;
   isAdmin: boolean = false;
@@ -18,9 +18,6 @@ export class LayoutComponent implements OnInit {
     private currentUserService: CurrentUserService
   ) {
     this.reloadCurrentUser();
-  }
-
-  ngOnInit(): void {
   }
 
   reloadCurrentUser(): void {

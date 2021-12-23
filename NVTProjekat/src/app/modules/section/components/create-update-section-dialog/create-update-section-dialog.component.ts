@@ -12,7 +12,7 @@ import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 export class CreateUpdateSectionDialogComponent {
   form: FormGroup;
   isCreate: boolean = true;
-  onSaveChanges: EventEmitter<CreateSectionRequest> = new EventEmitter<CreateSectionRequest>();
+  saveChanges: EventEmitter<CreateSectionRequest> = new EventEmitter<CreateSectionRequest>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +33,7 @@ export class CreateUpdateSectionDialogComponent {
     if (!this.form.valid) {
       return;
     }
-    this.onSaveChanges.emit(this.form.value);
+    this.saveChanges.emit(this.form.value);
     this.dialogRef.close();
   }
 

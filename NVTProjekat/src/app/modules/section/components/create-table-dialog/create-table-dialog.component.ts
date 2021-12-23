@@ -12,7 +12,7 @@ import { CreateUpdateSectionDialogComponent } from '../create-update-section-dia
 })
 export class CreateTableDialogComponent {
 
-  @Output() onSaveChanges: EventEmitter<CreateTableRequest> = new EventEmitter();
+  @Output() saveChanges: EventEmitter<CreateTableRequest> = new EventEmitter();
 
   form!: FormGroup;
   isCreate: boolean = true;
@@ -37,7 +37,7 @@ export class CreateTableDialogComponent {
     if (!this.form.valid) {
       return;
     }
-    this.onSaveChanges.emit(this.form.value);
+    this.saveChanges.emit(this.form.value);
     this.dialogRef.close();
   }
 

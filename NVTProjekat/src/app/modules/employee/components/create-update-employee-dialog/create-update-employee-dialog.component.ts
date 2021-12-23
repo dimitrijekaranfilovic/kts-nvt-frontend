@@ -1,16 +1,14 @@
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CreateEmployeeRequest } from '../../types/CreateEmployeeRequest';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
-import { UpdateEmployeeRequest } from '../../types/UpdateEmployeeRequest';
 
 @Component({
   selector: 'app-create-update-employee-dialog',
   templateUrl: './create-update-employee-dialog.component.html',
   styleUrls: ['./create-update-employee-dialog.component.scss']
 })
-export class CreateUpdateEmployeeDialogComponent implements OnInit {
+export class CreateUpdateEmployeeDialogComponent {
   form: FormGroup;
   isCreate: boolean;
   onSaveChanges: EventEmitter<any> = new EventEmitter<any>();
@@ -28,9 +26,6 @@ export class CreateUpdateEmployeeDialogComponent implements OnInit {
       salary: [employee.currentSalary, Validators.compose([Validators.required, Validators.min(0)])],
       type: [employee.type, Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {

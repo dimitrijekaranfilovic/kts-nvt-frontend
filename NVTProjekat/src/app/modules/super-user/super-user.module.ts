@@ -10,6 +10,7 @@ import { UpdateSuperUserSalaryDialogComponent } from './components/update-super-
 import { CreateSuperUserDialogComponent } from './components/create-super-user-dialog/create-super-user-dialog.component';
 import { UpdateProfilePageComponent } from './pages/update-profile-page/update-profile-page.component';
 import { UpdatePasswordPageComponent } from './pages/update-password-page/update-password-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -26,7 +27,8 @@ import { UpdatePasswordPageComponent } from './pages/update-password-page/update
   imports: [
     CommonModule,
     RouterModule.forChild(SuperUserRoutes),
-    MaterialModule
+    MaterialModule,
+    SharedModule
   ]
 })
 export class SuperUserModule { }

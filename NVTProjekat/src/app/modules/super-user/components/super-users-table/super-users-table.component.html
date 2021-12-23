@@ -1,79 +1,84 @@
 <div class="mat-elevation-z8 table-container">
   <app-search-form
-    (onSearchSuperUsers)="onSearchSuperUsers($event)"
-    (onCreateSuperUser)="onCreateSuperUser()"
+    (searchSuperUsers)="onSearchSuperUsers($event)"
+    (createSuperUser)="onCreateSuperUser()"
   ></app-search-form>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="name">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let superUser">{{ superUser.name }}</td>
-    </ng-container>
+  <div *ngIf="dataSource.data.length > 0">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let superUser">{{ superUser.name }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="surname">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Surname</th>
-      <td mat-cell *matCellDef="let superUser">{{ superUser.surname }}</td>
-    </ng-container>
+      <ng-container matColumnDef="surname">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Surname</th>
+        <td mat-cell *matCellDef="let superUser">{{ superUser.surname }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="email">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Email</th>
-      <td mat-cell *matCellDef="let superUser">{{ superUser.email }}</td>
-    </ng-container>
+      <ng-container matColumnDef="email">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let superUser">{{ superUser.email }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="type">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Type</th>
-      <td mat-cell *matCellDef="let superUser">
-        {{ superUser.type | titlecase }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="type">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let superUser">
+          {{ superUser.type | titlecase }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="currentSalary">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Current salary</th>
-      <td mat-cell *matCellDef="let superUser">
-        {{ superUser.currentSalary }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="currentSalary">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Current salary</th>
+        <td mat-cell *matCellDef="let superUser">
+          {{ superUser.currentSalary }}
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="actions">
-      <th scope="col" mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let superUser">
-        <mat-grid-list cols="2">
-          <mat-grid-tile>
-            <button
-              mat-mini-fab
-              color="primary"
-              matTooltip="Update super users's salary"
-              (click)="onUpdateSalary(superUser)"
-            >
-              <mat-icon>attach_money</mat-icon>
-            </button>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <button
-              mat-mini-fab
-              color="primary"
-              matTooltip="Delete manager"
-              (click)="onDeleteSuperUser(superUser)"
-              *ngIf="superUser.type == 'MANAGER'"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-grid-tile>
-        </mat-grid-list>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="actions">
+        <th scope="col" mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let superUser">
+          <mat-grid-list cols="2">
+            <mat-grid-tile>
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltip="Update super users's salary"
+                (click)="onUpdateSalary(superUser)"
+              >
+                <mat-icon>attach_money</mat-icon>
+              </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltip="Delete manager"
+                (click)="onDeleteSuperUser(superUser)"
+                *ngIf="superUser.type === 'MANAGER'"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
 
-  <mat-paginator
-    [pageSizeOptions]="[1, 5, 10, 20]"
-    [pageSize]="pageSize"
-    [pageIndex]="pageNum"
-    [length]="totalPages"
-    showFirstLastButtons
-    aria-label="Select page"
-    (page)="onSelectPage($event)"
-  >
-  </mat-paginator>
+    <mat-paginator
+      [pageSizeOptions]="[1, 5, 10, 20]"
+      [pageSize]="pageSize"
+      [pageIndex]="pageNum"
+      [length]="totalPages"
+      showFirstLastButtons
+      aria-label="Select page"
+      (page)="onSelectPage($event)"
+    >
+    </mat-paginator>
+  </div>
+  <div *ngIf="dataSource.data.length === 0">
+    <app-such-empty></app-such-empty>
+  </div>
 </div>

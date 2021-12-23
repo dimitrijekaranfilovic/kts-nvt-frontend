@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Component, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { mustMatchValidator } from 'src/app/modules/shared/validators/must-match.validator';
 import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
@@ -9,7 +9,7 @@ import { CreateSuperUserRequest } from '../../types/CreateSuperUserRequest';
   templateUrl: './create-super-user-dialog.component.html',
   styleUrls: ['./create-super-user-dialog.component.scss']
 })
-export class CreateSuperUserDialogComponent implements OnInit {
+export class CreateSuperUserDialogComponent {
   form: FormGroup;
   onSaveChanges: EventEmitter<CreateSuperUserRequest> = new EventEmitter<CreateSuperUserRequest>();
 
@@ -28,9 +28,6 @@ export class CreateSuperUserDialogComponent implements OnInit {
       salary: [0, Validators.compose([Validators.required, Validators.min(0)])],
       type: ['MANAGER', Validators.required]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {

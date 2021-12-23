@@ -14,31 +14,31 @@ export class SectionTabComponent {
   @Input() tables!: Table[] | undefined;
 
   @Output()
-  onUpdateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
+  updateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
   @Output()
-  onDeleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
-  @Output() onAddTable: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
-  @Output() onDeleteTable: EventEmitter<DeleteTableRequest> = new EventEmitter<DeleteTableRequest>();
+  deleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
+  @Output() 
+  addTable: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
+  @Output()
+  deleteTable: EventEmitter<DeleteTableRequest> = new EventEmitter<DeleteTableRequest>();
 
   selectedTableId: number = 0;
   selectedTableNumber: number = 0;
 
-  constructor() { }
-
-  updateSection(): void {
-    this.onUpdateSection.emit(this.section);
+  onUpdateSection(): void {
+    this.updateSection.emit(this.section);
   }
 
-  deleteSection(): void {
-    this.onDeleteSection.emit(this.section);
+  onDeleteSection(): void {
+    this.deleteSection.emit(this.section);
   }
 
-  addTable(): void {
-    this.onAddTable.emit(this.section);
+  onAddTable(): void {
+    this.addTable.emit(this.section);
   }
 
-  deleteTable(): void {
-    this.onDeleteTable.emit({id: this.selectedTableId, number: this.selectedTableNumber});
+  onDeleteTable(): void {
+    this.deleteTable.emit({id: this.selectedTableId, number: this.selectedTableNumber});
   }
 
   selectTable(tableInfo: TableOrder) {

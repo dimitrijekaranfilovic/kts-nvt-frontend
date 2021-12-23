@@ -14,10 +14,10 @@
     <app-section-tab
       [section]="section"
       [tables]="tables.get(section.id)"
-      (onUpdateSection)="onUpdateSection($event)"
-      (onDeleteSection)="onDeleteSection($event)"
-      (onAddTable)="onAddTable($event)"
-      (onDeleteTable)="onDeleteTable($event)"
+      (updateSection)="onUpdateSection($event)"
+      (deleteSection)="onDeleteSection($event)"
+      (addTable)="onAddTable($event)"
+      (deleteTable)="onDeleteTable($event)"
     ></app-section-tab>
   </mat-tab>
 </mat-tab-group>

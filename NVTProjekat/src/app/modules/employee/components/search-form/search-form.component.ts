@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReadEmployeesRequest } from '../../types/ReadEmployeesRequest';
 
@@ -7,12 +7,12 @@ import { ReadEmployeesRequest } from '../../types/ReadEmployeesRequest';
   templateUrl: './search-form.component.html',
   styleUrls: ['./search-form.component.scss']
 })
-export class SearchFormComponent implements OnInit {
+export class SearchFormComponent {
   form: FormGroup;
   @Output()
-  onCreateEmployee: EventEmitter<void> = new EventEmitter<void>();
+  createEmployee: EventEmitter<void> = new EventEmitter<void>();
   @Output()
-  onSearchEmployee: EventEmitter<ReadEmployeesRequest> = new EventEmitter<ReadEmployeesRequest>();
+  searchEmployee: EventEmitter<ReadEmployeesRequest> = new EventEmitter<ReadEmployeesRequest>();
 
   constructor(
     private formBuilder: FormBuilder
@@ -25,14 +25,11 @@ export class SearchFormComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
   onSubmit(): void {
     if (!this.form.valid) {
       return;
     }
-    this.onSearchEmployee.emit(this.form.value);
+    this.searchEmployee.emit(this.form.value);
   }
 
   onReset(): void {
@@ -42,11 +39,11 @@ export class SearchFormComponent implements OnInit {
       salaryUpperBound: 10000,
       type: ''
     });
-    this.onSearchEmployee.emit(this.form.value);
+    this.searchEmployee.emit(this.form.value);
   }
 
   onCreateEmployeeClick() {
-    this.onCreateEmployee.emit();
+    this.createEmployee.emit();
   }
 
 }

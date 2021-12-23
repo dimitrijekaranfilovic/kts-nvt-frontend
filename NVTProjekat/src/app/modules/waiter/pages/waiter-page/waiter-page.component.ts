@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-waiter-page',
   templateUrl: './waiter-page.component.html',
   styleUrls: ['./waiter-page.component.scss']
 })
-export class WaiterPageComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class WaiterPageComponent {
 
 }

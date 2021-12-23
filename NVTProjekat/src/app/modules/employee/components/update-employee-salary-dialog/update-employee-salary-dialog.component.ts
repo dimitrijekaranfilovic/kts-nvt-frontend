@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
@@ -8,7 +8,7 @@ import { ReadEmployeeResponse } from '../../types/ReadEmployeeResponse';
   templateUrl: './update-employee-salary-dialog.component.html',
   styleUrls: ['./update-employee-salary-dialog.component.scss']
 })
-export class UpdateEmployeeSalaryDialogComponent implements OnInit {
+export class UpdateEmployeeSalaryDialogComponent {
   form: FormGroup;
   onSalaryUpdate: EventEmitter<number> = new EventEmitter();
 
@@ -20,9 +20,6 @@ export class UpdateEmployeeSalaryDialogComponent implements OnInit {
     this.form = this.formBuilder.group({
       salary: [this.employee.currentSalary, Validators.compose([Validators.required, Validators.min(0)])]
     });
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {
