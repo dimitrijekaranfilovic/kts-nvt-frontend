@@ -80,7 +80,6 @@ export class SectionTabsViewComponent implements OnInit {
       request.r = 50;
       this.tableService.createTable(request, section.id).subscribe({
         next: (response) => {
-          //console.log(response);
           this.fetchData();
           window.location.reload();
         },
@@ -118,6 +117,18 @@ export class SectionTabsViewComponent implements OnInit {
         })
       }
     })
+  }
+
+  onDeleteTable(tableId: number): void {
+    this.tableService.deleteTable(tableId).subscribe({
+      next: () => {
+        this.fetchData();
+        window.location.reload();
+      },
+      error: (err) => {
+        this.errorService.handle(err);
+      }
+    });
   }
 
   toast(message: string) {
