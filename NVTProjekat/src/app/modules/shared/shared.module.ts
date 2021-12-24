@@ -7,8 +7,6 @@ import { MaterialModule } from 'src/app/material.module';
 import { SuchEmptyComponent } from './components/such-empty/such-empty.component';
 
 
-
-
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,

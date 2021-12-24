@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -11,13 +12,15 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { KonvaComponent } from 'ng2-konva';
 import { Table } from '../../types/Table';
 import { TableOrder } from '../../types/TableOrder';
+import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
 
 @Component({
   selector: 'app-section-tables-view',
   templateUrl: './section-tables-view.component.html',
   styleUrls: ['./section-tables-view.component.scss'],
+  providers: [ WebSocketService ]
 })
-export class SectionTablesViewComponent implements OnInit {
+export class SectionTablesViewComponent implements OnInit, OnDestroy {
   @ViewChild('stage') stage!: KonvaComponent;
   @ViewChild('layer') layer!: KonvaComponent;
   @ViewChild('dragLayer') dragLayer!: KonvaComponent;
@@ -33,14 +36,29 @@ export class SectionTablesViewComponent implements OnInit {
   public list: Array<any> = [];
   public listNum: Array<any> = [];
 
+  subscription: any;
+
   public configStage: Observable<any> = of({
     width: this.width,
     height: this.height,
   });
 
-  constructor(private ref: ApplicationRef) { }
+  constructor(private ref: ApplicationRef, private socketService: WebSocketService) { }
 
   public ngOnInit() {
+    this.socketService.initializeWebSocketConnection();
+
+    this.subscription = this.socketService
+      .getEmitter()
+      .subscribe((message) => {
+        const stage = this.stage.getStage();
+        const element = stage.find("#" + message.fromId)[0];
+        if(element){
+          element.attrs.fill = "purple";
+          stage.draw();
+        }
+      });
+
     this.list = [];
     this.tables?.forEach((table) => {
       let x = table.x;
@@ -81,6 +99,10 @@ export class SectionTablesViewComponent implements OnInit {
         })
       );
     });
+  }
+
+  ngOnDestroy() {
+    this.socketService.disconnect();
   }
 
   onClick(event: any) {

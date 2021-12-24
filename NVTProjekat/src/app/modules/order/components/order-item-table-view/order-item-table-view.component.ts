@@ -1,17 +1,21 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { OrderItem } from '../../types/OrderItem';
 import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-order-item-table-view',
   templateUrl: './order-item-table-view.component.html',
   styleUrls: ['./order-item-table-view.component.scss'],
+  providers: [ WebSocketService ]
 })
-export class OrderItemTableViewComponent implements OnInit {
+export class OrderItemTableViewComponent implements OnInit, OnDestroy {
   @Input() itemStatus: string = '';
   @Input() itemType: string = '';
 
@@ -36,7 +40,8 @@ export class OrderItemTableViewComponent implements OnInit {
   constructor(
     private orderItemService: OrderItemServiceService,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private socketService: WebSocketService
   ) {}
 
   fetchData(pageIdx: number, pageSize: number) {
@@ -55,6 +60,11 @@ export class OrderItemTableViewComponent implements OnInit {
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(0, this.defaultPageSize));
+      this.socketService.initializeWebSocketConnection();
+  }
+
+  ngOnDestroy() {
+    this.socketService.disconnect();
   }
 
   onSelectPage(event: any) {
@@ -65,9 +75,12 @@ export class OrderItemTableViewComponent implements OnInit {
     this.orderItemService
       .takeOrderItem({ action: action, employeePin: pin, itemId: item.id })
       .subscribe({
-        next: () => {
+        next: (table) => {
           this.fetchData(0, this.defaultPageSize);
           this.orderItemService.emitUpdateTableEvent();
+          if (action === "FINISH") {
+            this.socketService.sendMessageUsingSocket("WS message", table);
+          }
         },
         error: (error) => {
           let message = error.error.errors[Object.keys(error.error.errors)[0]];

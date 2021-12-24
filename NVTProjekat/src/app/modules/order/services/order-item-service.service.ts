@@ -40,6 +40,7 @@ export class OrderItemServiceService {
   getEmitter() {
     return this.updateTable;
   }
+  
   deleteOrderItem(orderItemId: number, pin: string): Observable<any> {
     const url = `${environment.basePath}/api/order-items/${orderItemId}`;
     const options = {
