@@ -17,9 +17,7 @@
       ></app-menu-item-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <div *ngIf="content.length === 0">
-    <img class="center-image" src="assets/empty.png" />
-  </div>
+  <app-such-empty *ngIf="content.length === 0"></app-such-empty>
   <mat-paginator
     [length]="totalElements"
     [pageSize]="pageSize"

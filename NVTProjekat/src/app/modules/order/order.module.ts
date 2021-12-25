@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { OrderRoutes } from './order.routes';
 import { MaterialModule } from 'src/app/material.module';
 import { OrderEndComponent } from './components/order-end/order-end.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { OrderEndComponent } from './components/order-end/order-end.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     MenuItemModule,
     MaterialModule,
     RouterModule.forChild(OrderRoutes),

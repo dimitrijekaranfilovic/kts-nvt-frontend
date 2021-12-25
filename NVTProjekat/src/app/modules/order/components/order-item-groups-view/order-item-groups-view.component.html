@@ -11,6 +11,4 @@
     (groupDeleted)="openDialog(group, 'DELETE')"
   ></app-order-item-group>
 </div>
-<div *ngIf="orderItemGroups.length === 0">
-  <img class="center-image" src="assets/empty.png" />
-</div>
+<app-such-empty *ngIf="orderItemGroups.length === 0"></app-such-empty>

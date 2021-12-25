@@ -13,6 +13,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AddMenuItemToExistingGroupDialogComponent } from './components/add-menu-item-to-existing-group-dialog/add-menu-item-to-existing-group-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddMenuItemToNewGroupDialogComponent } from './components/add-menu-item-to-new-group-dialog/add-menu-item-to-new-group-dialog.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AddMenuItemToNewGroupDialogComponent } from './components/add-menu-item
   ],
   imports: [
     CommonModule,
+    SharedModule,
     MatCardModule,
     MatButtonModule,
     MatBadgeModule,
