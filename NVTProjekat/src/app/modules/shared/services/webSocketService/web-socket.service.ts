@@ -15,7 +15,7 @@ export class WebSocketService {
   updateTable: EventEmitter<Message> = new EventEmitter<Message>();
   url: string = environment.basePath + "/socket/";
   private stompClient!: any;
-  private isLoaded: boolean = false;
+  public isLoaded: boolean = false;
 
   constructor(private http: HttpClient) { }
 

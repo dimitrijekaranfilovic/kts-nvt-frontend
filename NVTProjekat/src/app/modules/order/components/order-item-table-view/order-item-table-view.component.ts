@@ -36,6 +36,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
 
   subscription: any;
   pin: string = '';
+  intervalId!: any;
 
   constructor(
     private orderItemService: OrderItemServiceService,
@@ -44,7 +45,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     private socketService: WebSocketService
   ) {}
 
-  fetchData(pageIdx: number, pageSize: number) {
+  fetchData(pageIdx: number, pageSize: number): void {
     this.orderItemService
       .getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType)
       .subscribe((pageable) => {
@@ -56,15 +57,23 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fetchData(0, this.defaultPageSize);
+    this.fetchData(this.pageNum, this.defaultPageSize);
+    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.defaultPageSize), 10000);
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(0, this.defaultPageSize));
+    if(!this.socketService.isLoaded){
       this.socketService.initializeWebSocketConnection();
+    }
   }
 
   ngOnDestroy() {
-    this.socketService.disconnect();
+    try{
+      this.socketService.disconnect();
+    } catch {
+      console.log("WS connection interrupted.")
+    }
+    clearInterval(this.intervalId);
   }
 
   onSelectPage(event: any) {

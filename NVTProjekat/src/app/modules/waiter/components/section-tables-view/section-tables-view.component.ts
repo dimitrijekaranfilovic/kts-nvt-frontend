@@ -102,7 +102,11 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketService.disconnect();
+    try{
+      this.socketService.disconnect();
+    } catch {
+      console.log("WS connection interrupted.")
+    }
   }
 
   onClick(event: any) {
