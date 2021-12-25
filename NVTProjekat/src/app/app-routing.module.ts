@@ -27,6 +27,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'items',
+        loadChildren: () =>
+          import('./modules/inventory-item/inventory-item.module').then(
+            (m) => m.InventoryItemModule
+          ),
+      },
+      {
         path: 'reports',
         loadChildren: () =>
           import('./modules/report/report.module').then((m) => m.ReportModule),

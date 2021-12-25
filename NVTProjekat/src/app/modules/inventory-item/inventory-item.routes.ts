@@ -4,7 +4,7 @@ import { InventoryItemPageComponent } from "./pages/inventory-item-page/inventor
 
 export const InventoryItemRoutes: Routes = [
     {
-        path: "items",
+        path: "",
         pathMatch: "full",
         component: InventoryItemPageComponent,
         canActivate: [RoleGuard],
