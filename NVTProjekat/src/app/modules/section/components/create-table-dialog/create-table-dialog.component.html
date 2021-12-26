@@ -8,15 +8,15 @@
         formControlName="number"
         required
       />
-      <mat-error> Please provide a valid table number. </mat-error>
+      <mat-error> Table number must be between 1 and 99. </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
       <input matInput placeholder="X coordinate" formControlName="x" required />
-      <mat-error> Please provide a valid x coordinate. </mat-error>
+      <mat-error> X coordinate cannot be greater than 1200 or less than 0. </mat-error>
     </mat-form-field>
     <mat-form-field class="full-width-input">
       <input matInput placeholder="Y coordinate" formControlName="y" required />
-      <mat-error> Please provide a valid y coordinate. </mat-error>
+      <mat-error> Y coordinate cannot be greater than 720 or less than 0. </mat-error>
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
