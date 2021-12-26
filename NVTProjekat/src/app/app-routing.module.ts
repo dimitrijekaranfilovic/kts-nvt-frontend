@@ -27,7 +27,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'items',
+        path: 'inventory-items',
         loadChildren: () =>
           import('./modules/inventory-item/inventory-item.module').then(
             (m) => m.InventoryItemModule
@@ -48,16 +48,12 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/order/order.module').then(
-            (m) => m.OrderModule
-          ),
+          import('./modules/order/order.module').then((m) => m.OrderModule),
       },
       {
-        path: "waiter",
+        path: 'waiter',
         loadChildren: () =>
-          import('./modules/waiter/waiter.module').then(
-            (m) => m.WaiterModule
-          ),
+          import('./modules/waiter/waiter.module').then((m) => m.WaiterModule),
       },
     ],
   },
