@@ -28,4 +28,10 @@ export class InventoryItemService {
       }
     );
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(
+      `${environment.basePath}/api/inventory-items/${id}`
+    );
+  }
 }

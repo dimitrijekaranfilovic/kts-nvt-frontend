@@ -71,4 +71,25 @@ export class InventoryItemTableComponent implements OnInit {
       error: (err) => this.errorService.handle(err),
     };
   }
+
+  onDeleteInventoryItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.confirmationService
+      .confirm({
+        title: `Inventory item deletion`,
+        message: `Are you sure you want to delete inventory item ${inventoryItem.name}?`,
+        yes: 'Yes',
+        no: 'No',
+      })
+      .subscribe((confirmation) => {
+        if (confirmation) {
+          const nextPage =
+            this.pageSize == 1 && this.pageNum > 0
+              ? this.pageNum - 1
+              : this.pageNum;
+          this.inventoryItemService
+            .delete(inventoryItem.id)
+            .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        }
+      });
+  }
 }

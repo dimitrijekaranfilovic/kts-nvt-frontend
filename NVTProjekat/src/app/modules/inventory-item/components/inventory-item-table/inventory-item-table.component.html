@@ -50,7 +50,12 @@
               </button>
             </mat-grid-tile>
             <mat-grid-tile>
-              <button mat-mini-fab color="primary">
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltip="Delete inventory item"
+                (click)="onDeleteInventoryItem(inventoryItem)"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-grid-tile>
