@@ -12,6 +12,7 @@ export class CreateUpdateInventoryItemComponent {
   form: FormGroup;
   isCreate: boolean;
   onSaveChanges: EventEmitter<any> = new EventEmitter<any>();
+  preview: string | ArrayBuffer | null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,6 +20,9 @@ export class CreateUpdateInventoryItemComponent {
     @Inject(MAT_DIALOG_DATA) public inventoryItem: ReadInventoryItemResponse
   ) {
     this.isCreate = this.inventoryItem.id === 0;
+    this.preview = this.inventoryItem.image
+      ? this.inventoryItem.image
+      : 'assets/empty.png';
     this.form = this.formBuilder.group({
       name: [inventoryItem.name, Validators.required],
       description: [inventoryItem.description],
@@ -50,6 +54,7 @@ export class CreateUpdateInventoryItemComponent {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
+        this.preview = reader?.result;
         this.form.patchValue({
           fileSource: file,
           image: reader.result,
