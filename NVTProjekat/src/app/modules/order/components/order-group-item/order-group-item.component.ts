@@ -1,6 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OrderGroupItem } from '../../types/OrderGroupItem';
-import { OrderItem } from '../../types/OrderItem';
 
 @Component({
   selector: 'app-order-group-item',
