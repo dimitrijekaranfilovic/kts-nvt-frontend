@@ -33,7 +33,17 @@
     </mat-form-field>
     <mat-grid-list cols="2">
       <mat-grid-tile>
+        <mat-grid-list cols="1">
+          <button type="button" mat-raised-button (click)="imageInput.click()">
+            Choose File
+          </button>
+          <div class="fileName">
+            {{ filePath }}
+          </div>
+        </mat-grid-list>
         <input
+          hidden
+          #imageInput
           id="image"
           type="file"
           accept=".jpg, .jpeg, .png"

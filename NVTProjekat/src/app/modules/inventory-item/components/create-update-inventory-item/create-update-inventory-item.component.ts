@@ -13,6 +13,7 @@ export class CreateUpdateInventoryItemComponent {
   isCreate: boolean;
   onSaveChanges: EventEmitter<any> = new EventEmitter<any>();
   preview: string | ArrayBuffer | null;
+  filePath: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,6 +24,7 @@ export class CreateUpdateInventoryItemComponent {
     this.preview = this.inventoryItem.image
       ? this.inventoryItem.image
       : 'assets/empty.png';
+    this.filePath = 'No file selected';
     this.form = this.formBuilder.group({
       name: [inventoryItem.name, Validators.required],
       description: [inventoryItem.description],
@@ -55,6 +57,8 @@ export class CreateUpdateInventoryItemComponent {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.preview = reader?.result;
+        console.log(file);
+        this.filePath = file.name;
         this.form.patchValue({
           fileSource: file,
           image: reader.result,
