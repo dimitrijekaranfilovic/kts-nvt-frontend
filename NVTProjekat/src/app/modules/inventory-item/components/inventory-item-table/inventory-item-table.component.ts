@@ -21,6 +21,7 @@ export class InventoryItemTableComponent implements OnInit {
     'allergies',
     'category',
     'currentPrice',
+    'isInMenu',
     'actions',
   ];
   dataSource: MatTableDataSource<ReadInventoryItemResponse> =
@@ -47,7 +48,6 @@ export class InventoryItemTableComponent implements OnInit {
     this.inventoryItemService
       .read(pageIdx, pageSize, this.searchParams)
       .subscribe((page) => {
-        console.log(page);
         this.pageNum = page.pageable.pageNumber;
         this.pageSize = page.pageable.pageSize;
         this.totalPages = page.totalPages;
