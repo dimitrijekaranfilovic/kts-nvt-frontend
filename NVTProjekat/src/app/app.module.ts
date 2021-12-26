@@ -14,6 +14,7 @@ import { SuperUserModule } from './modules/super-user/super-user.module';
 import { ReportModule } from './modules/report/report.module';
 import { WaiterModule } from './modules/waiter/waiter.module';
 import { MenuItemModule } from './modules/menu-item/menu-item.module';
+import { MenuItemTableModule } from './modules/menu-item-table/menu-item-table.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { MenuItemModule } from './modules/menu-item/menu-item.module';
     OrderModule,
     RootModule,
     WaiterModule,
-    MenuItemModule
+    MenuItemModule,
+    MenuItemTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],
