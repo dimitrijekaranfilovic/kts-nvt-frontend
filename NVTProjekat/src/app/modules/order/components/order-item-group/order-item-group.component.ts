@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { OrderGroupItem } from '../../types/OrderGroupItem';
 import { OrderItemGroup } from '../../types/OrderItemGroup';
 import { MatDialog } from '@angular/material/dialog';
