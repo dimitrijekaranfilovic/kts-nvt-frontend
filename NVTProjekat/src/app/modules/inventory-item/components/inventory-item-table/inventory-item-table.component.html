@@ -46,7 +46,12 @@
         <td mat-cell *matCellDef="let inventoryItem">
           <mat-grid-list cols="3">
             <mat-grid-tile>
-              <button mat-mini-fab color="primary">
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltip="Update inventory item's details"
+                (click)="onUpdateInventoryItem(inventoryItem)"
+              >
                 <mat-icon>edit</mat-icon>
               </button>
             </mat-grid-tile>

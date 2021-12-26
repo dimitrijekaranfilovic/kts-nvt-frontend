@@ -116,4 +116,14 @@ export class InventoryItemTableComponent implements OnInit {
           .subscribe(this.getDefaultEntityServiceHandler());
       });
   }
+
+  onUpdateInventoryItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.dialogService
+      .open(CreateUpdateInventoryItemComponent, { data: inventoryItem })
+      .componentInstance.onSaveChanges.subscribe((updated) => {
+        this.inventoryItemService
+          .update(inventoryItem.id, updated)
+          .subscribe(this.getDefaultEntityServiceHandler());
+      });
+  }
 }
