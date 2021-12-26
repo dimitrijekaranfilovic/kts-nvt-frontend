@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { PaginatedResponse } from '../../shared/types/PaginatedResponse';
 import { ReadInventoryItemRequest } from '../types/ReadInventoryItemRequest';
 import { ReadInventoryItemResponse } from '../types/ReadInventoryItemResponse';
+import { CreateInventoryItemRequest } from '../types/CreateInventoryItemRequest';
+import { CreateInventoryItemResponse } from '../types/CreateInventoryItemResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +34,15 @@ export class InventoryItemService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(
       `${environment.basePath}/api/inventory-items/${id}`
+    );
+  }
+
+  create(
+    request: CreateInventoryItemRequest
+  ): Observable<CreateInventoryItemResponse> {
+    return this.http.post<CreateInventoryItemResponse>(
+      `${environment.basePath}/api/inventory-items`,
+      request
     );
   }
 }

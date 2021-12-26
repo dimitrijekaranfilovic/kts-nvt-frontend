@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CreateInventoryItemRequest } from '../../types/CreateInventoryItemRequest';
 import { ReadInventoryItemRequest } from '../../types/ReadInventoryItemRequest';
 
 @Component({
@@ -11,6 +12,8 @@ export class SearchFormComponent {
   form: FormGroup;
   @Output()
   searchInventoryItem: EventEmitter<ReadInventoryItemRequest> = new EventEmitter<ReadInventoryItemRequest>();
+  @Output()
+  createInventoryItem: EventEmitter<CreateInventoryItemRequest> = new EventEmitter<CreateInventoryItemRequest>();
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
@@ -42,5 +45,9 @@ export class SearchFormComponent {
       category: '',
     });
     this.searchInventoryItem.emit(this.form.value);
+  }
+
+  onCreateInventoryItemClick() {
+    this.createInventoryItem.emit();
   }
 }

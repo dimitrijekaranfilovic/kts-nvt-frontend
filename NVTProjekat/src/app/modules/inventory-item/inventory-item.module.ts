@@ -7,12 +7,14 @@ import { InventoryItemRoutes } from './inventory-item.routes';
 import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchFormComponent } from './components/search-form/search-form.component';
+import { CreateUpdateInventoryItemComponent } from './components/create-update-inventory-item/create-update-inventory-item.component';
 
 @NgModule({
   declarations: [
     InventoryItemPageComponent,
     InventoryItemTableComponent,
     SearchFormComponent,
+    CreateUpdateInventoryItemComponent,
   ],
   imports: [
     CommonModule,

@@ -7,6 +7,7 @@ import { ReadInventoryItemResponse } from '../../types/ReadInventoryItemResponse
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateUpdateInventoryItemComponent } from '../create-update-inventory-item/create-update-inventory-item.component';
 
 @Component({
   selector: 'app-inventory-item-table',
@@ -29,6 +30,7 @@ export class InventoryItemTableComponent implements OnInit {
   pageSize: number = 0;
   totalPages: number = 0;
   defaultPageSize: number = 10;
+  totalElements: number = 0;
 
   constructor(
     private inventoryItemService: InventoryItemService,
@@ -45,10 +47,12 @@ export class InventoryItemTableComponent implements OnInit {
     this.inventoryItemService
       .read(pageIdx, pageSize, this.searchParams)
       .subscribe((page) => {
+        console.log(page);
         this.pageNum = page.pageable.pageNumber;
         this.pageSize = page.pageable.pageSize;
         this.totalPages = page.totalPages;
         this.dataSource.data = page.content;
+        this.totalElements = page.totalElements;
       });
   }
 
@@ -90,6 +94,26 @@ export class InventoryItemTableComponent implements OnInit {
             .delete(inventoryItem.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
         }
+      });
+  }
+
+  onCreateInventoryItem(): void {
+    this.dialogService
+      .open(CreateUpdateInventoryItemComponent, {
+        data: {
+          id: 0,
+          name: '',
+          basePrice: 0,
+          description: '',
+          allergies: '',
+          category: 'FOOD',
+          image: '',
+        },
+      })
+      .componentInstance.onSaveChanges.subscribe((created) => {
+        this.inventoryItemService
+          .create(created)
+          .subscribe(this.getDefaultEntityServiceHandler());
       });
   }
 }
