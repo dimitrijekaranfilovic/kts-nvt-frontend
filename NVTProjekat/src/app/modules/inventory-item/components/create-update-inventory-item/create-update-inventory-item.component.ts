@@ -43,4 +43,18 @@ export class CreateUpdateInventoryItemComponent {
   onCancelClick(): void {
     this.dialogRef.close();
   }
+
+  onImageChange(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.form.patchValue({
+          fileSource: file,
+          image: reader.result,
+        });
+      };
+    }
+  }
 }

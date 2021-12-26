@@ -15,6 +15,7 @@ import { ReportModule } from './modules/report/report.module';
 import { WaiterModule } from './modules/waiter/waiter.module';
 import { MenuItemModule } from './modules/menu-item/menu-item.module';
 import { InventoryItemModule } from './modules/inventory-item/inventory-item.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +34,8 @@ import { InventoryItemModule } from './modules/inventory-item/inventory-item.mod
     RootModule,
     WaiterModule,
     MenuItemModule,
-    InventoryItemModule
+    InventoryItemModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

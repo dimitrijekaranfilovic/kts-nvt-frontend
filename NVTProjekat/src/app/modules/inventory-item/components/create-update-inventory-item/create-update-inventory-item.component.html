@@ -31,6 +31,7 @@
       <input matInput placeholder="Allergies" formControlName="allergies" />
       <mat-error> Please provide valid allergies. </mat-error>
     </mat-form-field>
+    <input id="image" type="file" (change)="onImageChange($event)" />
   </div>
   <div mat-dialog-actions>
     <button
