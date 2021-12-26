@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Observer } from 'rxjs';
 import { InventoryItemService } from '../../services/inventory-item.service';
 import { ReadInventoryItemRequest } from '../../types/ReadInventoryItemRequest';
 import { ReadInventoryItemResponse } from '../../types/ReadInventoryItemResponse';
+import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
+import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-inventory-item-table',
@@ -26,7 +30,12 @@ export class InventoryItemTableComponent implements OnInit {
   totalPages: number = 0;
   defaultPageSize: number = 10;
 
-  constructor(private inventoryItemService: InventoryItemService) {}
+  constructor(
+    private inventoryItemService: InventoryItemService,
+    private confirmationService: ConfirmationService,
+    private errorService: ErrorService,
+    private dialogService: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchData(0, this.defaultPageSize);
@@ -45,5 +54,21 @@ export class InventoryItemTableComponent implements OnInit {
 
   onSelectPage(event: any): void {
     this.fetchData(event.pageIndex, event.pageSize);
+  }
+
+  onSearchInventoryItem(params: ReadInventoryItemRequest): void {
+    this.searchParams = params;
+    this.fetchData(0, this.pageSize);
+  }
+
+  getDefaultEntityServiceHandler<TResponse = void>(
+    page?: number
+  ): Partial<Observer<TResponse>> {
+    return {
+      next: (_) => {
+        this.fetchData(page ?? this.pageNum, this.pageSize);
+      },
+      error: (err) => this.errorService.handle(err),
+    };
   }
 }

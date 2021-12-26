@@ -6,17 +6,19 @@ import { RouterModule } from '@angular/router';
 import { InventoryItemRoutes } from './inventory-item.routes';
 import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from '../shared/shared.module';
+import { SearchFormComponent } from './components/search-form/search-form.component';
 
 @NgModule({
   declarations: [
     InventoryItemPageComponent,
-    InventoryItemTableComponent
+    InventoryItemTableComponent,
+    SearchFormComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(InventoryItemRoutes),
     MaterialModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class InventoryItemModule { }
+export class InventoryItemModule {}

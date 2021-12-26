@@ -1,4 +1,8 @@
 <div class="mat-elevation-z8 table-container">
+  <app-inventory-item-search-form
+    (searchInventoryItem)="onSearchInventoryItem($event)"
+  >
+  </app-inventory-item-search-form>
   <div *ngIf="dataSource.data.length > 0">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
@@ -43,11 +47,6 @@
             <mat-grid-tile>
               <button mat-mini-fab color="primary">
                 <mat-icon>edit</mat-icon>
-              </button>
-            </mat-grid-tile>
-            <mat-grid-tile>
-              <button mat-mini-fab color="primary">
-                <mat-icon>image</mat-icon>
               </button>
             </mat-grid-tile>
             <mat-grid-tile>
