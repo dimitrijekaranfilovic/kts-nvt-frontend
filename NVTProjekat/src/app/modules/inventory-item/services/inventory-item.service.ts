@@ -8,6 +8,7 @@ import { ReadInventoryItemResponse } from '../types/ReadInventoryItemResponse';
 import { CreateInventoryItemRequest } from '../types/CreateInventoryItemRequest';
 import { CreateInventoryItemResponse } from '../types/CreateInventoryItemResponse';
 import { UpdateInventoryItemRequest } from '../types/UpdateInventoryItemRequest';
+import { AddMenuItemRequest } from '../types/AddMenuItemRequest';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,13 @@ export class InventoryItemService {
   update(id: number, request: UpdateInventoryItemRequest): Observable<void> {
     return this.http.put<void>(
       `${environment.basePath}/api/inventory-items/${id}`,
+      request
+    );
+  }
+
+  addMenuItem(request: AddMenuItemRequest): Observable<void> {
+    return this.http.post<void>(
+      `${environment.basePath}/api/menu-items`,
       request
     );
   }

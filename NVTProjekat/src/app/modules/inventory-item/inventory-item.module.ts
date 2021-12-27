@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from '../shared/shared.module';
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { CreateUpdateInventoryItemComponent } from './components/create-update-inventory-item/create-update-inventory-item.component';
+import { AddMenuItemComponent } from './components/add-menu-item/add-menu-item.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CreateUpdateInventoryItemComponent } from './components/create-update-i
     InventoryItemTableComponent,
     SearchFormComponent,
     CreateUpdateInventoryItemComponent,
+    AddMenuItemComponent,
   ],
   imports: [
     CommonModule,

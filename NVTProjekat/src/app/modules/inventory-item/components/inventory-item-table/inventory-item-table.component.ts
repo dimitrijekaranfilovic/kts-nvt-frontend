@@ -8,6 +8,7 @@ import { ErrorService } from 'src/app/modules/shared/services/error-service/erro
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateUpdateInventoryItemComponent } from '../create-update-inventory-item/create-update-inventory-item.component';
+import { AddMenuItemComponent } from '../add-menu-item/add-menu-item.component';
 
 @Component({
   selector: 'app-inventory-item-table',
@@ -113,6 +114,16 @@ export class InventoryItemTableComponent implements OnInit {
       .componentInstance.onSaveChanges.subscribe((created) => {
         this.inventoryItemService
           .create(created)
+          .subscribe(this.getDefaultEntityServiceHandler());
+      });
+  }
+
+  onAddMenuItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.dialogService
+      .open(AddMenuItemComponent, { data: inventoryItem })
+      .componentInstance.onPriceUpdate.subscribe((price) => {
+        this.inventoryItemService
+          .addMenuItem({ inventoryItemId: inventoryItem.id, price: price })
           .subscribe(this.getDefaultEntityServiceHandler());
       });
   }

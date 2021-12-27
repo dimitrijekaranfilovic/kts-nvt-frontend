@@ -65,6 +65,17 @@
               <button
                 mat-mini-fab
                 color="primary"
+                matTooltip="Add to menu items"
+                (click)="onAddMenuItem(inventoryItem)"
+                disabled="{{ inventoryItem.isInMenu }}"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button
+                mat-mini-fab
+                color="primary"
                 matTooltip="Delete inventory item"
                 (click)="onDeleteInventoryItem(inventoryItem)"
               >
