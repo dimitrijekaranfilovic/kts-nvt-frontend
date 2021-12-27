@@ -7,6 +7,7 @@ import { ErrorService } from 'src/app/modules/shared/services/error-service/erro
 import { MenuItemTableService } from '../../services/menu-item-table-service/menu-item-table.service';
 import { ReadMenuItemRequest } from '../../types/ReadMenuItemRequest';
 import { ReadMenuItemResponse } from '../../types/ReadMenuItemResponse';
+import { UpdateMenuItemPriceComponent } from '../update-menu-item-price/update-menu-item-price.component';
 
 @Component({
   selector: 'app-menu-item-table',
@@ -81,6 +82,16 @@ export class MenuItemTableComponent implements OnInit {
             .deactivate(menuItem.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
         }
+      });
+  }
+
+  onUpdateMenuItemPrice(menuItem: ReadMenuItemResponse): void {
+    this.dialogService
+      .open(UpdateMenuItemPriceComponent, { data: menuItem })
+      .componentInstance.onPriceUpdate.subscribe((price) => {
+        this.menuItemService
+          .updatePrice(menuItem.id, { price: price })
+          .subscribe(this.getDefaultEntityServiceHandler());
       });
   }
 
