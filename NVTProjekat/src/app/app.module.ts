@@ -14,6 +14,8 @@ import { SuperUserModule } from './modules/super-user/super-user.module';
 import { ReportModule } from './modules/report/report.module';
 import { WaiterModule } from './modules/waiter/waiter.module';
 import { MenuItemModule } from './modules/menu-item/menu-item.module';
+import { InventoryItemModule } from './modules/inventory-item/inventory-item.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MenuItemTableModule } from './modules/menu-item-table/menu-item-table.module';
 
 @NgModule({
@@ -33,7 +35,9 @@ import { MenuItemTableModule } from './modules/menu-item-table/menu-item-table.m
     RootModule,
     WaiterModule,
     MenuItemModule,
-    MenuItemTableModule
+    InventoryItemModule,
+    ReactiveFormsModule,
+    MenuItemTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

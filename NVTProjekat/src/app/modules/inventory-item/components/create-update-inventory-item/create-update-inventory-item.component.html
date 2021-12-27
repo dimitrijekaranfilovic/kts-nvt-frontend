@@ -1,0 +1,78 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title *ngIf="isCreate">Create inventory item</h1>
+  <h1 mat-dialog-title *ngIf="!isCreate">Update inventory item</h1>
+  <div mat-dialog-content>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Name" formControlName="name" required />
+      <mat-error> Please provide a valid name. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Description" formControlName="description" />
+      <mat-error> Please provide a valid description. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input
+        matInput
+        placeholder="Base price"
+        formControlName="basePrice"
+        required
+        type="number"
+      />
+      <mat-error> Please provide a valid base price. </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" required>
+        <mat-option value="FOOD">Food</mat-option>
+        <mat-option value="DRINK">Drink</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width-input">
+      <input matInput placeholder="Allergies" formControlName="allergies" />
+      <mat-error> Please provide valid allergies. </mat-error>
+    </mat-form-field>
+    <mat-grid-list cols="2">
+      <mat-grid-tile>
+        <mat-grid-list cols="1">
+          <button type="button" mat-raised-button (click)="imageInput.click()">
+            Choose File
+          </button>
+          <div class="fileName">
+            {{ filePath }}
+          </div>
+        </mat-grid-list>
+        <input
+          hidden
+          #imageInput
+          id="image"
+          type="file"
+          accept=".jpg, .jpeg, .png"
+          (change)="onImageChange($event)"
+        />
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-card>
+          <img mat-card-image src="{{ preview }}" alt="Photo of inventory item"
+        /></mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="basic"
+      type="button"
+      (click)="onCancelClick()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      [disabled]="!form.valid"
+      color="primary"
+      type="submit"
+    >
+      {{ isCreate ? "Save inventory item" : "Update inventory item" }}
+    </button>
+  </div>
+</form>
