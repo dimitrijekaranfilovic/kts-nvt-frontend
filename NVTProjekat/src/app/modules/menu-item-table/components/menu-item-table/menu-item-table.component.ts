@@ -58,6 +58,11 @@ export class MenuItemTableComponent implements OnInit {
     this.fetchData(event.pageIndex, event.pageSize);
   }
 
+  onSearchMenuItem(params: ReadMenuItemRequest): void {
+    this.searchParams = params;
+    this.fetchData(0, this.pageSize);
+  }
+
   getDefaultEntityServiceHandler<TResponse = void>(
     page?: number
   ): Partial<Observer<TResponse>> {

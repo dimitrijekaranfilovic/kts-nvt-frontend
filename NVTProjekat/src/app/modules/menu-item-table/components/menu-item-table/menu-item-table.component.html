@@ -1,4 +1,6 @@
 <div class="mat-elevation-z8 table-container">
+  <app-menu-item-search-form (searchMenuItem)="onSearchMenuItem($event)">
+  </app-menu-item-search-form>
   <div *ngIf="dataSource.data.length > 0">
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
