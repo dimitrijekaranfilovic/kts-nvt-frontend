@@ -28,4 +28,10 @@ export class MenuItemTableService {
       }
     );
   }
+
+  deactivate(id: number): Observable<void> {
+    return this.http.delete<void>(
+      `${environment.basePath}/api/menu-items/${id}`
+    );
+  }
 }

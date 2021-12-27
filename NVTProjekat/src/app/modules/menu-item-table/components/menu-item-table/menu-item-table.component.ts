@@ -63,6 +63,27 @@ export class MenuItemTableComponent implements OnInit {
     this.fetchData(0, this.pageSize);
   }
 
+  onDeactivateMenuItem(menuItem: ReadMenuItemResponse): void {
+    this.confirmationService
+      .confirm({
+        title: `Menu item deactivation`,
+        message: `Are you sure you want to deactivate menu item ${menuItem.itemName}?`,
+        yes: 'Yes',
+        no: 'No',
+      })
+      .subscribe((confirmation) => {
+        if (confirmation) {
+          const nextPage =
+            this.pageSize == 1 && this.pageNum > 0
+              ? this.pageNum - 1
+              : this.pageNum;
+          this.menuItemService
+            .deactivate(menuItem.id)
+            .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        }
+      });
+  }
+
   getDefaultEntityServiceHandler<TResponse = void>(
     page?: number
   ): Partial<Observer<TResponse>> {

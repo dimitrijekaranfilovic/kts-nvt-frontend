@@ -48,7 +48,12 @@
               </button>
             </mat-grid-tile>
             <mat-grid-tile>
-              <button mat-mini-fab color="primary">
+              <button
+                mat-mini-fab
+                color="primary"
+                matTooltip="Deactivate menu item"
+                (click)="onDeactivateMenuItem(menuItem)"
+              >
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-grid-tile>
