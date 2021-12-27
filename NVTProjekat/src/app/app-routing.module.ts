@@ -20,6 +20,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'menu-items',
+        loadChildren: () =>
+          import('./modules/menu-item-table/menu-item-table.module').then(
+            (m) => m.MenuItemTableModule
+          ),
+      },
+      {
         path: 'super-users',
         loadChildren: () =>
           import('./modules/super-user/super-user.module').then(
@@ -41,16 +48,12 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/order/order.module').then(
-            (m) => m.OrderModule
-          ),
+          import('./modules/order/order.module').then((m) => m.OrderModule),
       },
       {
-        path: "waiter",
+        path: 'waiter',
         loadChildren: () =>
-          import('./modules/waiter/waiter.module').then(
-            (m) => m.WaiterModule
-          ),
+          import('./modules/waiter/waiter.module').then((m) => m.WaiterModule),
       },
     ],
   },
