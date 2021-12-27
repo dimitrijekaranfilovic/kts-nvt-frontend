@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AddOrderItem } from '../../types/AddOrderItem';
-import { OrderGroupItem } from '../../types/OrderGroupItem';
 import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo';
 
 @Component({

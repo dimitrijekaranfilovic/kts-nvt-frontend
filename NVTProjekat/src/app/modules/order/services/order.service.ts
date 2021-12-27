@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { OrderItemGroup } from '../types/OrderItemGroup';
 import { OrderItemGroupReducedInfo } from '../types/OrderItemGroupReducedInfo';
-import { OrderItemServiceService } from './order-item-service.service';
 import { environment } from 'src/environments/environment';
 import { CreateOrderResponse } from '../types/CreateOrderResponse';
 

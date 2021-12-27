@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { OrderService } from 'src/app/modules/order/services/order.service';
 import { OrderItemGroupReducedInfo } from 'src/app/modules/order/types/OrderItemGroupReducedInfo';
 import { AddMenuItem } from '../../types/AddMenuItem';
 import { MenuItem } from '../../types/MenuItem';

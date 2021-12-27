@@ -50,5 +50,4 @@
                    *ngIf="dataSource.data.length > 0">
     </mat-paginator>
 </div>
-
-<div *ngIf="dataSource.data.length === 0" ><img class="center-image" src="assets/empty.png" /></div>
+<app-such-empty *ngIf="dataSource.data.length === 0"></app-such-empty>

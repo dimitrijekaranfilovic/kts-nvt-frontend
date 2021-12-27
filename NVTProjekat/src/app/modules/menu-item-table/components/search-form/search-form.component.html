@@ -1,0 +1,58 @@
+<form [formGroup]="form" (reset)="onReset()" (ngSubmit)="onSubmit()">
+  <mat-grid-list cols="5" rowHeight="10:2">
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Search menu item..."
+          formControlName="query"
+        />
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Price lower bound"
+          type="number"
+          required
+          formControlName="priceLowerBound"
+        />
+        <mat-error> Please provide a valid price lower bound. </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <input
+          matInput
+          placeholder="Price upper bound"
+          type="number"
+          required
+          formControlName="priceUpperBound"
+        />
+        <mat-error> Please provide a valid price upper bound. </mat-error>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="full-width-input">
+        <mat-label>Food category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option value="">All categories</mat-option>
+          <mat-option value="FOOD">Food</mat-option>
+          <mat-option value="DRINK">Drink</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button type="reset" mat-flat-button color="basic">Reset</button>
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        [disabled]="!form.valid"
+      >
+        Search
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

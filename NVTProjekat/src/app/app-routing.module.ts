@@ -20,6 +20,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'menu-items',
+        loadChildren: () =>
+          import('./modules/menu-item-table/menu-item-table.module').then(
+            (m) => m.MenuItemTableModule
+          ),
+      },
+      {
         path: 'super-users',
         loadChildren: () =>
           import('./modules/super-user/super-user.module').then(

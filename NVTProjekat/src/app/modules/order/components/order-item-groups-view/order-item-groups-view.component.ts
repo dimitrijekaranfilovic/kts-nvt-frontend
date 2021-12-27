@@ -161,9 +161,4 @@ export class OrderItemGroupsViewComponent implements OnInit {
       }
     });
   }
-
-  changeOrderStatus(action: string) {
-    if (action === 'CHARGE') {
-    }
-  }
 }
