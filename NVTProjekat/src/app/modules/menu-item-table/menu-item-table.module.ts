@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { MenuItemTableComponent } from './components/menu-item-table/menu-item-table.component';
 import { MenuItemTablePageComponent } from './pages/menu-item-table-page/menu-item-table-page.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
-
-
+import { RouterModule } from '@angular/router';
+import { MenuItemTableRoutes } from './menu-item-table.routes';
+import { MaterialModule } from 'src/app/material.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,10 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
     SearchFormComponent,
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    RouterModule.forChild(MenuItemTableRoutes),
+    MaterialModule,
+    SharedModule,
+  ],
 })
-export class MenuItemTableModule { }
+export class MenuItemTableModule {}
