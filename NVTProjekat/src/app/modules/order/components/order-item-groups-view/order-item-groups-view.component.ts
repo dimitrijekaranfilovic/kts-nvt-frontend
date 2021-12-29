@@ -8,6 +8,7 @@ import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-order-item-groups-view',
@@ -85,6 +86,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
           this.orderItemGroups = this.orderItemGroups.filter(
             (item) => item.id !== group.id
           );
+          this.orderService.emitOrderItemGroupDeleted(group.id);
           this.toast(`${group.name} successfully deleted.`);
         },
         error: (error) => {

@@ -14,6 +14,7 @@ export class OrderService {
   private groupsUpdatedSubject = new Subject<any>();
   constructor(private httpClient: HttpClient) {}
   private orderItemGroupAddedSubject = new Subject<any>();
+  private orderItemGroupDeletedSubject = new Subject<any>();
 
   getOrderItemGroups(orderId: number): Observable<OrderItemGroup[]> {
     const url = `${this.baseUrl}/${orderId}/groups`;
@@ -71,6 +72,14 @@ export class OrderService {
 
   onOrderItemGroupAdded(): Observable<any> {
     return this.orderItemGroupAddedSubject.asObservable();
+  }
+
+  emitOrderItemGroupDeleted(groupId: number): void {
+    this.orderItemGroupDeletedSubject.next(groupId);
+  }
+
+  onOrderItemGroupDeleted(): Observable<any> {
+    return this.orderItemGroupDeletedSubject.asObservable();
   }
 
   chargeOrder(orderId: number, pin: string): Observable<any> {

@@ -24,6 +24,8 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   @Input() public groups: OrderItemGroupReducedInfo[] = [];
   @Input() public orderId!: number;
   private onOrderItemGroupAddedSubscription!: Subscription;
+  private onOrderItemGroupDeletedSubscription!: Subscription;
+
   form!: FormGroup;
   public menuItemName: string = '';
   public content: MenuItem[] = [];
@@ -54,6 +56,11 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
           name: result.name,
         })
       );
+    this.onOrderItemGroupDeletedSubscription = this.orderService
+      .onOrderItemGroupDeleted()
+      .subscribe((result) => {
+        this.groups = this.groups.filter((item) => item.id !== result);
+      });
   }
 
   ngOnInit(): void {
