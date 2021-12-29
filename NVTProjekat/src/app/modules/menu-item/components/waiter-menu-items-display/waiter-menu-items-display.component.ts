@@ -132,7 +132,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
         }
       );
       dialogRef.afterClosed().subscribe((result) => {
-        console.log('Result:', result);
+        if (!result) return;
         if (result.event === 'CANCEL') {
           return;
         }
@@ -151,6 +151,8 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
         data: { pin: this.pin, amount: this.amount, groupName: this.groupName },
       });
       dialogRef.afterClosed().subscribe((result) => {
+        if (!result) return;
+
         if (result.event === 'CANCEL') {
           return;
         }

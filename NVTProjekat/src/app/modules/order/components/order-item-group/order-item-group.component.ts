@@ -101,6 +101,8 @@ export class OrderItemGroupComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
       if (result.event === 'CANCEL') {
         return;
       }
@@ -115,6 +117,8 @@ export class OrderItemGroupComponent {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
       if (result.event === 'CANCEL') {
         return;
       }
