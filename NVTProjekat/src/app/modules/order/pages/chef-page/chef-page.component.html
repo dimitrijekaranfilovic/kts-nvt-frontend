@@ -1,10 +1,10 @@
 <h1 class="main-heading">Kitchen</h1>
 <div class="row">
-    <div class="column">
+    <div class="column" name="left">
         <h2 [align]="'center'">New Item Requests</h2>
         <app-order-item-table-view [itemStatus]="'SENT'" [itemType]="'FOOD'"></app-order-item-table-view>
     </div>
-    <div class="column">
+    <div class="column" name="right">
         <h2 [align]="'center'">Items in preparation</h2>
         <app-order-item-table-view [itemStatus]="'PREPARING'" [itemType]="'FOOD'"></app-order-item-table-view>
     </div>
