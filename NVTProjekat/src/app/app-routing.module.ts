@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './modules/root/components/layout/layout.component';
+import { WelcomeComponent } from './modules/root/components/welcome/welcome.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
     children: [
+      {
+        path: '',
+        component: WelcomeComponent,
+      },
       {
         path: 'auth',
         loadChildren: () =>
