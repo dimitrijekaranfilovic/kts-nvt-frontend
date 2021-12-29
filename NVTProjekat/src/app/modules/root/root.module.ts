@@ -4,11 +4,13 @@ import { MaterialModule } from 'src/app/material.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    LayoutComponent
+    LayoutComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
