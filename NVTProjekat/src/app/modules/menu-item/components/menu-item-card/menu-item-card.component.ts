@@ -18,7 +18,7 @@ export class MenuItemCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.imageSource = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.menuItem.itemImage
+      this.menuItem.itemImage ? this.menuItem.itemImage : 'assets/empty.png'
     );
   }
 
