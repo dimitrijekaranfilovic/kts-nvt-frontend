@@ -31,7 +31,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
   dataSource: MatTableDataSource<OrderItem> = new MatTableDataSource<OrderItem>();
   pageNum: number = 0;
   pageSize: number = 0;
-  totalPages: number = 0;
+  totalElements!: number;
   defaultPageSize: number = 5;
 
   subscription: any;
@@ -51,17 +51,17 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
       .subscribe((pageable) => {
         this.pageNum = pageable.pageable.pageNumber;
         this.pageSize = pageable.pageable.pageSize;
-        this.totalPages = pageable.totalPages;
+        this.totalElements = pageable.totalElements;
         this.dataSource = new MatTableDataSource<OrderItem>(pageable.content);
       });
   }
 
   ngOnInit(): void {
     this.fetchData(this.pageNum, this.defaultPageSize);
-    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.defaultPageSize), 10000);
+    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.pageSize), 10000);
     this.subscription = this.orderItemService
       .getEmitter()
-      .subscribe(() => this.fetchData(0, this.defaultPageSize));
+      .subscribe(() => this.fetchData(this.pageNum, this.pageSize));
     if(!this.socketService.isLoaded){
       this.socketService.initializeWebSocketConnection();
     }

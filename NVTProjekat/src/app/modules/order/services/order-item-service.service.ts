@@ -5,6 +5,8 @@ import { TakeOrderItemRequest } from '../types/TakeOrderItemRequest';
 import { EventEmitter } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AddOrderItem } from '../types/AddOrderItem';
+import { PaginatedResponse } from '../../shared/types/PaginatedResponse';
+import { OrderItem } from '../types/OrderItem';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +22,8 @@ export class OrderItemServiceService {
     size: number,
     status: string,
     category: string
-  ): Observable<any> {
-    return this.http.get(
+  ): Observable<PaginatedResponse<OrderItem>> {
+    return this.http.get<PaginatedResponse<OrderItem>>(
       `${environment.basePath}/api/order-items/requests?page=${page}&size=${size}&status=${status}&category=${category}`
     );
   }
