@@ -33,9 +33,13 @@ export class OrderItemGroupsViewComponent implements OnInit {
     this.orderItemAddedSubscription = this.orderItemService
       .onOrderItemAdded()
       .subscribe((value) => {
-        this.orderItemGroups
-          .find((item) => item.id === value.groupId)
-          ?.orderItems.push(value.orderItem);
+        const group = this.orderItemGroups.find(
+          (item) => item.id === value.groupId
+        );
+        const orderItem = group?.orderItems.find(
+          (item) => item.id === value.orderItem.id
+        );
+        if (!orderItem) group?.orderItems.push(value.orderItem);
       });
     this.orderItemGroupAddedSubscription = this.orderService
       .onOrderItemGroupAdded()

@@ -99,7 +99,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
             orderItem: result,
             groupId: orderItemGroupId,
           };
-          this.orderItemService.emitAddOrderItemSubject(data);
+          this.orderItemService.emitOrderItemAdded(data);
           this.toast('Item succesfully added.');
         },
         error: (error) => {
