@@ -8,6 +8,7 @@ import { OrderItemGroupReducedInfo } from '../../types/OrderItemGroupReducedInfo
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-order-item-groups-view',
@@ -32,9 +33,13 @@ export class OrderItemGroupsViewComponent implements OnInit {
     this.orderItemAddedSubscription = this.orderItemService
       .onOrderItemAdded()
       .subscribe((value) => {
-        this.orderItemGroups
-          .find((item) => item.id === value.groupId)
-          ?.orderItems.push(value.orderItem);
+        const group = this.orderItemGroups.find(
+          (item) => item.id === value.groupId
+        );
+        const orderItem = group?.orderItems.find(
+          (item) => item.id === value.orderItem.id
+        );
+        if (!orderItem) group?.orderItems.push(value.orderItem);
       });
     this.orderItemGroupAddedSubscription = this.orderService
       .onOrderItemGroupAdded()
@@ -85,6 +90,7 @@ export class OrderItemGroupsViewComponent implements OnInit {
           this.orderItemGroups = this.orderItemGroups.filter(
             (item) => item.id !== group.id
           );
+          this.orderService.emitOrderItemGroupDeleted(group.id);
           this.toast(`${group.name} successfully deleted.`);
         },
         error: (error) => {
@@ -111,6 +117,8 @@ export class OrderItemGroupsViewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
       if (result.event === 'CANCEL') {
         return;
       }
@@ -125,6 +133,8 @@ export class OrderItemGroupsViewComponent implements OnInit {
       data: { pin: this.pin },
     });
     dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+
       if (result.event === 'CANCEL') {
         return;
       }

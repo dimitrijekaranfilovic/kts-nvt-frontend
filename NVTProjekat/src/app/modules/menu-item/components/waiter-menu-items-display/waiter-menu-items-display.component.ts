@@ -24,6 +24,8 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   @Input() public groups: OrderItemGroupReducedInfo[] = [];
   @Input() public orderId!: number;
   private onOrderItemGroupAddedSubscription!: Subscription;
+  private onOrderItemGroupDeletedSubscription!: Subscription;
+
   form!: FormGroup;
   public menuItemName: string = '';
   public content: MenuItem[] = [];
@@ -54,6 +56,11 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
           name: result.name,
         })
       );
+    this.onOrderItemGroupDeletedSubscription = this.orderService
+      .onOrderItemGroupDeleted()
+      .subscribe((result) => {
+        this.groups = this.groups.filter((item) => item.id !== result);
+      });
   }
 
   ngOnInit(): void {
@@ -92,7 +99,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
             orderItem: result,
             groupId: orderItemGroupId,
           };
-          this.orderItemService.emitAddOrderItemSubject(data);
+          this.orderItemService.emitOrderItemAdded(data);
           this.toast('Item succesfully added.');
         },
         error: (error) => {
@@ -125,7 +132,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
         }
       );
       dialogRef.afterClosed().subscribe((result) => {
-        console.log('Result:', result);
+        if (!result) return;
         if (result.event === 'CANCEL') {
           return;
         }
@@ -144,6 +151,8 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
         data: { pin: this.pin, amount: this.amount, groupName: this.groupName },
       });
       dialogRef.afterClosed().subscribe((result) => {
+        if (!result) return;
+
         if (result.event === 'CANCEL') {
           return;
         }

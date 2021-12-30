@@ -24,7 +24,6 @@ export class PinModalComponent {
   }
 
   onCancelClick(): void {
-    console.log('CANCEL');
     this.dialogRef.close({ event: 'CANCEL' });
   }
   onSubmit(event: Event): void {
