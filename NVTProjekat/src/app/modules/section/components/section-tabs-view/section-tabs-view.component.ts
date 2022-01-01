@@ -26,6 +26,8 @@ export class SectionTabsViewComponent implements OnInit {
   ];
   dataSource: MatTableDataSource<ReadSectionResponse> = new MatTableDataSource<ReadSectionResponse>();
 
+  private sections: ReadSectionResponse[] = []
+
   constructor(
     private sectionService: SectionService,
     private dialogService: MatDialog,
@@ -38,7 +40,8 @@ export class SectionTabsViewComponent implements OnInit {
   ngOnInit(): void {
     this.sectionService.read().subscribe(response => {
       response.sort((s1, s2) => s1.id - s2.id);
-      this.dataSource.data = response;
+      this.sections = response;
+      this.refreshTable();
     })
   }
 
@@ -50,6 +53,10 @@ export class SectionTabsViewComponent implements OnInit {
     });
   }
 
+  refreshTable(): void {
+    this.dataSource.data = this.sections;
+  }
+
   onCreateSection(): void {
     this.dialogService.open(CreateUpdateSectionDialogComponent, {
       data: {
@@ -58,9 +65,10 @@ export class SectionTabsViewComponent implements OnInit {
     }).componentInstance.saveChanges.subscribe(request => {
       this.sectionService.create(request).subscribe({
         next: response => {
-          this.dataSource.data.push({
+          this.sections.push({
             ...request, ...response
           });
+          this.refreshTable();
         },
         error: err => this.errorService.handle(err)
       })
@@ -105,7 +113,10 @@ export class SectionTabsViewComponent implements OnInit {
     }).subscribe(confirmation => {
       if (confirmation) {
         this.sectionService.delete(section.id).subscribe({
-          next: _ => this.dataSource.data = this.dataSource.data.filter(s => s.id !== section.id),
+          next: _ => {
+            this.sections = this.sections.filter(s => s.id !== section.id);
+            this.refreshTable();
+          },
           error: err => this.errorService.handle(err)
         })
       }
