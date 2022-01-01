@@ -27,7 +27,7 @@ export class SectionTabsViewWaiterComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.sectionService.getSections().subscribe((response) => {

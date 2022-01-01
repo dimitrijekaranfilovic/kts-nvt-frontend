@@ -3,11 +3,26 @@
     <button mat-flat-button color="primary" (click)="onUpdateSection()">
       Update section
     </button>
-    <button mat-flat-button color="primary" (click)="onAddTable()">Add new table</button>
+    <button mat-flat-button color="primary" (click)="onAddTable()">
+      Add new table
+    </button>
     <button mat-flat-button color="primary" (click)="onDeleteSection()">
       Delete section
     </button>
-    <button mat-flat-button color="accent" [disabled]="selectedTableId === 0" (click)="onDeleteTable()" >Delete table {{selectedTableNumber > 0 ? selectedTableNumber : ''}}</button>
+    <button
+      mat-flat-button
+      color="accent"
+      [disabled]="selectedTableId === 0"
+      (click)="onDeleteTable()"
+    >
+      Delete table {{ selectedTableNumber > 0 ? selectedTableNumber : "" }}
+    </button>
   </div>
-  <app-section-tables-view [draggable]="true" [tables]="tables" [sectionId]="section.id" *ngIf="tables" (tableClicked)="selectTable($event)" ></app-section-tables-view>
+  <app-section-tables-view
+    [draggable]="true"
+    [tables]="tables"
+    [sectionId]="section.id"
+    *ngIf="tables"
+    (tableClicked)="selectTable($event)"
+  ></app-section-tables-view>
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/waiter-section-service.service';
@@ -19,9 +18,13 @@ import { CreateUpdateSectionDialogComponent } from '../create-update-section-dia
   styleUrls: ['./section-tabs-view.component.scss']
 })
 export class SectionTabsViewComponent implements OnInit {
-  sections: ReadSectionResponse[] = [];
-  selected = new FormControl(0);
   tables: Map<number, Table[]> = new Map<number, Table[]>();
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'actions',
+  ];
+  dataSource: MatTableDataSource<ReadSectionResponse> = new MatTableDataSource<ReadSectionResponse>();
 
   constructor(
     private sectionService: SectionService,
@@ -29,26 +32,22 @@ export class SectionTabsViewComponent implements OnInit {
     private errorService: ErrorService,
     private confirmationService: ConfirmationService,
     private tableService: TableService,
-    private snackBar: MatSnackBar,
     private waiterSectionService: WaiterSectionServiceService
   ) { }
 
   ngOnInit(): void {
     this.sectionService.read().subscribe(response => {
-      this.sections = response;
-      this.sections.sort((s1, s2) => s1.id - s2.id);
+      response.sort((s1, s2) => s1.id - s2.id);
+      this.dataSource.data = response;
     })
   }
 
   fetchData() {
-    this.waiterSectionService.getTablesForSection(this.selected.value + 1).subscribe(response => {
-      this.tables.set(this.selected.value + 1, response);
+    const sectionId = 1;
+    this.waiterSectionService.getTablesForSection(sectionId).subscribe(response => {
+      console.log(response);
+      this.tables.set(sectionId, response);
     });
-  }
-
-  onTabSelect(event: any): void {
-    this.selected.setValue(event);
-    this.fetchData();
   }
 
   onCreateSection(): void {
@@ -59,10 +58,9 @@ export class SectionTabsViewComponent implements OnInit {
     }).componentInstance.saveChanges.subscribe(request => {
       this.sectionService.create(request).subscribe({
         next: response => {
-          this.sections.push({
+          this.dataSource.data.push({
             ...request, ...response
           });
-          this.selected.setValue(this.sections.length - 1);
         },
         error: err => this.errorService.handle(err)
       })
@@ -80,17 +78,11 @@ export class SectionTabsViewComponent implements OnInit {
     }).componentInstance.saveChanges.subscribe(request => {
       request.r = 50;
       this.tableService.createTable(request, section.id).subscribe({
-        next: (response) => {
+        next: () => {
           this.fetchData();
           window.location.reload();
         },
-        error: (error) => {
-          let message = error.error.errors[Object.keys(error.error.errors)[0]];
-          if (message === undefined) {
-            message = error.error.message;
-          }
-          this.toast(message);
-        }
+        error: (error) => this.errorService.handle(error)
       })
     });
   }
@@ -113,7 +105,7 @@ export class SectionTabsViewComponent implements OnInit {
     }).subscribe(confirmation => {
       if (confirmation) {
         this.sectionService.delete(section.id).subscribe({
-          next: _ => this.sections = this.sections.filter(s => s.id !== section.id),
+          next: _ => this.dataSource.data = this.dataSource.data.filter(s => s.id !== section.id),
           error: err => this.errorService.handle(err)
         })
       }
@@ -139,13 +131,6 @@ export class SectionTabsViewComponent implements OnInit {
         });
       }
     })
-  }
-
-  toast(message: string) {
-    this.snackBar.open(message, 'Dismiss', {
-      duration: 5000,
-      verticalPosition: 'top',
-    });
   }
 
 }
