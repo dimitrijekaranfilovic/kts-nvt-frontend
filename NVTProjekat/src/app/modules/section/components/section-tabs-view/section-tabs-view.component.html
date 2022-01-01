@@ -1,6 +1,6 @@
 <div>
   <button
-    style="margin-left: 15px"
+    style="margin-right: 15px; float: right"
     mat-flat-button
     color="primary"
     (click)="onCreateSection()"
@@ -42,7 +42,7 @@
             <mat-grid-tile>
               <button
                 mat-mini-fab
-                [routerLink]="['/sections', section.id, 'manage']"
+                [routerLink]="['/sections', section.id, 'layout']"
                 color="primary"
                 matTooltip="View seating layout"
               >

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/waiter-section-service.service';
+import { Table } from 'src/app/modules/waiter/types/Table';
+import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 
 @Component({
   selector: 'app-section-page',
@@ -9,14 +12,24 @@ import { ActivatedRoute } from '@angular/router';
 export class SectionPageComponent implements OnInit {
 
   private sectionId!: number;
+  section!: ReadSectionResponse;
+  tables: Table[] = [];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sectionService: WaiterSectionServiceService
   ) { }
 
   ngOnInit(): void {
     this.sectionId = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(this.sectionId);
+    this.section = {
+      id: this.sectionId,
+      name: 'imelo'
+    };
+    this.sectionService.getTablesForSection(this.sectionId).subscribe(tables => {
+      this.tables = tables;
+      console.log(tables);
+    })
   }
 
 }

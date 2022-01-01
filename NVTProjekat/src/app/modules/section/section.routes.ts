@@ -11,7 +11,7 @@ export const SectionRoutes: Routes = [
         data: { roles: ['ADMIN', 'MANAGER'] },
     },
     {
-        path: ":id/manage",
+        path: ":id/layout",
         component: SectionPageComponent,
         canActivate: [RoleGuard],
         data: { roles: ['ADMIN', 'MANAGER'] },

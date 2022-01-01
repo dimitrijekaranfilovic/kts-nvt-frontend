@@ -1,13 +1,12 @@
 <section class="centered">
-    <ko-stage #stage [config]="configStage">
-        <ko-layer #layer>
-            <ko-circle *ngFor="let item of list"
-            [config]="item" (click)="onClick($event)">
-            </ko-circle>
-            <ko-text *ngFor="let item of listNum"
-            [config]="item">
-            </ko-text>
-        </ko-layer>
-        <ko-layer #dragLayer></ko-layer>
-    </ko-stage>
+  <ko-stage #stage [config]="configStage">
+    <ko-layer #layer>
+      <ko-group *ngFor="let group of groups" [config]="group.config">
+        <ko-circle [config]="group.tableConfig" (click)="onClick($event)">
+        </ko-circle>
+        <ko-text [config]="group.numberConfig"> </ko-text>
+      </ko-group>
+    </ko-layer>
+    <ko-layer #dragLayer></ko-layer>
+  </ko-stage>
 </section>

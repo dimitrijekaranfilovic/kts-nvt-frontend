@@ -12,12 +12,11 @@ export class WaiterSectionServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getSections(): Observable<Section[]>{
+  getSections(): Observable<Section[]> {
     return this.http.get<Section[]>(`${environment.basePath}/api/sections`);
   }
 
-  getTablesForSection(sectionNum: number): Observable<Table[]>{
-    //console.log("Section num je ", sectionNum);
-    return this.http.get<Table[]>(`${environment.basePath}/api/sections/${sectionNum}/tables`);
+  getTablesForSection(id: number): Observable<Table[]> {
+    return this.http.get<Table[]>(`${environment.basePath}/api/sections/${id}/tables`);
   }
 }

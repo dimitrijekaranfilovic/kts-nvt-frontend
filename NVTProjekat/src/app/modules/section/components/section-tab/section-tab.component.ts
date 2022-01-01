@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Table } from 'src/app/modules/waiter/types/Table';
 import { TableOrder } from 'src/app/modules/waiter/types/TableOrder';
 import { DeleteTableRequest } from '../../types/DeleteTableRequest';
@@ -10,14 +10,16 @@ import { ReadSectionResponse } from '../../types/ReadSectionResponse';
   styleUrls: ['./section-tab.component.scss']
 })
 export class SectionTabComponent {
-  @Input() section!: ReadSectionResponse;
-  @Input() tables!: Table[] | undefined;
+  @Input()
+  section!: ReadSectionResponse;
+  @Input()
+  tables: Table[] = [];
 
   @Output()
   updateSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
   @Output()
   deleteSection: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
-  @Output() 
+  @Output()
   addTable: EventEmitter<ReadSectionResponse> = new EventEmitter<ReadSectionResponse>();
   @Output()
   deleteTable: EventEmitter<DeleteTableRequest> = new EventEmitter<DeleteTableRequest>();
@@ -38,7 +40,7 @@ export class SectionTabComponent {
   }
 
   onDeleteTable(): void {
-    this.deleteTable.emit({id: this.selectedTableId, number: this.selectedTableNumber});
+    this.deleteTable.emit({ id: this.selectedTableId, number: this.selectedTableNumber });
   }
 
   selectTable(tableInfo: TableOrder) {
