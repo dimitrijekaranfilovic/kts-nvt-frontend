@@ -5,12 +5,12 @@
         *ngFor="let group of groups"
         [config]="group.config"
         (click)="onClick(group.table)"
-        (dragend)="onDragEnd($event)"
+        (dragstart)="onDragStart(group.table)"
+        (dragend)="onDragEnd(group.table)"
       >
         <ko-circle [config]="group.tableConfig"> </ko-circle>
         <ko-text [config]="group.numberConfig"> </ko-text>
       </ko-group>
     </ko-layer>
-    <ko-layer #dragLayer></ko-layer>
   </ko-stage>
 </section>
