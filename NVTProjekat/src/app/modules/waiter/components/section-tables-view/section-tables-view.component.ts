@@ -65,6 +65,8 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
 
   onDragEnd(table: Table): void {
     const newCursorPosition = this.getCursorPosition();
+    console.log(newCursorPosition);
+    console.log(this.relativeCursorPosition);
     const dx = newCursorPosition.x - this.relativeCursorPosition.x;
     const dy = newCursorPosition.y - this.relativeCursorPosition.y;
     console.log(table);
@@ -147,8 +149,6 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
         name: `number_${table.id}`,
       });
       const group = of({
-        x: x,
-        y: y,
         draggable: this.draggable && table.available,
         listening: true,
       })
