@@ -58,7 +58,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData(this.pageNum, this.defaultPageSize);
-    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.pageSize), 10000);
+    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.pageSize), 30000);
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(this.pageNum, this.pageSize));
@@ -86,7 +86,9 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (table) => {
           this.fetchData(0, this.defaultPageSize);
-          this.orderItemService.emitUpdateTableEvent();
+          if(action == "PREPARE") {
+            this.orderItemService.emitUpdateTableEvent();
+          }
           if (action === "FINISH") {
             this.socketService.sendMessageUsingSocket("WS message", table);
           }
