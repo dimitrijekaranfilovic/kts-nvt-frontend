@@ -1,9 +1,13 @@
 <section class="centered">
   <ko-stage #stage [config]="configStage">
     <ko-layer #layer>
-      <ko-group *ngFor="let group of groups" [config]="group.config">
-        <ko-circle [config]="group.tableConfig" (click)="onClick($event)">
-        </ko-circle>
+      <ko-group
+        *ngFor="let group of groups"
+        [config]="group.config"
+        (click)="onClick(group.table)"
+        (dragend)="onDragEnd($event)"
+      >
+        <ko-circle [config]="group.tableConfig"> </ko-circle>
         <ko-text [config]="group.numberConfig"> </ko-text>
       </ko-group>
     </ko-layer>

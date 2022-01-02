@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { KonvaComponent } from 'ng2-konva';
+import { CoreShapeComponent, KonvaComponent } from 'ng2-konva';
 import { Table } from '../../types/Table';
 import { TableOrder } from '../../types/TableOrder';
 import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
@@ -42,7 +42,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
 
   constructor(private ref: ApplicationRef, private socketService: WebSocketService) { }
 
-  public ngOnInit() {
+  ngOnInit(): void {
     this.initSockets();
     this.groups = [];
     this.tables?.forEach((table) => {
@@ -61,8 +61,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
         shadowOffsetX: 5,
         shadowOffsetY: 5,
         shadowOpacity: 0.6,
-        name: `${table.number}`,
-        id: `${table.id}`,
+        name: `table_${table.id}`,
         fillAfterStrokeEnabled: true,
       })
       const numberConfig = of({
@@ -74,8 +73,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
         fill: '#ffffff',
         width: 40,
         height: 40,
-        name: `${table.id}`,
-        id: `${table.id}`,
+        name: `number_${table.id}`,
       });
       const group = of({
         x: x,
@@ -86,12 +84,13 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
       this.groups.push({
         config: group,
         tableConfig: tableConfig,
-        numberConfig: numberConfig
+        numberConfig: numberConfig,
+        table: table
       });
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     try {
       this.socketService.disconnect();
     } catch {
@@ -105,7 +104,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
       .getEmitter()
       .subscribe((message) => {
         const stage = this.stage.getStage();
-        const element = stage.find("#" + message.fromId)[0];
+        const element = stage.find(`.table_${message.fromId}`)[0];
         if (element) {
           element.attrs.fill = "purple";
           stage.draw();
@@ -113,16 +112,18 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
       });
   }
 
-  onClick(event: any) {
-    let tableId: number = Number(event.cacheProps.id);
-    let tableNum: number = Number(event.cacheProps.name);
+  onDragEnd(event: any): void {
+    console.log(event);
+  }
+
+  onClick(table: Table): void {
+    console.log(table);
     const stage = this.stage.getStage();
-    const table = this.tables?.find((t) => t.id === tableId);
 
     const tableOrder: TableOrder = {
-      tableAvailable: table?.available,
-      tableId: tableId,
-      tableNumber: tableNum,
+      tableAvailable: table.available,
+      tableId: table.id,
+      tableNumber: table.number,
     };
 
     this.tableClicked.emit(tableOrder);
