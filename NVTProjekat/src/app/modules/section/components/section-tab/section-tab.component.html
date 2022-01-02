@@ -19,4 +19,5 @@
     [sectionId]="section.id"
     (tableClicked)="selectTable($event)"
   ></app-section-tables-view>
+  <app-such-empty *ngIf="tables.length === 0"> </app-such-empty>
 </div>

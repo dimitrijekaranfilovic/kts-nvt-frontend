@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { CoreShapeComponent, KonvaComponent } from 'ng2-konva';
+import { KonvaComponent } from 'ng2-konva';
 import { Table } from '../../types/Table';
 import { TableOrder } from '../../types/TableOrder';
 import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
@@ -44,6 +44,40 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.initSockets();
+    this.populateScene();
+  }
+
+  ngOnDestroy(): void {
+    try {
+      this.socketService.disconnect();
+    } catch {
+      console.log("WS connection interrupted.")
+    }
+  }
+
+  onDragEnd(event: any): void {
+    console.log(event);
+  }
+
+  redraw(): void {
+    const stage = this.stage.getStage();
+    this.ref.tick();
+    stage.draw();
+    stage.batchDraw();
+  }
+
+  onClick(table: Table): void {
+    const tableOrder: TableOrder = {
+      tableAvailable: table.available,
+      tableId: table.id,
+      tableNumber: table.number,
+    };
+
+    this.tableClicked.emit(tableOrder);
+    this.redraw();
+  }
+
+  populateScene(): void {
     this.groups = [];
     this.tables?.forEach((table) => {
       let x = table.x;
@@ -90,14 +124,6 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    try {
-      this.socketService.disconnect();
-    } catch {
-      console.log("WS connection interrupted.")
-    }
-  }
-
   initSockets(): void {
     this.socketService.initializeWebSocketConnection();
     this.socketService
@@ -110,26 +136,5 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
           stage.draw();
         }
       });
-  }
-
-  onDragEnd(event: any): void {
-    console.log(event);
-  }
-
-  onClick(table: Table): void {
-    console.log(table);
-    const stage = this.stage.getStage();
-
-    const tableOrder: TableOrder = {
-      tableAvailable: table.available,
-      tableId: table.id,
-      tableNumber: table.number,
-    };
-
-    this.tableClicked.emit(tableOrder);
-
-    this.ref.tick();
-    stage.draw();
-    stage.batchDraw();
   }
 }

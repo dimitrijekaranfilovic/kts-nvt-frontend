@@ -7,9 +7,7 @@ import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/wai
 import { Table } from 'src/app/modules/waiter/types/Table';
 import { SectionService } from '../../services/section-service/section.service';
 import { TableService } from '../../services/table-service/table.service';
-import { DeleteTableRequest } from '../../types/DeleteTableRequest';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
-import { CreateTableDialogComponent } from '../create-table-dialog/create-table-dialog.component';
 import { CreateUpdateSectionDialogComponent } from '../create-update-section-dialog/create-update-section-dialog.component';
 
 @Component({
@@ -45,14 +43,6 @@ export class SectionTabsViewComponent implements OnInit {
     })
   }
 
-  fetchData() {
-    const sectionId = 1;
-    this.waiterSectionService.getTablesForSection(sectionId).subscribe(response => {
-      console.log(response);
-      this.tables.set(sectionId, response);
-    });
-  }
-
   refreshTable(): void {
     this.dataSource.data = this.sections;
   }
@@ -71,26 +61,6 @@ export class SectionTabsViewComponent implements OnInit {
           this.refreshTable();
         },
         error: err => this.errorService.handle(err)
-      })
-    });
-  }
-
-  onAddTable(section: ReadSectionResponse): void {
-    this.dialogService.open(CreateTableDialogComponent, {
-      data: {
-        number: 1,
-        x: 0,
-        y: 0,
-        r: 50
-      }
-    }).componentInstance.saveChanges.subscribe(request => {
-      request.r = 50;
-      this.tableService.createTable(request, section.id).subscribe({
-        next: () => {
-          this.fetchData();
-          window.location.reload();
-        },
-        error: (error) => this.errorService.handle(error)
       })
     });
   }
@@ -119,27 +89,6 @@ export class SectionTabsViewComponent implements OnInit {
           },
           error: err => this.errorService.handle(err)
         })
-      }
-    })
-  }
-
-  onDeleteTable(table: DeleteTableRequest): void {
-    this.confirmationService.confirm({
-      title: `Table deletion`,
-      message: `Are you sure you want to delete table with number: ${table.number}?`,
-      yes: 'Yes',
-      no: 'No'
-    }).subscribe(confirmation => {
-      if (confirmation) {
-        this.tableService.deleteTable(table.id).subscribe({
-          next: () => {
-            this.fetchData();
-            window.location.reload();
-          },
-          error: (err) => {
-            this.errorService.handle(err);
-          }
-        });
       }
     })
   }
