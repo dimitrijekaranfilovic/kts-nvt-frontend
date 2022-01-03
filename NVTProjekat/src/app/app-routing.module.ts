@@ -58,14 +58,14 @@ const routes: Routes = [
           ),
       },
       {
-        path: '',
-        loadChildren: () =>
-          import('./modules/order/order.module').then((m) => m.OrderModule),
-      },
-      {
         path: 'waiter',
         loadChildren: () =>
           import('./modules/waiter/waiter.module').then((m) => m.WaiterModule),
+      },
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/order/order.module').then((m) => m.OrderModule),
       },
     ],
   },
@@ -75,4 +75,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

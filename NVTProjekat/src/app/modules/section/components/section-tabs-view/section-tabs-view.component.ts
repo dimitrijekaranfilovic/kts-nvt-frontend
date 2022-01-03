@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
-import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/waiter-section-service.service';
-import { Table } from 'src/app/modules/waiter/types/Table';
 import { SectionService } from '../../services/section-service/section.service';
-import { TableService } from '../../services/table-service/table.service';
-import { DeleteTableRequest } from '../../types/DeleteTableRequest';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
-import { CreateTableDialogComponent } from '../create-table-dialog/create-table-dialog.component';
+import { Table } from '../../types/Table';
 import { CreateUpdateSectionDialogComponent } from '../create-update-section-dialog/create-update-section-dialog.component';
 
 @Component({
@@ -19,36 +14,32 @@ import { CreateUpdateSectionDialogComponent } from '../create-update-section-dia
   styleUrls: ['./section-tabs-view.component.scss']
 })
 export class SectionTabsViewComponent implements OnInit {
-  sections: ReadSectionResponse[] = [];
-  selected = new FormControl(0);
-  tables: Map<number, Table[]> = new Map<number, Table[]>();
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'actions',
+  ];
+  dataSource: MatTableDataSource<ReadSectionResponse> = new MatTableDataSource<ReadSectionResponse>();
+
+  private sections: ReadSectionResponse[] = []
 
   constructor(
     private sectionService: SectionService,
     private dialogService: MatDialog,
     private errorService: ErrorService,
     private confirmationService: ConfirmationService,
-    private tableService: TableService,
-    private snackBar: MatSnackBar,
-    private waiterSectionService: WaiterSectionServiceService
   ) { }
 
   ngOnInit(): void {
     this.sectionService.read().subscribe(response => {
+      response.sort((s1, s2) => s1.id - s2.id);
       this.sections = response;
-      this.sections.sort((s1, s2) => s1.id - s2.id);
+      this.refreshTable();
     })
   }
 
-  fetchData() {
-    this.waiterSectionService.getTablesForSection(this.selected.value + 1).subscribe(response => {
-      this.tables.set(this.selected.value + 1, response);
-    });
-  }
-
-  onTabSelect(event: any): void {
-    this.selected.setValue(event);
-    this.fetchData();
+  refreshTable(): void {
+    this.dataSource.data = this.sections;
   }
 
   onCreateSection(): void {
@@ -62,35 +53,9 @@ export class SectionTabsViewComponent implements OnInit {
           this.sections.push({
             ...request, ...response
           });
-          this.selected.setValue(this.sections.length - 1);
+          this.refreshTable();
         },
         error: err => this.errorService.handle(err)
-      })
-    });
-  }
-
-  onAddTable(section: ReadSectionResponse): void {
-    this.dialogService.open(CreateTableDialogComponent, {
-      data: {
-        number: 1,
-        x: 0,
-        y: 0,
-        r: 50
-      }
-    }).componentInstance.saveChanges.subscribe(request => {
-      request.r = 50;
-      this.tableService.createTable(request, section.id).subscribe({
-        next: (response) => {
-          this.fetchData();
-          window.location.reload();
-        },
-        error: (error) => {
-          let message = error.error.errors[Object.keys(error.error.errors)[0]];
-          if (message === undefined) {
-            message = error.error.message;
-          }
-          this.toast(message);
-        }
       })
     });
   }
@@ -113,39 +78,14 @@ export class SectionTabsViewComponent implements OnInit {
     }).subscribe(confirmation => {
       if (confirmation) {
         this.sectionService.delete(section.id).subscribe({
-          next: _ => this.sections = this.sections.filter(s => s.id !== section.id),
+          next: _ => {
+            this.sections = this.sections.filter(s => s.id !== section.id);
+            this.refreshTable();
+          },
           error: err => this.errorService.handle(err)
         })
       }
     })
-  }
-
-  onDeleteTable(table: DeleteTableRequest): void {
-    this.confirmationService.confirm({
-      title: `Table deletion`,
-      message: `Are you sure you want to delete table with number: ${table.number}?`,
-      yes: 'Yes',
-      no: 'No'
-    }).subscribe(confirmation => {
-      if (confirmation) {
-        this.tableService.deleteTable(table.id).subscribe({
-          next: () => {
-            this.fetchData();
-            window.location.reload();
-          },
-          error: (err) => {
-            this.errorService.handle(err);
-          }
-        });
-      }
-    })
-  }
-
-  toast(message: string) {
-    this.snackBar.open(message, 'Dismiss', {
-      duration: 5000,
-      verticalPosition: 'top',
-    });
   }
 
 }

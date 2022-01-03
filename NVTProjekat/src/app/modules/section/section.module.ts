@@ -8,7 +8,11 @@ import { SectionTabsViewComponent } from './components/section-tabs-view/section
 import { SectionTabComponent } from './components/section-tab/section-tab.component';
 import { CreateUpdateSectionDialogComponent } from './components/create-update-section-dialog/create-update-section-dialog.component';
 import { CreateTableDialogComponent } from './components/create-table-dialog/create-table-dialog.component';
-import { WaiterModule } from '../waiter/waiter.module';
+import { SectionPageComponent } from './pages/section-page/section-page.component';
+import { SharedModule } from '../shared/shared.module';
+import { SectionTablesViewComponent } from './components/section-tables-view/section-tables-view.component';
+import { SectionTabsViewWaiterComponent } from './components/section-tabs-view-waiter/section-tabs-view-waiter.component';
+import { KonvaModule } from 'ng2-konva';
 
 
 @NgModule({
@@ -17,13 +21,20 @@ import { WaiterModule } from '../waiter/waiter.module';
     SectionTabsViewComponent,
     SectionTabComponent,
     CreateUpdateSectionDialogComponent,
-    CreateTableDialogComponent
+    CreateTableDialogComponent,
+    SectionPageComponent,
+    SectionTablesViewComponent,
+    SectionTabsViewWaiterComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(SectionRoutes),
     MaterialModule,
-    WaiterModule
+    SharedModule,
+    KonvaModule
+  ],
+  exports: [
+    SectionTabsViewWaiterComponent
   ]
 })
 export class SectionModule { }

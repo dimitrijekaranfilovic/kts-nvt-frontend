@@ -1,19 +1,18 @@
-import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
 import { OrderItem } from '../../types/OrderItem';
 import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
-import { environment } from 'src/environments/environment';
+import { WebSocketService } from 'src/app/modules/shared/services/web-socket-service/web-socket.service';
 
 
 @Component({
   selector: 'app-order-item-table-view',
   templateUrl: './order-item-table-view.component.html',
   styleUrls: ['./order-item-table-view.component.scss'],
-  providers: [ WebSocketService ]
+  providers: [WebSocketService]
 })
 export class OrderItemTableViewComponent implements OnInit, OnDestroy {
   @Input() itemStatus: string = '';
@@ -43,7 +42,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private socketService: WebSocketService
-  ) {}
+  ) { }
 
   fetchData(pageIdx: number, pageSize: number): void {
     this.orderItemService
@@ -62,13 +61,13 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(this.pageNum, this.pageSize));
-    if(!this.socketService.isLoaded){
+    if (!this.socketService.isLoaded) {
       this.socketService.initializeWebSocketConnection();
     }
   }
 
   ngOnDestroy() {
-    try{
+    try {
       this.socketService.disconnect();
     } catch {
       console.log("WS connection interrupted.")
