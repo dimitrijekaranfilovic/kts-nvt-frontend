@@ -25,7 +25,8 @@ export class CreateTableDialogComponent {
     this.form = this.formBuilder.group({
       number: [table.number, [Validators.required, Validators.max(99), Validators.min(1)]],
       x: [table.x, [Validators.required, Validators.max(1200), Validators.min(0)]],
-      y: [table.y, [Validators.required, Validators.max(720), Validators.min(0)]]
+      y: [table.y, [Validators.required, Validators.max(720), Validators.min(0)]],
+      r: [table.r]
     });
   }
 

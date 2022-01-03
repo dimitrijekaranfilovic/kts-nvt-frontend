@@ -3,12 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observer } from 'rxjs';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
-import { SectionTablesViewComponent } from 'src/app/modules/waiter/components/section-tables-view/section-tables-view.component';
-import { Table } from 'src/app/modules/waiter/types/Table';
-import { TableOrder } from 'src/app/modules/waiter/types/TableOrder';
+import { SectionTablesViewComponent } from 'src/app/modules/section/components/section-tables-view/section-tables-view.component';
 import { TableService } from '../../services/table-service/table.service';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
 import { CreateTableDialogComponent } from '../create-table-dialog/create-table-dialog.component';
+import { Table } from '../../types/Table';
 
 @Component({
   selector: 'app-section-tab',
@@ -43,7 +42,6 @@ export class SectionTabComponent {
         r: 50
       }
     }).componentInstance.saveChanges.subscribe(request => {
-      request.r = 50;
       this.tableService.createTable(request, this.section.id).subscribe(this.handleTableUpdate());
     });
   }
@@ -70,8 +68,8 @@ export class SectionTabComponent {
     };
   }
 
-  selectTable(tableInfo: TableOrder) {
-    this.selectedTableId = tableInfo.tableId;
-    this.selectedTableNumber = tableInfo.tableNumber;
+  selectTable(table: Table) {
+    this.selectedTableId = table.id;
+    this.selectedTableNumber = table.number;
   }
 }

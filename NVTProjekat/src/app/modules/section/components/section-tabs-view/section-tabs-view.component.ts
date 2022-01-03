@@ -3,11 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationService } from 'src/app/modules/shared/services/confirmation-service/confirmation.service';
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
-import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/waiter-section-service.service';
-import { Table } from 'src/app/modules/waiter/types/Table';
 import { SectionService } from '../../services/section-service/section.service';
-import { TableService } from '../../services/table-service/table.service';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
+import { Table } from '../../types/Table';
 import { CreateUpdateSectionDialogComponent } from '../create-update-section-dialog/create-update-section-dialog.component';
 
 @Component({
@@ -16,7 +14,6 @@ import { CreateUpdateSectionDialogComponent } from '../create-update-section-dia
   styleUrls: ['./section-tabs-view.component.scss']
 })
 export class SectionTabsViewComponent implements OnInit {
-  tables: Map<number, Table[]> = new Map<number, Table[]>();
   displayedColumns: string[] = [
     'id',
     'name',
@@ -31,8 +28,6 @@ export class SectionTabsViewComponent implements OnInit {
     private dialogService: MatDialog,
     private errorService: ErrorService,
     private confirmationService: ConfirmationService,
-    private tableService: TableService,
-    private waiterSectionService: WaiterSectionServiceService
   ) { }
 
   ngOnInit(): void {

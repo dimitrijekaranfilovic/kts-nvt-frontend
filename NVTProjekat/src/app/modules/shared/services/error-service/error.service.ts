@@ -12,6 +12,10 @@ export class ErrorService {
   ) { }
 
   handle(error: HttpErrorResponse): void {
-    this.snackBar.open(error.error.message, "Dissmiss", { duration: 5000, verticalPosition: "top" });
+    this.show(error.error.message);
+  }
+
+  show(error: string): void {
+    this.snackBar.open(error, "Dissmiss", { duration: 5000, verticalPosition: "top" });
   }
 }

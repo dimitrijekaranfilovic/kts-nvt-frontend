@@ -10,13 +10,13 @@ import {
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { KonvaComponent } from 'ng2-konva';
-import { Table } from '../../types/Table';
-import { TableOrder } from '../../types/TableOrder';
-import { WebSocketService } from 'src/app/modules/shared/services/webSocketService/web-socket.service';
+import { WebSocketService } from 'src/app/modules/shared/services/web-socket-service/web-socket.service';
 import { GroupConfig } from '../../types/GroupConfig';
 import { Circle } from 'konva/lib/shapes/Circle';
-import { WaiterSectionServiceService } from '../../services/waiter-section-service.service';
 import { Vector2d } from 'konva/lib/types';
+import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
+import { SectionService } from '../../services/section-service/section.service';
+import { Table } from '../../types/Table';
 
 @Component({
   selector: 'app-section-tables-view',
@@ -31,7 +31,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
   @Input() tables: Table[] | undefined = [];
   @Input() sectionId!: number;
   @Input() draggable?: boolean;
-  @Output() tableClicked: EventEmitter<TableOrder> = new EventEmitter<TableOrder>();
+  @Output() tableClicked: EventEmitter<Table> = new EventEmitter<Table>();
 
   public width = 1200;
   public height = 720;
@@ -47,7 +47,8 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
   constructor(
     private ref: ApplicationRef,
     private socketService: WebSocketService,
-    private sectionService: WaiterSectionServiceService
+    private sectionService: SectionService,
+    private errorService: ErrorService
   ) { }
 
   ngOnInit(): void {
@@ -65,23 +66,18 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
 
   onDragEnd(table: Table): void {
     const newCursorPosition = this.getCursorPosition();
-    console.log(newCursorPosition);
-    console.log(this.relativeCursorPosition);
     const dx = newCursorPosition.x - this.relativeCursorPosition.x;
     const dy = newCursorPosition.y - this.relativeCursorPosition.y;
-    console.log(table);
-    console.log(dx);
-    console.log(dy);
+    table.x += dx; table.y += dy;
     this.sectionService.moveTable(this.sectionId, table.id, {
-      newX: table.x + dx,
-      newY: table.y + dy
+      newX: table.x,
+      newY: table.y
     }).subscribe({
-      next: () => {
-        table.x += dx;
-        table.y += dy;
-      },
-      error: () => window.location.reload()
-    })
+      error: (err) => {
+        this.errorService.handle(err);
+        window.location.reload();
+      }
+    });
   }
 
   onDragStart(_: Table): void {
@@ -102,13 +98,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
   }
 
   onClick(table: Table): void {
-    const tableOrder: TableOrder = {
-      tableAvailable: table.available,
-      tableId: table.id,
-      tableNumber: table.number,
-    };
-
-    this.tableClicked.emit(tableOrder);
+    this.tableClicked.emit(table);
     this.redraw();
   }
 

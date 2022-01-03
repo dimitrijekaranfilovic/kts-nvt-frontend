@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { WaiterSectionServiceService } from 'src/app/modules/waiter/services/waiter-section-service.service';
-import { Table } from 'src/app/modules/waiter/types/Table';
+import { SectionService } from '../../services/section-service/section.service';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
+import { Table } from '../../types/Table';
 
 @Component({
   selector: 'app-section-page',
@@ -17,7 +17,7 @@ export class SectionPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private sectionService: WaiterSectionServiceService
+    private sectionService: SectionService
   ) { }
 
   ngOnInit(): void {
