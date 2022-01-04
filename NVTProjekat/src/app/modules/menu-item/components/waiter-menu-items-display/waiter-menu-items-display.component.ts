@@ -32,7 +32,7 @@ export class WaiterMenuItemsDisplayComponent implements OnInit {
   public currentPage: number = 0;
   public totalPages: number = 0;
   public totalElements: number = 0;
-  public pageSize: number = 3;
+  public pageSize: number = 4;
   public pin: string = '';
   public amount: number = 0;
   public groupName: string = '';

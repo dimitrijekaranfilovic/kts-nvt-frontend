@@ -1,21 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-// Create a two-column layout
-.column {
-  float: left;
-  width: 50%;
-  padding: 15px;
-}
-
-// Clearfix (clear floats)
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
 .main-heading {
   color: #111;
   font-family: "Helvetica Neue", sans-serif;

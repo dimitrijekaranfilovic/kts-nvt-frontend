@@ -8,7 +8,7 @@
     </form>
     <button mat-flat-button color="primary" (click)="search()">Search</button>
   </div>
-  <mat-grid-list cols="3" rowHeight="0.5:1" *ngIf="content.length > 0">
+  <mat-grid-list cols="4" rowHeight="0.8:1" *ngIf="content.length > 0">
     <mat-grid-tile *ngFor="let item of content">
       <app-menu-item-card
         [menuItem]="item"
