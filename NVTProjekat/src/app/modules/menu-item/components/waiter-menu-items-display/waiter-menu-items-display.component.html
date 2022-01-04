@@ -1,23 +1,25 @@
-<div>
-  <div class="example-form">
-    <form class="input-form" [formGroup]="form">
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Enter menu item name</mat-label>
-        <input matInput formControlName="itemName" />
-      </mat-form-field>
-    </form>
-    <button mat-flat-button color="primary" (click)="search()">Search</button>
-  </div>
-  <mat-grid-list cols="3" rowHeight="0.6:1" *ngIf="content.length > 0">
-    <mat-grid-tile *ngFor="let item of content">
-      <app-menu-item-card
-        [menuItem]="item"
-        [groups]="groups"
-        (menuItemAdded)="openAddItem($event)"
-      ></app-menu-item-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <app-such-empty *ngIf="content.length === 0"></app-such-empty>
+<div class="example-form">
+  <form class="input-form" [formGroup]="form" (ngSubmit)="search()">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Enter menu item name</mat-label>
+      <input matInput formControlName="itemName" />
+    </mat-form-field>
+  </form>
+  <button mat-flat-button color="primary" type="submit" (click)="search()">
+    Search
+  </button>
+</div>
+<mat-grid-list cols="5" rowHeight="0.7:1" *ngIf="content.length > 0">
+  <mat-grid-tile *ngFor="let item of content">
+    <app-menu-item-card
+      [menuItem]="item"
+      [groups]="groups"
+      (menuItemAdded)="openAddItem($event)"
+    ></app-menu-item-card>
+  </mat-grid-tile>
+</mat-grid-list>
+<app-such-empty *ngIf="content.length === 0"></app-such-empty>
+<div class="paginator">
   <mat-paginator
     [length]="totalElements"
     [pageSize]="pageSize"

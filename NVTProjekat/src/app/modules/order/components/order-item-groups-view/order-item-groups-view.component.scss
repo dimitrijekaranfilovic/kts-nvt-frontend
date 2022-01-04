@@ -1,3 +1,9 @@
 .order-item-group-view {
   overflow-y: auto;
+  max-height: 600px;
+}
+
+.order-item-group-container {
+  width: 80%;
+  margin-left: 10%;
 }
