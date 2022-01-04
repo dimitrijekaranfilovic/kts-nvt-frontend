@@ -9,6 +9,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ['./menu-item-card.component.scss'],
 })
 export class MenuItemCardComponent implements OnInit {
+  public someString: string =
+    'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
   public imageSource: SafeResourceUrl = '';
   @Input() menuItem!: MenuItem;
   @Input() groups: OrderItemGroupReducedInfo[] = [];
