@@ -1,32 +1,21 @@
 <mat-card class="card">
   <mat-card-header>
-    <mat-card-title>{{ menuItem.itemName | shortenString: 15 }}</mat-card-title>
-    <mat-card-subtitle>{{
-      menuItem.itemCategory | shortenString: 24
+    <mat-card-title [matTooltip]="menuItem.itemName">{{
+      menuItem.itemName | shortenString: 15
+    }}</mat-card-title>
+    <mat-card-subtitle [matTooltip]="menuItem.itemCategory">{{
+      menuItem.itemCategory | shortenString: 20
     }}</mat-card-subtitle>
   </mat-card-header>
-  <img
-    mat-card-lg-image
-    [src]="imageSource"
-    alt="Photo of menu item"
-    class="header-image"
-  />
-  <mat-card-content>
-    <h3>
-      <strong>{{ menuItem.price }}</strong>
-    </h3>
-    <p>
-      {{ menuItem.itemDescription | shortenString: 25 }}
-    </p>
-    <hr />
-    <p>
-      {{ menuItem.itemAllergies | shortenString: 25 }}
-    </p>
-  </mat-card-content>
-  <mat-card-actions align="end">
+  <img [src]="imageSource" alt="Photo of menu item" class="header-image" />
+  <mat-card-actions align="start">
+    <span class="price">
+      <strong> Price: {{ menuItem.price }}</strong>
+    </span>
     <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
       Add
     </button>
+
     <mat-menu #menu="matMenu" yPosition="below" xPosition="after">
       <button
         mat-menu-item
@@ -41,4 +30,13 @@
       </button>
     </mat-menu>
   </mat-card-actions>
+  <mat-card-content>
+    <p [matTooltip]="menuItem.itemDescription">
+      {{ menuItem.itemDescription | shortenString: 20 }}
+    </p>
+    <hr />
+    <p [matTooltip]="menuItem.itemAllergies">
+      {{ menuItem.itemAllergies | shortenString: 20 }}
+    </p>
+  </mat-card-content>
 </mat-card>
