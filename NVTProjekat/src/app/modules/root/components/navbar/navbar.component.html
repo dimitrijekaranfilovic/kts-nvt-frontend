@@ -36,7 +36,7 @@
     <span class="link" *ngIf="!loggedIn"
       ><a mat-button routerLink="/auth/login">Login</a></span
     >
-    <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="beforeMenu">
+    <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="beforeMenu" id="profileButton">
       {{ name }} {{ surname }}
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
@@ -44,7 +44,7 @@
       <a mat-menu-item routerLink="/super-users/profile">Update profile</a>
       <a mat-menu-item routerLink="/super-users/password">Change password</a>
       <mat-divider></mat-divider>
-      <button mat-menu-item (click)="logout()">Logout</button>
+      <button mat-menu-item (click)="logout()" id="logout">Logout</button>
     </mat-menu>
   </div>
 </mat-toolbar>
