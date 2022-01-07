@@ -3,6 +3,7 @@
   <div mat-dialog-content>
     <mat-form-field class="full-width-input">
       <input
+        id="updateSalary"
         matInput
         placeholder="New salary"
         formControlName="salary"
@@ -22,6 +23,7 @@
       Cancel
     </button>
     <button
+      id="saveSalary"
       mat-flat-button
       [disabled]="!form.valid"
       color="primary"

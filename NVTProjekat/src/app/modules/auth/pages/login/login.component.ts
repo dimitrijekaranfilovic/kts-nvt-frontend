@@ -40,7 +40,7 @@ export class LoginComponent {
       next: response => {
         this.currentUserService.setCurrentUser(response);
         // TODO: Navigate to a page based on the user's role
-        this.snackBar.open(`Welcome, ${response.name} ${response.surname}!`, "Dismiss", { duration: 5000, verticalPosition: "top" });
+        // this.snackBar.open(`Welcome, ${response.name} ${response.surname}!`, "Dismiss", { duration: 5000, verticalPosition: "top" });
         const destination: string | null = this.route.snapshot.queryParamMap.get('to');
         if (destination) {
           this.router.navigate([destination]);
