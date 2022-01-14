@@ -3,6 +3,7 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <input
+          id="menuItemSearchQueryField"
           matInput
           placeholder="Search menu item..."
           formControlName="query"
@@ -12,6 +13,7 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <input
+          id="menuItemPriceLowerBoundField"
           matInput
           placeholder="Price lower bound"
           type="number"
@@ -24,6 +26,7 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <input
+          id="menuItemPriceUpperBoundField"
           matInput
           placeholder="Price upper bound"
           type="number"
@@ -36,7 +39,7 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <mat-label>Food category</mat-label>
-        <mat-select formControlName="category">
+        <mat-select id="menuItemSearchCategoryField" formControlName="category">
           <mat-option value="">All categories</mat-option>
           <mat-option value="FOOD">Food</mat-option>
           <mat-option value="DRINK">Drink</mat-option>
@@ -44,8 +47,16 @@
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button type="reset" mat-flat-button color="basic">Reset</button>
       <button
+        id="menuItemResetSearchBtn"
+        type="reset"
+        mat-flat-button
+        color="basic"
+      >
+        Reset
+      </button>
+      <button
+        id="menuItemSubmitSearchBtn"
         type="submit"
         mat-flat-button
         color="primary"
