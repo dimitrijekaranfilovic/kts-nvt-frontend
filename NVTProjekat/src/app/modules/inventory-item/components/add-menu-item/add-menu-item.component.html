@@ -3,6 +3,7 @@
   <div mat-dialog-content>
     <mat-form-field class="full-width-input">
       <input
+        id="newMenuItemPrice"
         matInput
         placeholder="New price"
         formControlName="price"
@@ -14,6 +15,7 @@
   </div>
   <div mat-dialog-actions>
     <button
+      id="cancelAddingMenuItem"
       mat-flat-button
       color="basic"
       type="button"
@@ -22,6 +24,7 @@
       Cancel
     </button>
     <button
+      id="submitAddingMenuItem"
       mat-flat-button
       [disabled]="!form.valid"
       color="primary"
