@@ -18,6 +18,7 @@
       *ngIf="orderGroupStatus === 'NEW'"
       matTooltip="Edit item"
       (click)="updateItem()"
+      class="edit-item-btn"
     >
       <mat-icon> edit </mat-icon>
     </button>
@@ -28,6 +29,7 @@
       *ngIf="orderGroupStatus === 'NEW'"
       matTooltip="Delete item"
       (click)="deleteItem()"
+      class="delete-item-btn"
     >
       <mat-icon>delete_forever</mat-icon>
     </button>

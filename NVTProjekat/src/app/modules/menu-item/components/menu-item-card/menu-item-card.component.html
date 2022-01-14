@@ -12,7 +12,12 @@
     <span class="price">
       <strong> Price: {{ menuItem.price }}</strong>
     </span>
-    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">
+    <button
+      mat-raised-button
+      color="primary"
+      [matMenuTriggerFor]="menu"
+      class="add-menu-item-btn"
+    >
       Add
     </button>
 
@@ -21,11 +26,16 @@
         mat-menu-item
         *ngFor="let group of groups"
         (click)="addMenuItemToExistingGroup(group)"
+        class="add-to-order-group-btn"
       >
         {{ group.name }}
       </button>
       <hr />
-      <button mat-menu-item (click)="addMenuItemToNewGroup()">
+      <button
+        mat-menu-item
+        (click)="addMenuItemToNewGroup()"
+        class="add-to-new-order-group-btn"
+      >
         Add to new group
       </button>
     </mat-menu>

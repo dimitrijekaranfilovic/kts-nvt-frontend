@@ -9,6 +9,7 @@
         mat-raised-button
         color="primary"
         (click)="handleSendGroupButtonClick()"
+        class="send-group-btn"
       >
         Send group
       </button>
@@ -17,6 +18,7 @@
         [matTooltip]="getGroupTooltip()"
         [disabled]="group.status !== 'NEW'"
         (click)="deleteOrderItemGroup()"
+        class="delete-group-btn"
       >
         <mat-icon
           aria-hidden="false"

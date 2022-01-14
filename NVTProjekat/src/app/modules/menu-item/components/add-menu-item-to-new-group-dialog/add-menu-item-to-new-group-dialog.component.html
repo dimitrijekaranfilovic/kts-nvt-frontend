@@ -4,7 +4,7 @@
     <p>Enter your PIN:</p>
     <mat-form-field appearance="fill">
       <mat-label>PIN code</mat-label>
-      <input matInput formControlName="pin" />
+      <input matInput formControlName="pin" id="new-group-pin" />
       <mat-error>Please provide a valid PIN.</mat-error>
     </mat-form-field>
   </div>
@@ -12,7 +12,12 @@
     <p>Enter amount:</p>
     <mat-form-field appearance="fill">
       <mat-label>Amount</mat-label>
-      <input matInput formControlName="amount" type="number" />
+      <input
+        matInput
+        formControlName="amount"
+        type="number"
+        id="new-group-amount"
+      />
       <mat-error>Please provide a valid amount.</mat-error>
     </mat-form-field>
   </div>
@@ -20,7 +25,7 @@
     <p>Enter group name:</p>
     <mat-form-field appearance="fill">
       <mat-label>Group name</mat-label>
-      <input matInput formControlName="groupName" />
+      <input matInput formControlName="groupName" id="new-group-name" />
       <mat-error>Please provide a valid group name.</mat-error>
     </mat-form-field>
   </div>
@@ -35,6 +40,7 @@
       [ngStyle]="{ 'margin-left': '43px' }"
       [disabled]="!form.valid"
       (click)="onSubmit($event)"
+      id="confirm-new-group-btn"
     >
       Confirm
     </button>
