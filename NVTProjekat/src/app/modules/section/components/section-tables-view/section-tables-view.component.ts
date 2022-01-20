@@ -22,9 +22,8 @@ import { Table } from '../../types/Table';
   selector: 'app-section-tables-view',
   templateUrl: './section-tables-view.component.html',
   styleUrls: ['./section-tables-view.component.scss'],
-  providers: [WebSocketService]
 })
-export class SectionTablesViewComponent implements OnInit, OnDestroy {
+export class SectionTablesViewComponent implements OnInit {
   @ViewChild('stage') stage!: KonvaComponent;
   @ViewChild('layer') layer!: KonvaComponent;
 
@@ -49,35 +48,30 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
     private socketService: WebSocketService,
     private sectionService: SectionService,
     private errorService: ErrorService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.initSockets();
     this.populateScene();
   }
 
-  ngOnDestroy(): void {
-    try {
-      this.socketService.disconnect();
-    } catch {
-      console.log("WS connection interrupted.")
-    }
-  }
-
   onDragEnd(table: Table): void {
     const newCursorPosition = this.getCursorPosition();
     const dx = newCursorPosition.x - this.relativeCursorPosition.x;
     const dy = newCursorPosition.y - this.relativeCursorPosition.y;
-    table.x += dx; table.y += dy;
-    this.sectionService.moveTable(this.sectionId, table.id, {
-      newX: table.x,
-      newY: table.y
-    }).subscribe({
-      error: (err) => {
-        this.errorService.handle(err);
-        window.location.reload();
-      }
-    });
+    table.x += dx;
+    table.y += dy;
+    this.sectionService
+      .moveTable(this.sectionId, table.id, {
+        newX: table.x,
+        newY: table.y,
+      })
+      .subscribe({
+        error: (err) => {
+          this.errorService.handle(err);
+          window.location.reload();
+        },
+      });
   }
 
   onDragStart(_: Table): void {
@@ -126,7 +120,7 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
         shadowOpacity: 0.6,
         name: `table_${table.id}`,
         fillAfterStrokeEnabled: true,
-      })
+      });
       const numberConfig = of({
         x: x - 10,
         y: y - 10,
@@ -141,27 +135,25 @@ export class SectionTablesViewComponent implements OnInit, OnDestroy {
       const group = of({
         draggable: this.draggable && table.available,
         listening: true,
-      })
+      });
       this.groups.push({
         config: group,
         tableConfig: tableConfig,
         numberConfig: numberConfig,
-        table: table
+        table: table,
       });
     });
   }
 
   initSockets(): void {
     this.socketService.initializeWebSocketConnection();
-    this.socketService
-      .getEmitter()
-      .subscribe((message) => {
-        const stage = this.stage.getStage();
-        const element = this.findTableShape(message.fromId);
-        if (element) {
-          element.attrs.fill = "purple";
-          stage.draw();
-        }
-      });
+    this.socketService.getEmitter().subscribe((message) => {
+      const stage = this.stage.getStage();
+      const element = this.findTableShape(message.fromId);
+      if (element) {
+        element.attrs.fill = 'purple';
+        stage.draw();
+      }
+    });
   }
 }

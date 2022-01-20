@@ -7,14 +7,12 @@ import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WebSocketService } from 'src/app/modules/shared/services/web-socket-service/web-socket.service';
 
-
 @Component({
   selector: 'app-order-item-table-view',
   templateUrl: './order-item-table-view.component.html',
   styleUrls: ['./order-item-table-view.component.scss'],
-  providers: [WebSocketService]
 })
-export class OrderItemTableViewComponent implements OnInit, OnDestroy {
+export class OrderItemTableViewComponent implements OnInit {
   @Input() itemStatus: string = '';
   @Input() itemType: string = '';
 
@@ -27,7 +25,8 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     'action1',
     'action2',
   ];
-  dataSource: MatTableDataSource<OrderItem> = new MatTableDataSource<OrderItem>();
+  dataSource: MatTableDataSource<OrderItem> =
+    new MatTableDataSource<OrderItem>();
   pageNum: number = 0;
   pageSize: number = 0;
   totalElements!: number;
@@ -42,7 +41,7 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private socketService: WebSocketService
-  ) { }
+  ) {}
 
   fetchData(pageIdx: number, pageSize: number): void {
     this.orderItemService
@@ -57,22 +56,14 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData(this.pageNum, this.defaultPageSize);
-    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.pageSize), 30000);
+    this.intervalId = setInterval(
+      () => this.fetchData(this.pageNum, this.pageSize),
+      30000
+    );
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(this.pageNum, this.pageSize));
-    if (!this.socketService.isLoaded) {
-      this.socketService.initializeWebSocketConnection();
-    }
-  }
-
-  ngOnDestroy() {
-    try {
-      this.socketService.disconnect();
-    } catch {
-      console.log("WS connection interrupted.")
-    }
-    clearInterval(this.intervalId);
+    this.socketService.initializeWebSocketConnection();
   }
 
   onSelectPage(event: any) {
@@ -85,11 +76,11 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (table) => {
           this.fetchData(0, this.defaultPageSize);
-          if(action == "PREPARE") {
+          if (action == 'PREPARE') {
             this.orderItemService.emitUpdateTableEvent();
           }
-          if (action === "FINISH") {
-            this.socketService.sendMessageUsingSocket("WS message", table);
+          if (action === 'FINISH') {
+            this.socketService.sendMessageUsingSocket('WS message', table);
           }
         },
         error: (error) => {
