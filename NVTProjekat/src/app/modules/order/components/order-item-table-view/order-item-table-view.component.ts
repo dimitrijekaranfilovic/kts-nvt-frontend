@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
@@ -24,6 +24,7 @@ export class OrderItemTableViewComponent implements OnInit {
     'takenBy',
     'action1',
     'action2',
+    'alert',
   ];
   dataSource: MatTableDataSource<OrderItem> =
     new MatTableDataSource<OrderItem>();
@@ -36,6 +37,8 @@ export class OrderItemTableViewComponent implements OnInit {
   pin: string = '';
   intervalId!: any;
 
+  dateWithTolerance!: Date;
+
   constructor(
     private orderItemService: OrderItemServiceService,
     private dialog: MatDialog,
@@ -44,6 +47,7 @@ export class OrderItemTableViewComponent implements OnInit {
   ) {}
 
   fetchData(pageIdx: number, pageSize: number): void {
+    this.dateWithTolerance = new Date(new Date().getTime() - 1 * 60000);
     this.orderItemService
       .getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType)
       .subscribe((pageable) => {
@@ -112,5 +116,9 @@ export class OrderItemTableViewComponent implements OnInit {
       duration: 5000,
       verticalPosition: 'bottom',
     });
+  }
+
+  parseDate(date: string) {
+    return new Date(date);
   }
 }

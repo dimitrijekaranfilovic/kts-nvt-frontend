@@ -35,12 +35,16 @@ export class WebSocketService {
 
   openGlobalSocket() {
     if (this.isLoaded) {
-      this.stompClient.subscribe(
-        '/socket-publisher',
-        (message: { body: string }) => {
-          this.handleResult(message);
-        }
-      );
+      try {
+        this.stompClient.subscribe(
+          '/socket-publisher',
+          (message: { body: string }) => {
+            this.handleResult(message);
+          }
+        );
+      } catch {
+        console.log('Connection has not been established yet... connecting...');
+      }
     }
   }
 
