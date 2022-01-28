@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrderItemServiceService } from '../../services/order-item-service.service';
@@ -7,14 +7,12 @@ import { PinModalComponent } from '../pin-modal/pin-modal.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { WebSocketService } from 'src/app/modules/shared/services/web-socket-service/web-socket.service';
 
-
 @Component({
   selector: 'app-order-item-table-view',
   templateUrl: './order-item-table-view.component.html',
   styleUrls: ['./order-item-table-view.component.scss'],
-  providers: [WebSocketService]
 })
-export class OrderItemTableViewComponent implements OnInit, OnDestroy {
+export class OrderItemTableViewComponent implements OnInit {
   @Input() itemStatus: string = '';
   @Input() itemType: string = '';
 
@@ -26,8 +24,10 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
     'takenBy',
     'action1',
     'action2',
+    'alert',
   ];
-  dataSource: MatTableDataSource<OrderItem> = new MatTableDataSource<OrderItem>();
+  dataSource: MatTableDataSource<OrderItem> =
+    new MatTableDataSource<OrderItem>();
   pageNum: number = 0;
   pageSize: number = 0;
   totalElements!: number;
@@ -37,14 +37,17 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
   pin: string = '';
   intervalId!: any;
 
+  dateWithTolerance!: Date;
+
   constructor(
     private orderItemService: OrderItemServiceService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private socketService: WebSocketService
-  ) { }
+  ) {}
 
   fetchData(pageIdx: number, pageSize: number): void {
+    this.dateWithTolerance = new Date(new Date().getTime() - 1 * 60000);
     this.orderItemService
       .getOrderItemRequests(pageIdx, pageSize, this.itemStatus, this.itemType)
       .subscribe((pageable) => {
@@ -57,22 +60,14 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetchData(this.pageNum, this.defaultPageSize);
-    this.intervalId = setInterval(() => this.fetchData(this.pageNum, this.pageSize), 30000);
+    this.intervalId = setInterval(
+      () => this.fetchData(this.pageNum, this.pageSize),
+      30000
+    );
     this.subscription = this.orderItemService
       .getEmitter()
       .subscribe(() => this.fetchData(this.pageNum, this.pageSize));
-    if (!this.socketService.isLoaded) {
-      this.socketService.initializeWebSocketConnection();
-    }
-  }
-
-  ngOnDestroy() {
-    try {
-      this.socketService.disconnect();
-    } catch {
-      console.log("WS connection interrupted.")
-    }
-    clearInterval(this.intervalId);
+    this.socketService.initializeWebSocketConnection();
   }
 
   onSelectPage(event: any) {
@@ -85,11 +80,11 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (table) => {
           this.fetchData(0, this.defaultPageSize);
-          if(action == "PREPARE") {
+          if (action == 'PREPARE') {
             this.orderItemService.emitUpdateTableEvent();
           }
-          if (action === "FINISH") {
-            this.socketService.sendMessageUsingSocket("WS message", table);
+          if (action === 'FINISH') {
+            this.socketService.sendMessageUsingSocket('WS message', table);
           }
         },
         error: (error) => {
@@ -121,5 +116,9 @@ export class OrderItemTableViewComponent implements OnInit, OnDestroy {
       duration: 5000,
       verticalPosition: 'bottom',
     });
+  }
+
+  parseDate(date: string) {
+    return new Date(date);
   }
 }

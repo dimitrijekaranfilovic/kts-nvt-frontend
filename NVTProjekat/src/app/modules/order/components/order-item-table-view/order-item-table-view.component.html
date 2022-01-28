@@ -1,53 +1,99 @@
 <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" >
-  
-      <ng-container matColumnDef="item">
-        <th mat-header-cell *matHeaderCellDef> Item name </th>
-        <td mat-cell *matCellDef="let item"> {{item.itemItemName}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="amount">
-        <th mat-header-cell *matHeaderCellDef> Amount </th>
-        <td mat-cell *matCellDef="let item"> {{item.amount}} </td>
-      </ng-container>
+  <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+    <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef>Item name</th>
+      <td mat-cell *matCellDef="let item">{{ item.itemItemName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="sentAt">
-        <th mat-header-cell *matHeaderCellDef> Sent at </th>
-        <td mat-cell *matCellDef="let item"> {{item.sentAt | date: "medium"}} </td>
-      </ng-container>
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let item">{{ item.amount }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="takenAt">
-        <th mat-header-cell [hidden]="itemStatus === 'SENT'" *matHeaderCellDef> Taken at </th>
-        <td mat-cell [hidden]="itemStatus === 'SENT'" *matCellDef="let item" > {{item.takenAt | date: "medium"}} </td>
-      </ng-container>
+    <ng-container matColumnDef="sentAt">
+      <th mat-header-cell *matHeaderCellDef>Sent at</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.sentAt | date: "medium" }}
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="takenBy">
-        <th mat-header-cell [hidden]="itemStatus === 'SENT'" *matHeaderCellDef> Prepared by </th>
-        <td mat-cell [hidden]="itemStatus === 'SENT'" *matCellDef="let item" > {{item.preparedBy}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="action1">
-        <th mat-header-cell [hidden]="itemStatus === 'PREPARING'" *matHeaderCellDef> Action </th>
-        <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item"><button mat-raised-button color="primary" (click)="openDialog(item, 'PREPARE')" >Prepare</button></td>
-      </ng-container>
+    <ng-container matColumnDef="takenAt">
+      <th mat-header-cell [hidden]="itemStatus === 'SENT'" *matHeaderCellDef>
+        Taken at
+      </th>
+      <td mat-cell [hidden]="itemStatus === 'SENT'" *matCellDef="let item">
+        {{ item.takenAt | date: "medium" }}
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="action2">
-        <th mat-header-cell *matHeaderCellDef> Action </th>
-        <td mat-cell *matCellDef="let item"><button button mat-raised-button color="accent" (click)="openDialog(item, 'FINISH')">Finish</button></td>
-      </ng-container>
+    <ng-container matColumnDef="takenBy">
+      <th mat-header-cell [hidden]="itemStatus === 'SENT'" *matHeaderCellDef>
+        Prepared by
+      </th>
+      <td mat-cell [hidden]="itemStatus === 'SENT'" *matCellDef="let item">
+        {{ item.preparedBy }}
+      </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[1, 5, 10, 20]"
-                   [pageSize]="pageSize"
-                   [pageIndex]="pageNum"
-                   [length]="totalElements"
-                   showFirstLastButtons 
-                   aria-label="Select page"
-                   (page)="onSelectPage($event)"
-                   *ngIf="dataSource.data.length > 0">
-    </mat-paginator>
+    <ng-container matColumnDef="action1">
+      <th
+        mat-header-cell
+        [hidden]="itemStatus === 'PREPARING'"
+        *matHeaderCellDef
+      >
+        Action
+      </th>
+      <td mat-cell [hidden]="itemStatus === 'PREPARING'" *matCellDef="let item">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="openDialog(item, 'PREPARE')"
+        >
+          Prepare
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action2">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let item">
+        <button
+          button
+          mat-raised-button
+          color="accent"
+          (click)="openDialog(item, 'FINISH')"
+        >
+          Finish
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="alert">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <mat-icon
+          class="late-icon"
+          *ngIf="parseDate(item.sentAt).getTime() < dateWithTolerance.getTime()"
+          aria-label="Example home icon"
+          >error</mat-icon
+        >
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[1, 5, 10, 20]"
+    [pageSize]="pageSize"
+    [pageIndex]="pageNum"
+    [length]="totalElements"
+    showFirstLastButtons
+    aria-label="Select page"
+    (page)="onSelectPage($event)"
+    *ngIf="dataSource.data.length > 0"
+  >
+  </mat-paginator>
 </div>
 <app-such-empty *ngIf="dataSource.data.length === 0"></app-such-empty>

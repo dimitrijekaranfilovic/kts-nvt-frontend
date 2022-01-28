@@ -1,9 +1,9 @@
 <mat-toolbar color="primary" class="navbar">
   <span
-    ><mat-icon class="icon-display" aria-hidden="false"
+    ><mat-icon class="icon-display" aria-hidden="false" routerLink="/"
       >restaurant_menu</mat-icon
     >
-    <h1 class="home">Butik čvaraka</h1></span
+    <h1 class="home" routerLink="/">Butik čvaraka</h1></span
   >
   <div>
     <span class="link" *ngIf="!loggedIn"
@@ -36,7 +36,12 @@
     <span class="link" *ngIf="!loggedIn"
       ><a mat-button routerLink="/auth/login">Login</a></span
     >
-    <button *ngIf="loggedIn" mat-button [matMenuTriggerFor]="beforeMenu" id="profileButton">
+    <button
+      *ngIf="loggedIn"
+      mat-button
+      [matMenuTriggerFor]="beforeMenu"
+      id="profileButton"
+    >
       {{ name }} {{ surname }}
       <mat-icon>keyboard_arrow_down</mat-icon>
     </button>

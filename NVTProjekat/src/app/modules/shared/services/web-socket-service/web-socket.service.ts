@@ -8,45 +8,49 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WebSocketService {
-
   updateTable: EventEmitter<Message> = new EventEmitter<Message>();
-  url: string = environment.basePath + "/socket/";
+  url: string = environment.basePath + '/socket/';
   private stompClient!: any;
   public isLoaded: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   post(data: Message): Observable<Message> {
     return this.http.post<Message>(this.url, data);
   }
 
   initializeWebSocketConnection() {
-    let ws = new SockJS(this.url);
-    this.stompClient = Stomp.over(ws);
-    let that = this;
-
-    this.stompClient.connect({}, function () {
-      that.isLoaded = true;
-      that.openGlobalSocket()
-    });
-    
-  }
-
-  openGlobalSocket() {
-    if (this.isLoaded) {
-      this.stompClient.subscribe("/socket-publisher", (message: { body: string; }) => {
-        this.handleResult(message);
+    if (!this.isLoaded) {
+      let ws = new SockJS(this.url);
+      this.stompClient = Stomp.over(ws);
+      this.stompClient.connect({}, () => {
+        this.isLoaded = true;
+        this.openGlobalSocket();
       });
     }
   }
 
-  handleResult(message: { body: string; }): void {
+  openGlobalSocket() {
+    if (this.isLoaded) {
+      try {
+        this.stompClient.subscribe(
+          '/socket-publisher',
+          (message: { body: string }) => {
+            this.handleResult(message);
+          }
+        );
+      } catch {
+        console.log('Connection has not been established yet... connecting...');
+      }
+    }
+  }
+
+  handleResult(message: { body: string }): void {
     if (message.body) {
       let messageResult: Message = JSON.parse(message.body);
-      console.log(messageResult)
       this.updateTable.emit(messageResult);
     }
   }
@@ -58,13 +62,16 @@ export class WebSocketService {
   sendMessageUsingSocket(mess: string, fromId: string) {
     let message: Message = {
       message: mess,
-      fromId: fromId
+      fromId: fromId,
     };
-    this.stompClient.send("/socket-subscriber/send/message", {}, JSON.stringify(message));
+    this.stompClient.send(
+      '/socket-subscriber/send/message',
+      {},
+      JSON.stringify(message)
+    );
   }
 
   disconnect() {
     this.stompClient.disconnect();
   }
-
 }
