@@ -5,7 +5,6 @@ import { ConfirmationService } from 'src/app/modules/shared/services/confirmatio
 import { ErrorService } from 'src/app/modules/shared/services/error-service/error.service';
 import { SectionService } from '../../services/section-service/section.service';
 import { ReadSectionResponse } from '../../types/ReadSectionResponse';
-import { Table } from '../../types/Table';
 import { CreateUpdateSectionDialogComponent } from '../create-update-section-dialog/create-update-section-dialog.component';
 
 @Component({
@@ -20,6 +19,7 @@ export class SectionTabsViewComponent implements OnInit {
     'actions',
   ];
   dataSource: MatTableDataSource<ReadSectionResponse> = new MatTableDataSource<ReadSectionResponse>();
+  waitingResults: boolean = true;
 
   private sections: ReadSectionResponse[] = []
 
@@ -31,6 +31,7 @@ export class SectionTabsViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.waitingResults = true;
     this.sectionService.read().subscribe(response => {
       response.sort((s1, s2) => s1.id - s2.id);
       this.sections = response;
@@ -40,9 +41,11 @@ export class SectionTabsViewComponent implements OnInit {
 
   refreshTable(): void {
     this.dataSource.data = this.sections;
+    this.waitingResults = false;
   }
 
   onCreateSection(): void {
+    this.waitingResults = true;
     this.dialogService.open(CreateUpdateSectionDialogComponent, {
       data: {
         id: 0, name: ''
@@ -55,23 +58,34 @@ export class SectionTabsViewComponent implements OnInit {
           });
           this.refreshTable();
         },
-        error: err => this.errorService.handle(err)
+        error: err => {
+          this.errorService.handle(err);
+          this.waitingResults = false;
+        }
       })
     });
   }
 
   onUpdateSection(section: ReadSectionResponse): void {
+    this.waitingResults = true;
     this.dialogService.open(CreateUpdateSectionDialogComponent, {
       data: section
     }).componentInstance.saveChanges.subscribe(request => {
       this.sectionService.update(section.id, request).subscribe({
-        next: _ => section.name = request.name,
-        error: err => this.errorService.handle(err)
+        next: _ => {
+          section.name = request.name;
+          this.waitingResults = false;
+        },
+        error: err => {
+          this.errorService.handle(err);
+          this.waitingResults = false;
+        }
       })
     });
   }
 
   onDeleteSection(section: ReadSectionResponse): void {
+    this.waitingResults = true;
     this.confirmationService.confirm({
       title: 'Delete section',
       message: `Are you sure you want to delete section '${section.name}'?`
@@ -82,7 +96,10 @@ export class SectionTabsViewComponent implements OnInit {
             this.sections = this.sections.filter(s => s.id !== section.id);
             this.refreshTable();
           },
-          error: err => this.errorService.handle(err)
+          error: err => {
+            this.errorService.handle(err);
+            this.waitingResults = false;
+          }
         })
       }
     })

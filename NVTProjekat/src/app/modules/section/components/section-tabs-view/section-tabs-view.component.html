@@ -68,7 +68,16 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <div *ngIf="dataSource.data.length === 0">
+  <div *ngIf="dataSource.data.length === 0 && waitingResults === false">
     <app-such-empty></app-such-empty>
+  </div>
+  <div id="pagination-row">
+    <div id="spinner-box">
+      <mat-spinner
+        [diameter]="40"
+        [hidden]="!waitingResults"
+        id="loading-spinner"
+      ></mat-spinner>
+    </div>
   </div>
 </div>
