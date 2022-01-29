@@ -120,6 +120,7 @@ export class InventoryItemTableComponent implements OnInit {
         },
       })
       .componentInstance.onSaveChanges.subscribe((created) => {
+        this.waitingResults = true;
         this.inventoryItemService
           .create(created)
           .subscribe(this.getDefaultEntityServiceHandler());
