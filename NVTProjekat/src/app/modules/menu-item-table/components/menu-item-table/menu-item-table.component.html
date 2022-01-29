@@ -5,35 +5,35 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th scope="col" mat-header-cell *matHeaderCellDef>Name</th>
-        <td name="menuItemName" mat-cell *matCellDef="let menuItem">
+        <td element-group="menuItemName" mat-cell *matCellDef="let menuItem">
           {{ menuItem.itemName }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th scope="col" mat-header-cell *matHeaderCellDef>Description</th>
-        <td name="menuItemDescription" mat-cell *matCellDef="let menuItem">
+        <td element-group="menuItemDescription" mat-cell *matCellDef="let menuItem">
           {{ menuItem.itemDescription }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="allergies">
         <th scope="col" mat-header-cell *matHeaderCellDef>Allergies</th>
-        <td name="menuItemAllergies" mat-cell *matCellDef="let menuItem">
+        <td element-group="menuItemAllergies" mat-cell *matCellDef="let menuItem">
           {{ menuItem.itemAllergies }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="category">
         <th scope="col" mat-header-cell *matHeaderCellDef>Category</th>
-        <td name="menuItemCategory" mat-cell *matCellDef="let menuItem">
+        <td element-group="menuItemCategory" mat-cell *matCellDef="let menuItem">
           {{ menuItem.itemCategory | titlecase }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="price">
         <th scope="col" mat-header-cell *matHeaderCellDef>Current price</th>
-        <td name="menuItemPrice" mat-cell *matCellDef="let menuItem">
+        <td element-group="menuItemPrice" mat-cell *matCellDef="let menuItem">
           {{ menuItem.price }}
         </td>
       </ng-container>
@@ -44,7 +44,7 @@
           <mat-grid-list cols="3">
             <mat-grid-tile>
               <button
-                class="updateMenuItemPriceBtn"
+                element-group="updateMenuItemPriceBtn"
                 mat-mini-fab
                 color="primary"
                 matTooltip="Update menu item price"
@@ -55,7 +55,7 @@
             </mat-grid-tile>
             <mat-grid-tile>
               <button
-                class="deactivateMenuItemBtn"
+                element-group="deactivateMenuItemBtn"
                 mat-mini-fab
                 color="primary"
                 matTooltip="Deactivate menu item"
