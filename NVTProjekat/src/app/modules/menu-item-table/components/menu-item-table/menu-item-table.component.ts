@@ -78,6 +78,7 @@ export class MenuItemTableComponent implements OnInit {
       })
       .subscribe((confirmation) => {
         if (confirmation) {
+          this.waitingResults = true;
           const nextPage =
             this.pageSize == 1 && this.pageNum > 0
               ? this.pageNum - 1
@@ -94,6 +95,7 @@ export class MenuItemTableComponent implements OnInit {
     this.dialogService
       .open(UpdateMenuItemPriceComponent, { data: menuItem })
       .componentInstance.onPriceUpdate.subscribe((price) => {
+        this.waitingResults = true;
         this.menuItemService
           .updatePrice(menuItem.id, { price: price })
           .subscribe(this.getDefaultEntityServiceHandler());
