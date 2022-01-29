@@ -2,6 +2,7 @@
   [selectedIndex]="selected.value"
   (selectedIndexChange)="selected.setValue($event)"
   (selectedTabChange)="onTabSelect($event)"
+  animationDuration="0ms"
 >
   <mat-tab *ngFor="let section of sections" [label]="section.name">
     <app-section-tables-view
