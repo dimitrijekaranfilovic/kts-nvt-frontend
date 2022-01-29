@@ -8,42 +8,66 @@
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <th scope="col" mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemName"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.name }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
         <th scope="col" mat-header-cell *matHeaderCellDef>Description</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemDescription"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.description }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="allergies">
         <th scope="col" mat-header-cell *matHeaderCellDef>Allergies</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemAllergies"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.allergies }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="category">
         <th scope="col" mat-header-cell *matHeaderCellDef>Category</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemCategory"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.category | titlecase }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="currentPrice">
         <th scope="col" mat-header-cell *matHeaderCellDef>Current price</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemPrice"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.currentPrice }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="isInMenu">
         <th scope="col" mat-header-cell *matHeaderCellDef>In menu</th>
-        <td mat-cell *matCellDef="let inventoryItem">
+        <td
+          element-group="inventoryItemIsInMenu"
+          mat-cell
+          *matCellDef="let inventoryItem"
+        >
           {{ inventoryItem.isInMenu }}
         </td>
       </ng-container>
@@ -92,7 +116,18 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
+  </div>
+  <div *ngIf="dataSource.data.length === 0">
+    <app-such-empty></app-such-empty>
+  </div>
+  <div id="pagination-row">
+    <div id="spinner-box">
+      <mat-spinner
+        [diameter]="40"
+        [hidden]="!waitingResults"
+        id="loading-spinner"
+      ></mat-spinner>
+    </div>
     <mat-paginator
       [pageSizeOptions]="[1, 5, 10, 20]"
       [pageSize]="pageSize"
@@ -103,8 +138,5 @@
       (page)="onSelectPage($event)"
     >
     </mat-paginator>
-  </div>
-  <div *ngIf="dataSource.data.length === 0">
-    <app-such-empty></app-such-empty>
   </div>
 </div>

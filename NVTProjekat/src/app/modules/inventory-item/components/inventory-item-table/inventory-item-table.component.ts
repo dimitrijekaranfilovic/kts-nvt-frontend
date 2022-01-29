@@ -33,6 +33,7 @@ export class InventoryItemTableComponent implements OnInit {
   totalPages: number = 0;
   defaultPageSize: number = 10;
   totalElements: number = 0;
+  waitingResults: boolean = true;
 
   constructor(
     private inventoryItemService: InventoryItemService,
@@ -46,6 +47,7 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   fetchData(pageIdx: number, pageSize: number): void {
+    this.waitingResults = true;
     this.inventoryItemService
       .read(pageIdx, pageSize, this.searchParams)
       .subscribe((page) => {
@@ -54,6 +56,7 @@ export class InventoryItemTableComponent implements OnInit {
         this.totalPages = page.totalPages;
         this.dataSource.data = page.content;
         this.totalElements = page.totalElements;
+        this.waitingResults = false;
       });
   }
 
@@ -73,7 +76,10 @@ export class InventoryItemTableComponent implements OnInit {
       next: (_) => {
         this.fetchData(page ?? this.pageNum, this.pageSize);
       },
-      error: (err) => this.errorService.handle(err),
+      error: (err) => {
+        this.errorService.handle(err);
+        this.waitingResults = false;
+      },
     };
   }
 
@@ -99,6 +105,7 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onCreateInventoryItem(): void {
+    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateInventoryItemComponent, {
         data: {
@@ -119,6 +126,7 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onAddMenuItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.waitingResults = true;
     this.dialogService
       .open(AddMenuItemComponent, { data: inventoryItem })
       .componentInstance.onPriceUpdate.subscribe((price) => {

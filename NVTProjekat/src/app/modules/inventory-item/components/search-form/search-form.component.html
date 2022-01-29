@@ -37,14 +37,18 @@
       <mat-form-field class="full-width-input">
         <mat-label>Food category</mat-label>
         <mat-select formControlName="category">
-          <mat-option value="">All categories</mat-option>
-          <mat-option value="FOOD">Food</mat-option>
-          <mat-option value="DRINK">Drink</mat-option>
+          <mat-option dataclass="searchOption" value=""
+            >All categories</mat-option
+          >
+          <mat-option dataclass="searchOption" value="FOOD">Food</mat-option>
+          <mat-option dataclass="searchOption" value="DRINK">Drink</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile>
-      <button type="reset" id="reset" mat-flat-button color="basic">Reset</button>
+      <button type="reset" id="reset" mat-flat-button color="basic">
+        Reset
+      </button>
       <button
         id="search"
         type="submit"

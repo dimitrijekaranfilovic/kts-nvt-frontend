@@ -68,6 +68,7 @@ export class MenuItemTableComponent implements OnInit {
   }
 
   onDeactivateMenuItem(menuItem: ReadMenuItemResponse): void {
+    this.waitingResults = true;
     this.confirmationService
       .confirm({
         title: `Menu item deactivation`,
@@ -108,7 +109,7 @@ export class MenuItemTableComponent implements OnInit {
       },
       error: (err) => {
         this.errorService.handle(err);
-        this.waitingResults = true;
+        this.waitingResults = false;
       },
     };
   }
