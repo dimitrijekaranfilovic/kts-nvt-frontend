@@ -106,6 +106,8 @@ export class EmployeeTableComponent implements OnInit {
           this.employeeService
             .delete(employee.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        } else {
+          this.waitingResults = false;
         }
       });
   }

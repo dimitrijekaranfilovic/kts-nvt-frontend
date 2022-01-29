@@ -86,6 +86,8 @@ export class MenuItemTableComponent implements OnInit {
           this.menuItemService
             .deactivate(menuItem.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        } else {
+          this.waitingResults = false;
         }
       });
   }

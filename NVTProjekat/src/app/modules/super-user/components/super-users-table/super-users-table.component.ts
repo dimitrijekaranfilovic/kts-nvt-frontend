@@ -86,6 +86,8 @@ export class SuperUsersTableComponent implements OnInit {
           this.superUserService
             .delete(superUser.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        } else {
+          this.waitingResults = false;
         }
       });
   }

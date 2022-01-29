@@ -101,6 +101,8 @@ export class InventoryItemTableComponent implements OnInit {
           this.inventoryItemService
             .delete(inventoryItem.id)
             .subscribe(this.getDefaultEntityServiceHandler(nextPage));
+        } else {
+          this.waitingResults = false;
         }
       });
   }
