@@ -71,7 +71,18 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
+  </div>
+  <div *ngIf="dataSource.data.length === 0 && waitingResults === false">
+    <app-such-empty></app-such-empty>
+  </div>
+  <div id="pagination-row">
+    <div id="spinner-box">
+      <mat-spinner
+        [diameter]="40"
+        *ngIf="waitingResults === true"
+        id="loading-spinner"
+      ></mat-spinner>
+    </div>
     <mat-paginator
       [pageSizeOptions]="[1, 5, 10, 20]"
       [pageSize]="pageSize"
@@ -82,8 +93,5 @@
       (page)="onSelectPage($event)"
     >
     </mat-paginator>
-  </div>
-  <div *ngIf="dataSource.data.length === 0">
-    <app-such-empty></app-such-empty>
   </div>
 </div>
