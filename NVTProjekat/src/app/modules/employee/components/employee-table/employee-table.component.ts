@@ -69,7 +69,6 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onCreateEmployee(): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateEmployeeDialogComponent, {
         data: {
@@ -82,6 +81,7 @@ export class EmployeeTableComponent implements OnInit {
         },
       })
       .componentInstance.onSaveChanges.subscribe((created) => {
+        this.waitingResults = true;
         this.employeeService
           .create(created)
           .subscribe(this.getDefaultEntityServiceHandler());
@@ -113,10 +113,10 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onUpdateEmployee(employee: ReadEmployeeResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateEmployeeDialogComponent, { data: employee })
       .componentInstance.onSaveChanges.subscribe((updated) => {
+        this.waitingResults = true;
         this.employeeService
           .update(employee.id, updated)
           .subscribe(this.getDefaultEntityServiceHandler());
@@ -124,10 +124,10 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onUpdateSalary(employee: ReadEmployeeResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(UpdateEmployeeSalaryDialogComponent, { data: employee })
       .componentInstance.onSalaryUpdate.subscribe((salary) => {
+        this.waitingResults = true;
         this.employeeService
           .updateSalary(employee.id, { amount: salary })
           .subscribe(this.getDefaultEntityServiceHandler());

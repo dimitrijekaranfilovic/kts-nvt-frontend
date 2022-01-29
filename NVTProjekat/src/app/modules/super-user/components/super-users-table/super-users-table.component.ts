@@ -93,10 +93,10 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   onCreateSuperUser(): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateSuperUserDialogComponent)
       .componentInstance.onSaveChanges.subscribe((created) => {
+        this.waitingResults = true;
         this.superUserService
           .create(created)
           .subscribe(this.getDefaultEntityServiceHandler());
@@ -104,10 +104,10 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   onUpdateSalary(superUser: ReadSuperUsersResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(UpdateSuperUserSalaryDialogComponent, { data: superUser })
       .componentInstance.onSalaryUpdate.subscribe((salary) => {
+        this.waitingResults = true;
         this.superUserService
           .updateSalary(superUser.id, { amount: salary })
           .subscribe(this.getDefaultEntityServiceHandler());

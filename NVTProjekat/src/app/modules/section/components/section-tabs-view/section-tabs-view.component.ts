@@ -42,7 +42,6 @@ export class SectionTabsViewComponent implements OnInit {
   }
 
   onCreateSection(): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateSectionDialogComponent, {
         data: {
@@ -51,6 +50,7 @@ export class SectionTabsViewComponent implements OnInit {
         },
       })
       .componentInstance.saveChanges.subscribe((request) => {
+        this.waitingResults = true;
         this.sectionService.create(request).subscribe({
           next: (response) => {
             this.sections.push({
@@ -68,12 +68,12 @@ export class SectionTabsViewComponent implements OnInit {
   }
 
   onUpdateSection(section: ReadSectionResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateSectionDialogComponent, {
         data: section,
       })
       .componentInstance.saveChanges.subscribe((request) => {
+        this.waitingResults = true;
         this.sectionService.update(section.id, request).subscribe({
           next: (_) => {
             section.name = request.name;

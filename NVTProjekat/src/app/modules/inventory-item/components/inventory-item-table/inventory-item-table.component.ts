@@ -108,7 +108,6 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onCreateInventoryItem(): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateInventoryItemComponent, {
         data: {
@@ -130,10 +129,10 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onAddMenuItem(inventoryItem: ReadInventoryItemResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(AddMenuItemComponent, { data: inventoryItem })
       .componentInstance.onPriceUpdate.subscribe((price) => {
+        this.waitingResults = true;
         this.inventoryItemService
           .addMenuItem({ inventoryItemId: inventoryItem.id, price: price })
           .subscribe(this.getDefaultEntityServiceHandler());
@@ -141,10 +140,10 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onUpdateInventoryItem(inventoryItem: ReadInventoryItemResponse): void {
-    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateInventoryItemComponent, { data: inventoryItem })
       .componentInstance.onSaveChanges.subscribe((updated) => {
+        this.waitingResults = true;
         this.inventoryItemService
           .update(inventoryItem.id, updated)
           .subscribe(this.getDefaultEntityServiceHandler());
