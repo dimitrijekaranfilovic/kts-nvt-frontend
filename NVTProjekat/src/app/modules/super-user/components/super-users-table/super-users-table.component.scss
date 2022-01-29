@@ -6,3 +6,12 @@ table {
   margin: 15px;
   padding: 10px;
 }
+
+#pagination-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+#spinner-box {
+  margin-top: auto;
+}
