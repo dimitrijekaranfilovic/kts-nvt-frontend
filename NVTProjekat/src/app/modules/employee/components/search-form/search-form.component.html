@@ -36,11 +36,15 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <mat-label>Employee type</mat-label>
-        <mat-select formControlName="type">
-          <mat-option value="">All types</mat-option>
-          <mat-option value="BARTENDER">Bartender</mat-option>
-          <mat-option value="WAITER">Waiter</mat-option>
-          <mat-option value="CHEF">Chef</mat-option>
+        <mat-select name="employeeSearchCategoryField" formControlName="type">
+          <mat-option dataclass="searchOption" value="">All types</mat-option>
+          <mat-option dataclass="searchOption" value="BARTENDER"
+            >Bartender</mat-option
+          >
+          <mat-option dataclass="searchOption" value="WAITER"
+            >Waiter</mat-option
+          >
+          <mat-option dataclass="searchOption" value="CHEF">Chef</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
