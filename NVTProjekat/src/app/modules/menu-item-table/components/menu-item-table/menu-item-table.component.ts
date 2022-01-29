@@ -89,6 +89,7 @@ export class MenuItemTableComponent implements OnInit {
   }
 
   onUpdateMenuItemPrice(menuItem: ReadMenuItemResponse): void {
+    this.waitingResults = true;
     this.dialogService
       .open(UpdateMenuItemPriceComponent, { data: menuItem })
       .componentInstance.onPriceUpdate.subscribe((price) => {
@@ -105,7 +106,10 @@ export class MenuItemTableComponent implements OnInit {
       next: (_) => {
         this.fetchData(page ?? this.pageNum, this.pageSize);
       },
-      error: (err) => this.errorService.handle(err),
+      error: (err) => {
+        this.errorService.handle(err);
+        this.waitingResults = true;
+      },
     };
   }
 }
