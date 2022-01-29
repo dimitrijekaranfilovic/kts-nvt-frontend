@@ -32,6 +32,7 @@ export class SuperUsersTableComponent implements OnInit {
   defaultPageSize: number = 10;
   totalElements: number = 0;
   searchParams: ReadSuperusersRequest = {};
+  waitingResults: boolean = true;
 
   constructor(
     private superUserService: SuperUserService,
@@ -45,6 +46,7 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   fetchData(pageIdx: number, pageSize: number): void {
+    this.waitingResults = true;
     this.superUserService
       .read(pageIdx, pageSize, this.searchParams)
       .subscribe((page) => {
@@ -53,6 +55,7 @@ export class SuperUsersTableComponent implements OnInit {
         this.totalPages = page.totalPages;
         this.dataSource.data = page.content;
         this.totalElements = page.totalElements;
+        this.waitingResults = false;
       });
   }
 
@@ -97,6 +100,7 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   onUpdateSalary(superUser: ReadSuperUsersResponse): void {
+    this.waitingResults = true;
     this.dialogService
       .open(UpdateSuperUserSalaryDialogComponent, { data: superUser })
       .componentInstance.onSalaryUpdate.subscribe((salary) => {
@@ -113,7 +117,10 @@ export class SuperUsersTableComponent implements OnInit {
       next: (_) => {
         this.fetchData(page ?? this.pageNum, this.pageSize);
       },
-      error: (err) => this.errorService.handle(err),
+      error: (err) => {
+        this.errorService.handle(err);
+        this.waitingResults = false;
+      },
     };
   }
 }

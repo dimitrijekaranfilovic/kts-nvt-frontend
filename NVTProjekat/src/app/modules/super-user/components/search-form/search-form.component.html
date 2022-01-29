@@ -36,10 +36,10 @@
     <mat-grid-tile>
       <mat-form-field class="full-width-input">
         <mat-label>Employee type</mat-label>
-        <mat-select formControlName="type">
-          <mat-option value="">All types</mat-option>
-          <mat-option value="ADMIN">Admin</mat-option>
-          <mat-option value="MANAGER">Manager</mat-option>
+        <mat-select name="superUserSearchCategoryField" formControlName="type">
+          <mat-option dataclass="searchOption" value="">All types</mat-option>
+          <mat-option dataclass="searchOption" value="ADMIN">Admin</mat-option>
+          <mat-option dataclass="searchOption" value="MANAGER">Manager</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
