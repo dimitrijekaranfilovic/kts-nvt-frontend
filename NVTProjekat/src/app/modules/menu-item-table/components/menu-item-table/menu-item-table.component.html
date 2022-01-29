@@ -79,7 +79,7 @@
     <div id="spinner-box">
       <mat-spinner
         [diameter]="40"
-        *ngIf="waitingResults === true"
+        [hidden]="!waitingResults"
         id="loading-spinner"
       ></mat-spinner>
     </div>
