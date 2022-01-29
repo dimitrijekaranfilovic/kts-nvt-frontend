@@ -69,6 +69,7 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onCreateEmployee(): void {
+    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateEmployeeDialogComponent, {
         data: {
@@ -88,6 +89,7 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onDeleteEmployee(employee: ReadEmployeeResponse): void {
+    this.waitingResults = true;
     this.confirmationService
       .confirm({
         title: `Employee deletion`,
