@@ -84,6 +84,7 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onDeleteInventoryItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.waitingResults = true;
     this.confirmationService
       .confirm({
         title: `Inventory item deletion`,
@@ -137,6 +138,7 @@ export class InventoryItemTableComponent implements OnInit {
   }
 
   onUpdateInventoryItem(inventoryItem: ReadInventoryItemResponse): void {
+    this.waitingResults = true;
     this.dialogService
       .open(CreateUpdateInventoryItemComponent, { data: inventoryItem })
       .componentInstance.onSaveChanges.subscribe((updated) => {
