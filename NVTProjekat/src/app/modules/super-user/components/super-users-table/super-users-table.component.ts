@@ -69,6 +69,7 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   onDeleteSuperUser(superUser: ReadSuperUsersResponse): void {
+    this.waitingResults = true;
     this.confirmationService
       .confirm({
         title: `Super user deletion`,
@@ -90,6 +91,7 @@ export class SuperUsersTableComponent implements OnInit {
   }
 
   onCreateSuperUser(): void {
+    this.waitingResults = true;
     this.dialogService
       .open(CreateSuperUserDialogComponent)
       .componentInstance.onSaveChanges.subscribe((created) => {
